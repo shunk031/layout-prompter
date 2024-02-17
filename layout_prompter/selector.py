@@ -150,8 +150,14 @@ class ContentAwareExemplarSelection(ExemplarSelection):
         binary_image = np.zeros((self.canvas_height, self.canvas_width), dtype=np.uint8)
         content_bboxes = content_bboxes.tolist()
         for content_bbox in content_bboxes:
-            l, t, w, h = content_bbox
-            cv2.rectangle(binary_image, (l, t), (l + w, t + h), 255, thickness=-1)
+            left, top, width, height = content_bbox
+            cv2.rectangle(
+                binary_image,
+                (left, top),
+                (left + width, top + height),
+                255,
+                thickness=-1,
+            )
         return binary_image
 
     def __call__(self, test_data: dict):

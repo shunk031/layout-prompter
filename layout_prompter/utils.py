@@ -1,5 +1,4 @@
 import json
-import os
 import re
 from collections import Counter
 from typing import Dict, Final, List
@@ -113,14 +112,14 @@ def write_pt(filename, obj):
 
 def convert_ltwh_to_ltrb(bbox):
     if len(bbox.size()) == 1:
-        l, t, w, h = bbox
-        r = l + w
-        b = t + h
-        return l, t, r, b
-    l, t, w, h = decapulate(bbox)
-    r = l + w
-    b = t + h
-    return torch.stack([l, t, r, b], axis=-1)
+        left, top, width, height = bbox
+        r = left + width
+        b = top + height
+        return left, top, r, b
+    left, top, width, height = decapulate(bbox)
+    r = left + width
+    b = top + height
+    return torch.stack([left, top, r, b], dim=-1)
 
 
 def decapulate(bbox):

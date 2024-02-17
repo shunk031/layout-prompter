@@ -1,7 +1,7 @@
 import abc
 import logging
 from dataclasses import dataclass, field
-from typing import Dict, Final, List, Optional, Type
+from typing import Dict, Final, List, Type
 
 import torch
 
