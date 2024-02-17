@@ -5,7 +5,6 @@ import random
 from itertools import combinations, product
 from typing import Dict, List, Optional
 
-import clip
 import cv2
 import numpy as np
 import torch
@@ -27,7 +26,7 @@ class ShuffleElements(nn.Module):
 
         ele_num = len(data["labels"])
         shuffle_idx = np.arange(ele_num)
-        random.shuffle(shuffle_idx)
+        np.random.shuffle(shuffle_idx)
         data["bboxes"] = data["bboxes"][shuffle_idx]
         data["gold_bboxes"] = data["gold_bboxes"][shuffle_idx]
         data["labels"] = data["labels"][shuffle_idx]
@@ -73,11 +72,11 @@ class LexicographicSort(nn.Module):
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
         try:
-            l, t, _, _ = data["bboxes"].t()
+            left, top, _, _ = data["bboxes"].t()
         except Exception as err:
             logger.debug(data["bboxes"])
             raise err
-        _zip = zip(*sorted(enumerate(zip(t, l)), key=lambda c: c[1:]))
+        _zip = zip(*sorted(enumerate(zip(top, left)), key=lambda c: c[1:]))
         idx = list(list(_zip)[0])
         data["ori_bboxes"], data["ori_labels"] = data["gold_bboxes"], data["labels"]
         data["bboxes"], data["labels"] = data["bboxes"][idx], data["labels"][idx]
