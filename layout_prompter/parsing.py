@@ -3,7 +3,7 @@ import re
 import openai
 import torch
 
-from utils import CANVAS_SIZE, ID2LABEL
+from layout_prompter.utils import CANVAS_SIZE, ID2LABEL
 
 
 class Parser:

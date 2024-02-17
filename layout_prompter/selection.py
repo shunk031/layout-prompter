@@ -3,7 +3,11 @@ import random
 import cv2
 import numpy as np
 
-from utils import CANVAS_SIZE, labels_bboxes_similarity, labels_similarity
+from layout_prompter.utils import (
+    CANVAS_SIZE,
+    labels_bboxes_similarity,
+    labels_similarity,
+)
 
 
 class ExemplarSelection:

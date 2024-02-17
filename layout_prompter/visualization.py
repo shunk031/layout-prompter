@@ -5,7 +5,7 @@ import seaborn as sns
 import torch
 from PIL import Image, ImageDraw
 
-from utils import CANVAS_SIZE, ID2LABEL, RAW_DATA_PATH
+from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, RAW_DATA_PATH
 
 
 class Visualizer:

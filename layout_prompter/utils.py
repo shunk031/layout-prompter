@@ -9,7 +9,13 @@ import torch
 from scipy.optimize import linear_sum_assignment
 
 ID2LABEL = {
-    "publaynet": {1: "text", 2: "title", 3: "list", 4: "table", 5: "figure"},
+    "publaynet": {
+        1: "text",
+        2: "title",
+        3: "list",
+        4: "table",
+        5: "figure",
+    },
     "rico": {
         1: "text",
         2: "image",
@@ -37,7 +43,11 @@ ID2LABEL = {
         24: "number stepper",
         25: "date picker",
     },
-    "posterlayout": {1: "text", 2: "logo", 3: "underlay"},
+    "posterlayout": {
+        1: "text",
+        2: "logo",
+        3: "underlay",
+    },
     "webui": {
         0: "text",
         1: "link",

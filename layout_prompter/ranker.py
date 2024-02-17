@@ -1,6 +1,6 @@
 import torch
 
-from utils import (
+from layout_prompter.utils import (
     compute_alignment,
     compute_maximum_iou,
     compute_overlap,

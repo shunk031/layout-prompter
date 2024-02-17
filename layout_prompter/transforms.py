@@ -8,7 +8,7 @@ import cv2
 import numpy as np
 import torch
 
-from utils import decapulate, detect_loc_relation, detect_size_relation
+from layout_prompter.utils import decapulate, detect_loc_relation, detect_size_relation
 
 
 class ShuffleElements:
