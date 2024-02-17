@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "layout-prompter"
+version = "0.1.0"
+description = ""
+authors = ["Shunsuke KITADA <shunsuke.kitada.0831@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "layout_prompter" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+openai = "^1.12.0"
+opencv-python = "^4.9.0.80"
+opencv-contrib-python = "^4.9.0.80"
+scipy = "^1.12.0"
+torch = "^2.2.0"
+torchvision = "^0.17.0"
+pandas = "^2.2.0"
+seaborn = "^0.13.2"
+clip = {git = "https://github.com/openai/CLIP.git"}
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.2.1"
+black = "^24.2.0"
+mypy = "^1.8.0"
+pytest = "^8.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
