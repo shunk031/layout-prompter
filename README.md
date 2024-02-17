@@ -1,52 +1,98 @@
-# Graphic Layout Generation
+# LayoutPrompter: Awaken the Design Ability of Large Language Models (NeurIPS2023)
 
-## Introduction
-This is a collection of repositories for graphic layout generation. Graphic layout is the arrangement of visual elements. Graphic layout generation aims at generating aesthetically pleasing layouts based on diverse user requirements. 
+![LayoutPrompter](./images/teaser.png)
 
-We mainly focus on three critical topics in graphic layout generation.
+[LayoutPrompter](https://arxiv.org/pdf/2311.06495.pdf) is a versatile method for graphic layout generation, capable of solving various conditional layout generation tasks (as illustrated on the left side) across a range of layout domains (as illustrated on the right side) without any model training or fine-tuning.
 
-- Capture characteristics of graphic layouts: [Coarse-to-Fine](https://github.com/microsoft/LayoutGeneration/tree/main/Coarse-to-Fine) and [LayoutDiffusion](https://github.com/microsoft/LayoutGeneration/tree/main/LayoutDiffusion).
-- Model user requirements: [Parse-then-Place](https://github.com/microsoft/LayoutGeneration/tree/main/Parse-Then-Place).
-- Unify different tasks: [LayoutFormer++](https://github.com/microsoft/LayoutGeneration/tree/main/LayoutFormer%2B%2B) and [LayoutPrompter](https://github.com/microsoft/LayoutGeneration/tree/main/LayoutPrompter).
+## Results
 
-## Reference
+We conduct experiments on three groups of layout generation tasks, including
+- constraint-explicit layout generation
+- content-aware layout generation
+- text-to-layout
 
-### Publications
-- LayoutPrompter: Awaken the Design Ability of Large Language Models. _Jiawei Lin, Jiaqi Guo, Shizhao Sun, Zijiang Yang, Jian-Guang Lou and Dongmei Zhang_. NeurIPS 2023. 
-- LayoutDiffusion: Improving Graphic Layout Generation by Discrete Diffusion Probabilistic Models. _Junyi Zhang, Jiaqi Guo, Shizhao Sun, Jian-Guang Lou, and Dongmei Zhang_. ICCV 2023.
+Below are the qualitative results.
 
-- A Parse-Then-Place Approach for Generating Graphic Layouts from Textual Descriptions. _Jiawei Lin, Jiaqi Guo, Shizhao Sun, Weijiang Xu, Ting Liu, Jian-Guang Lou, and Dongmei Zhang_. ICCV 2023.
+### Constraint-Explicit Layout Generation
 
-- LayoutFormer++: Conditional Graphic Layout Generation via Constraint Serialization and Decoding Space Restriction. _Zhaoyun Jiang, Jiaqi Guo, Shizhao Sun, Huayu Deng, Zhongkai Wu, Vuksan Mijivic, Zijiang James Yang, Jian-Guang, Lou, and Dongmei Zhang_. CVPR 2023.
+![constraint-explicit](./images/constraint_explicit.png)
 
-- Coarse-to-Fine Generative Modeling for Graphic Layouts. _Zhaoyun Jiang, Shizhao Sun, Jihua Zhu, Jian-Guang Lou, and Dongmei Zhang_. AAAI 2022.
+### Content-Aware Layout Generation
 
-- Aesthetics++: Refining Graphic Designs by Exploring Design Principles and Human Preference. _Wenyuan Kong, Zhaoyun Jiang, Shizhao Sun, Zhuoning Guo, Weiwei Cui, Ting Liu, Jian-Guang Lou, and Dongmei Zhang_. TVCG 2022.
+![content-aware](./images/content_aware.png)
 
-- Retrieve-Then-Adapt: Example-based Automatic Generation for Proportion-related Infographics. _Chunyao Qian, Shizhao Sun, Weiwei Cui, Jian-Guang Lou, Haidong Zhang, and Dongmei Zhang_. VIS 2020.
+### Text-to-Layout
 
-### Talks
+![text2layout](./images/text2layout.png)
 
-- Unleashing the Potential of AI for Graphic Layout Generation. [CVPR AICC Workshop 2023](https://ai4cc.net/).
+## Installation
 
-## Contributing
+1. Clone this repository
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+```
+git clone https://github.com/microsoft/LayoutGeneration.git
+cd LayoutGeneration/LayoutPrompter
+```
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+2. Create a conda environment
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+```
+conda create -n layoutprompter python=3.8
+conda activate layoutprompter
+```
 
-## Trademarks
+3. Install PyTorch and other dependencies
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+```
+conda install pytorch=1.13.1 torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+pip install -r requirements.txt
+pip install -e src/
+```
+
+## Datasets
+
+We use 4 datasets in this work, including `RICO`, `PubLayNet`, `PosterLayout` and `WebUI`.
+They can be downloaded from [HuggingFace](https://huggingface.co/datasets/KyleLin/LayoutPrompter) using the following commands:
+
+```
+git lfs install
+git clone https://huggingface.co/datasets/KyleLin/LayoutPrompter
+```
+
+Move the contents to the `dataset` directory as follows:
+
+```
+dataset/
+├── posterlayout
+├── publaynet
+├── rico
+├── webui
+```
+
+## Notebooks
+
+We include three jupyter notebooks [here](./notebooks), each corresponding to a type of layout generation task.
+They all consist of the following components:
+- Configuration
+- Process raw data
+- Dynamic exemplar selection
+- Input-output serialization
+- Call GPT
+- Parsing
+- Layout ranking
+- Visualization
+
+Try it!
+
+## Citation
+
+If you find this code useful for your research, please cite our paper:
+
+```
+@inproceedings{lin2023layoutprompter,
+  title={LayoutPrompter: Awaken the Design Ability of Large Language Models},
+  author={Lin, Jiawei and Guo, Jiaqi and Sun, Shizhao and Yang, Zijiang James and Lou, Jian-Guang and Zhang, Dongmei},
+  booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+  year={2023}
+}
+```
