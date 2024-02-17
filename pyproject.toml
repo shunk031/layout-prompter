@@ -29,6 +29,12 @@ types-requests = "^2.31.0.20240125"
 types-tqdm = "^4.66.0.20240106"
 types-pillow = "^10.2.0.20240213"
 
+[tool.mypy]
+python_version = "3.9"
+no_strict_optional = true
+no_site_packages = true
+ignore_missing_imports = true
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

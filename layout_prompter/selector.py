@@ -1,7 +1,7 @@
 import abc
 import random
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Type
 
 import cv2
 import numpy as np
@@ -186,7 +186,7 @@ class TextToLayoutExemplarSelection(ExemplarSelection):
         return self._retrieve_exemplars(scores)
 
 
-SELECTOR_MAP = {
+SELECTOR_MAP: Dict[str, Type[ExemplarSelection]] = {
     "gent": GenTypeExemplarSelection,
     "gents": GenTypeSizeExemplarSelection,
     "genr": GenRelationExemplarSelection,

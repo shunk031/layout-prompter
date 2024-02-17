@@ -44,7 +44,7 @@ HTML_TEMPLATE_WITH_INDEX: Final[
 
 
 @dataclass
-class Serializer(object, metaclass=abc.ABCMeta):
+class SerializerMixin(object):
     input_format: str
     output_format: str
 
@@ -61,6 +61,19 @@ class Serializer(object, metaclass=abc.ABCMeta):
     sep_token: str = "|"
     add_unk_token: bool = False
     unk_token: str = "<unk>"
+
+    def _build_seq_input(self, data):
+        raise NotImplementedError
+
+    def _build_html_input(self, data):
+        raise NotImplementedError
+
+    def build_prompt(self, *args, **kwargs):
+        raise NotImplementedError
+
+
+@dataclass
+class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
 
     def build_input(self, data):
         if self.input_format == "seq":
@@ -487,7 +500,7 @@ class TextToLayoutSerializer(Serializer):
         return self.constraint_type[0] + super().build_input(data)
 
 
-SERIALIZER_MAP: Dict[str, Type[Serializer]] = {
+SERIALIZER_MAP: Dict[str, Type[SerializerMixin]] = {
     "gent": GenTypeSerializer,
     "gents": GenTypeSizeSerializer,
     "genr": GenRelationSerializer,
@@ -506,7 +519,7 @@ def create_serializer(
     add_index_token: bool,
     add_sep_token: bool,
     add_unk_token: bool,
-) -> Serializer:
+) -> SerializerMixin:
     serializer_cls = SERIALIZER_MAP[task]
     index2label = ID2LABEL[dataset]
     canvas_width, canvas_height = CANVAS_SIZE[dataset]
