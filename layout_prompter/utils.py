@@ -1,4 +1,5 @@
 import json
+import os
 import re
 from collections import Counter
 from typing import Dict, Final, List
@@ -70,8 +71,8 @@ CANVAS_SIZE = {
 }
 
 
-# def get_raw_data_path(x):
-#     return os.path.join(os.path.dirname(__file__), f"../dataset/{x}/raw")
+def get_raw_data_path(x):
+    return os.path.join(os.path.dirname(__file__), f"../dataset/{x}/raw")
 
 
 LAYOUT_DOMAIN = {
