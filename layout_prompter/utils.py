@@ -2,13 +2,13 @@ import json
 import os
 import re
 from collections import Counter
-from typing import List
+from typing import Dict, Final, List
 
 import numpy as np
 import torch
 from scipy.optimize import linear_sum_assignment
 
-ID2LABEL = {
+ID2LABEL: Final[Dict[str, Dict[int, str]]] = {
     "publaynet": {
         1: "text",
         2: "title",
@@ -71,7 +71,8 @@ CANVAS_SIZE = {
 }
 
 
-RAW_DATA_PATH = lambda x: os.path.join(os.path.dirname(__file__), f"../dataset/{x}/raw")
+# def get_raw_data_path(x):
+#     return os.path.join(os.path.dirname(__file__), f"../dataset/{x}/raw")
 
 
 LAYOUT_DOMAIN = {

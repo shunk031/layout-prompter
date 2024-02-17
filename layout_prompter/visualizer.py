@@ -1,27 +1,34 @@
 import os
+from typing import List, Tuple
 
 import numpy as np
 import seaborn as sns
 import torch
 from PIL import Image, ImageDraw
+from PIL.Image import Image as PilImage
 
-from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, RAW_DATA_PATH
+from layout_prompter.ranker import RankerOutput
+from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, get_raw_data_path
 
 
-class Visualizer:
-    def __init__(self, dataset: str, times: float = 3):
+class Visualizer(object):
+    def __init__(self, dataset: str, times: float = 3.0):
         self.dataset = dataset
         self.times = times
+
         self.canvas_width, self.canvas_height = CANVAS_SIZE[self.dataset]
         self._colors = None
 
-    def draw_layout(self, labels: torch.Tensor, bboxes: torch.Tensor):
-        _canvas_width = self.canvas_width * self.times
-        _canvas_height = self.canvas_height * self.times
-        img = Image.new("RGB", (_canvas_width, _canvas_height), color=(255, 255, 255))
+    def draw_layout(
+        self, labels_tensor: torch.Tensor, bboxes_tensor: torch.Tensor
+    ) -> PilImage:
+        _canvas_w = int(self.canvas_width * self.times)
+        _canvas_h = int(self.canvas_height * self.times)
+        img = Image.new("RGB", (_canvas_w, _canvas_h), color=(255, 255, 255))
+
         draw = ImageDraw.Draw(img, "RGBA")
-        labels = labels.tolist()
-        bboxes = bboxes.tolist()
+        labels: List[int] = labels_tensor.tolist()
+        bboxes: List[Tuple[float, float, float, float]] = bboxes_tensor.tolist()
         areas = [bbox[2] * bbox[3] for bbox in bboxes]
         indices = sorted(range(len(areas)), key=lambda i: areas[i], reverse=True)
 
@@ -32,9 +39,9 @@ class Visualizer:
             x1, y1, x2, y2 = bbox
             x2 += x1
             y2 += y1
-            x1, x2 = x1 * _canvas_width, x2 * _canvas_width
-            y1, y2 = y1 * _canvas_height, y2 * _canvas_height
-            draw.rectangle([x1, y1, x2, y2], outline=color, fill=c_fill)
+            x1, x2 = x1 * _canvas_w, x2 * _canvas_w
+            y1, y2 = y1 * _canvas_h, y2 * _canvas_h
+            draw.rectangle(xy=(x1, y1, x2, y2), outline=color, fill=c_fill)
         return img
 
     @property
@@ -45,23 +52,23 @@ class Visualizer:
             self._colors = [tuple(map(lambda x: int(x * 255), c)) for c in colors]
         return self._colors
 
-    def __call__(self, predictions):
-        images = []
+    def __call__(self, predictions: List[RankerOutput]) -> List[PilImage]:
+        images: List[PilImage] = []
         for prediction in predictions:
-            labels, bboxes = prediction
+            labels, bboxes = prediction["labels"], prediction["bboxes"]
             img = self.draw_layout(labels, bboxes)
             images.append(img)
         return images
 
 
 class ContentAwareVisualizer:
-    def __init__(self, times: float = 3):
+    def __init__(self, times: float = 3.0):
         self.canvas_path = os.path.join(
-            RAW_DATA_PATH("posterlayout"), "./test/image_canvas"
+            get_raw_data_path("posterlayout"), "./test/image_canvas"
         )
         self.canvas_width, self.canvas_height = CANVAS_SIZE["posterlayout"]
-        self.canvas_width *= times
-        self.canvas_height *= times
+        self.canvas_width = int(self.canvas_width * times)
+        self.canvas_height = int(self.canvas_height * times)
 
     def draw_layout(self, img, elems, elems2):
         drawn_outline = img.copy()

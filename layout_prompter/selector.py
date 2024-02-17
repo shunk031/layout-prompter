@@ -1,7 +1,11 @@
+import abc
 import random
+from dataclasses import dataclass
+from typing import Dict, List
 
 import cv2
 import numpy as np
+import torch
 
 from layout_prompter.utils import (
     CANVAS_SIZE,
@@ -10,24 +14,21 @@ from layout_prompter.utils import (
 )
 
 
-class ExemplarSelection:
-    def __init__(
-        self,
-        train_data: list,
-        candidate_size: int,
-        num_prompt: int,
-        shuffle: bool = True,
-    ):
-        self.train_data = train_data
-        self.candidate_size = candidate_size
-        self.num_prompt = num_prompt
-        self.shuffle = shuffle
+@dataclass
+class ExemplarSelection(object, metaclass=abc.ABCMeta):
+    train_data: List
+    candidate_size: int
+    num_prompt: int
+    shuffle: bool = True
+
+    def __post_init__(self) -> None:
         if self.candidate_size > 0:
             random.shuffle(self.train_data)
             self.train_data = self.train_data[: self.candidate_size]
 
+    @abc.abstractmethod
     def __call__(self, test_data: dict):
-        pass
+        raise NotImplementedError
 
     def _is_filter(self, data):
         return (data["discrete_gold_bboxes"][:, 2:] == 0).sum().bool().item()
@@ -45,6 +46,7 @@ class ExemplarSelection:
         return exemplars
 
 
+@dataclass
 class GenTypeExemplarSelection(ExemplarSelection):
     def __call__(self, test_data: dict):
         scores = []
@@ -56,9 +58,10 @@ class GenTypeExemplarSelection(ExemplarSelection):
         return self._retrieve_exemplars(scores)
 
 
+@dataclass
 class GenTypeSizeExemplarSelection(ExemplarSelection):
-    labels_weight = 0.5
-    bboxes_weight = 0.5
+    labels_weight: float = 0.5
+    bboxes_weight: float = 0.5
 
     def __call__(self, test_data: dict):
         scores = []
@@ -79,6 +82,7 @@ class GenTypeSizeExemplarSelection(ExemplarSelection):
         return self._retrieve_exemplars(scores)
 
 
+@dataclass
 class GenRelationExemplarSelection(ExemplarSelection):
     def __call__(self, test_data: dict):
         scores = []
@@ -90,9 +94,10 @@ class GenRelationExemplarSelection(ExemplarSelection):
         return self._retrieve_exemplars(scores)
 
 
+@dataclass
 class CompletionExemplarSelection(ExemplarSelection):
-    labels_weight = 0.0
-    bboxes_weight = 1.0
+    labels_weight: float = 0.0
+    bboxes_weight: float = 1.0
 
     def __call__(self, test_data: dict):
         scores = []
@@ -113,9 +118,10 @@ class CompletionExemplarSelection(ExemplarSelection):
         return self._retrieve_exemplars(scores)
 
 
+@dataclass
 class RefinementExemplarSelection(ExemplarSelection):
-    labels_weight = 0.5
-    bboxes_weight = 0.5
+    labels_weight: float = 0.5
+    bboxes_weight: float = 0.5
 
     def __call__(self, test_data: dict):
         scores = []
@@ -136,6 +142,7 @@ class RefinementExemplarSelection(ExemplarSelection):
         return self._retrieve_exemplars(scores)
 
 
+@dataclass
 class ContentAwareExemplarSelection(ExemplarSelection):
     canvas_width, canvas_height = CANVAS_SIZE["posterlayout"]
 
@@ -161,6 +168,7 @@ class ContentAwareExemplarSelection(ExemplarSelection):
         return self._retrieve_exemplars(scores)
 
 
+@dataclass
 class TextToLayoutExemplarSelection(ExemplarSelection):
     def __call__(self, test_data: dict):
         scores = []
@@ -183,13 +191,16 @@ SELECTOR_MAP = {
 }
 
 
-def create_selector(task, train_data, candidate_size, num_prompt, *args, **kwargs):
+def create_selector(
+    task: str,
+    train_data: List[Dict[str, torch.Tensor]],
+    candidate_size: int,
+    num_prompt: int,
+) -> ExemplarSelection:
     selector_cls = SELECTOR_MAP[task]
     selector = selector_cls(
         train_data=train_data,
         candidate_size=candidate_size,
         num_prompt=num_prompt,
-        *args,
-        **kwargs,
     )
     return selector

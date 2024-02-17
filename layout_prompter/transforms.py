@@ -1,17 +1,26 @@
 import copy
+import logging
 import math
 import random
 from itertools import combinations, product
+from typing import Dict, List, Optional
 
 import clip
 import cv2
 import numpy as np
 import torch
+import torch.nn as nn
+from transformers import CLIPModel, CLIPProcessor
 
 from layout_prompter.utils import decapulate, detect_loc_relation, detect_size_relation
 
+logger = logging.getLogger(__name__)
 
-class ShuffleElements:
+
+class ShuffleElements(nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+
     def __call__(self, data):
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
@@ -25,12 +34,14 @@ class ShuffleElements:
         return data
 
 
-class LabelDictSort:
+class LabelDictSort(nn.Module):
     """
     sort elements in one layout by their label
     """
 
-    def __init__(self, index2label=None):
+    def __init__(self, index2label) -> None:
+        super().__init__()
+        assert index2label is not None
         self.index2label = index2label
 
     def __call__(self, data):
@@ -50,15 +61,22 @@ class LabelDictSort:
         return data
 
 
-class LexicographicSort:
+class LexicographicSort(nn.Module):
     """
     sort elements in one layout by their top and left postion
     """
 
+    def __init__(self) -> None:
+        super().__init__()
+
     def __call__(self, data):
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
-        l, t, _, _ = data["bboxes"].t()
+        try:
+            l, t, _, _ = data["bboxes"].t()
+        except Exception as err:
+            logger.debug(data["bboxes"])
+            raise err
         _zip = zip(*sorted(enumerate(zip(t, l)), key=lambda c: c[1:]))
         idx = list(list(_zip)[0])
         data["ori_bboxes"], data["ori_labels"] = data["gold_bboxes"], data["labels"]
@@ -67,20 +85,26 @@ class LexicographicSort:
         return data
 
 
-class AddGaussianNoise:
+class AddGaussianNoise(nn.Module):
     """
     Add Gaussian Noise to bounding box
     """
 
     def __init__(
-        self, mean=0.0, std=1.0, normalized: bool = True, bernoulli_beta: float = 1.0
-    ):
+        self,
+        mean=0.0,
+        std=1.0,
+        normalized: bool = True,
+        bernoulli_beta: float = 1.0,
+    ) -> None:
+        super().__init__()
+
         self.std = std
         self.mean = mean
         self.normalized = normalized
         # adding noise to every element by default
         self.bernoulli_beta = bernoulli_beta
-        print(
+        logger.info(
             "Noise: mean={0}, std={1}, beta={2}".format(
                 self.mean, self.std, self.bernoulli_beta
             )
@@ -134,8 +158,10 @@ class AddGaussianNoise:
         )
 
 
-class DiscretizeBoundingBox:
+class DiscretizeBoundingBox(nn.Module):
     def __init__(self, num_x_grid: int, num_y_grid: int) -> None:
+        super().__init__()
+
         self.num_x_grid = num_x_grid
         self.num_y_grid = num_y_grid
         self.max_x = self.num_x_grid
@@ -187,15 +213,16 @@ class DiscretizeBoundingBox:
         return data
 
 
-class AddCanvasElement:
-    def __init__(self, use_discrete=False, discrete_fn=None):
+class AddCanvasElement(nn.Module):
+    def __init__(self, discrete_fn: Optional[nn.Module] = None) -> None:
+        super().__init__()
+
         self.x = torch.tensor([[0.0, 0.0, 1.0, 1.0]], dtype=torch.float)
         self.y = torch.tensor([0], dtype=torch.long)
-        self.use_discrete = use_discrete
         self.discrete_fn = discrete_fn
 
     def __call__(self, data):
-        if self.use_discrete:
+        if self.discrete_fn:
             data["bboxes_with_canvas"] = torch.cat(
                 [self.x, self.discrete_fn.continuize(data["discrete_gold_bboxes"])],
                 dim=0,
@@ -206,8 +233,10 @@ class AddCanvasElement:
         return data
 
 
-class AddRelation:
-    def __init__(self, seed=1024, ratio=0.1):
+class AddRelation(nn.Module):
+    def __init__(self, seed: int = 1024, ratio: float = 0.1) -> None:
+        super().__init__()
+
         self.ratio = ratio
         self.generator = random.Random()
         if seed is not None:
@@ -259,29 +288,41 @@ class AddRelation:
         return data
 
 
-class RelationTypes:
-    types = ["smaller", "equal", "larger", "top", "center", "bottom", "left", "right"]
-    _type2index = None
-    _index2type = None
+class RelationTypes(nn.Module):
+    types: List[str] = [
+        "smaller",
+        "equal",
+        "larger",
+        "top",
+        "center",
+        "bottom",
+        "left",
+        "right",
+    ]
+    _type2index: Optional[Dict[str, int]] = None
+    _index2type: Optional[Dict[int, str]] = None
+
+    def __init__(self) -> None:
+        super().__init__()
 
     @classmethod
-    def type2index(self):
-        if self._type2index is None:
-            self._type2index = dict()
-            for idx, type in enumerate(self.types):
-                self._type2index[type] = idx
-        return self._type2index
+    def type2index(cls) -> Dict[str, int]:
+        if cls._type2index is None:
+            cls._type2index = dict()
+            for idx, cls_type in enumerate(cls.types):
+                cls._type2index[cls_type] = idx
+        return cls._type2index
 
     @classmethod
-    def index2type(self):
-        if self._index2type is None:
-            self._index2type = dict()
-            for idx, type in enumerate(self.types):
-                self._index2type[idx] = type
-        return self._index2type
+    def index2type(cls) -> Dict[int, str]:
+        if cls._index2type is None:
+            cls._index2type = dict()
+            for idx, cls_type in enumerate(cls.types):
+                cls._index2type[idx] = cls_type
+        return cls._index2type
 
 
-class SaliencyMapToBBoxes:
+class SaliencyMapToBBoxes(nn.Module):
     def __init__(
         self,
         threshold: int,
@@ -289,6 +330,8 @@ class SaliencyMapToBBoxes:
         min_side: int = 80,
         min_area: int = 6000,
     ) -> None:
+        super().__init__()
+
         self.threshold = threshold
         self.is_filter_small_bboxes = is_filter_small_bboxes
         self.min_side = min_side
@@ -322,15 +365,18 @@ class SaliencyMapToBBoxes:
         return bboxes
 
 
-class CLIPTextEncoder:
-    def __init__(self, model_name: str = "ViT-B/32"):
+class CLIPTextEncoder(nn.Module):
+    def __init__(self, model_name: str = "ViT-B/32") -> None:
+        super().__init__()
+
         self.model_name = model_name
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model, self.proprocess = clip.load(self.model_name, self.device)
+        self.model = CLIPModel.from_pretrained(model_name).eval().to(self.device)
+        self.processor = CLIPProcessor.from_pretrained(model_name)
 
     @torch.no_grad()
     def __call__(self, text: str):
-        token = clip.tokenize(text, truncate=True).to(self.device)
-        text_feature = self.model.encode_text(token)
-        text_feature /= text_feature.norm(dim=-1, keepdim=True)
-        return text_feature
+        inputs = self.processor(text, return_tensors="pt", padding=True)
+        text_features = self.model.get_text_features(**inputs)
+        text_features = text_features / text_features.norm(p=2, dim=-1, keepdim=True)
+        return text_features

@@ -1,54 +1,66 @@
-from transforms import RelationTypes
+import abc
+import logging
+from dataclasses import dataclass, field
+from typing import Dict, Final, List, Optional, Type
 
+import torch
+
+from layout_prompter.transforms import RelationTypes
+from layout_prompter.typehint import Prompt
 from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, LAYOUT_DOMAIN
 
-PREAMBLE = (
+logger = logging.getLogger(__name__)
+
+PREAMBLE_TEMPLATE: Final[str] = (
     "Please generate a layout based on the given information. "
     "You need to ensure that the generated layout looks realistic, with elements well aligned and avoiding unnecessary overlap.\n"
-    "Task Description: {}\n"
-    "Layout Domain: {} layout\n"
-    "Canvas Size: canvas width is {}px, canvas height is {}px"
+    "Task Description: {task_description}\n"
+    "Layout Domain: {layout_domain} layout\n"
+    "Canvas Size: canvas width is {canvas_width}px, canvas height is {canvas_height}px"
 )
 
-HTML_PREFIX = """<html>
+
+HTML_PREFIX: Final[
+    str
+] = """<html>
 <body>
 <div class="canvas" style="left: 0px; top: 0px; width: {}px; height: {}px"></div>
 """
 
-HTML_SUFFIX = """</body>
+HTML_SUFFIX: Final[
+    str
+] = """</body>
 </html>"""
 
-HTML_TEMPLATE = """<div class="{}" style="left: {}px; top: {}px; width: {}px; height: {}px"></div>
+HTML_TEMPLATE: Final[
+    str
+] = """<div class="{}" style="left: {}px; top: {}px; width: {}px; height: {}px"></div>
 """
 
-HTML_TEMPLATE_WITH_INDEX = """<div class="{}" style="index: {}; left: {}px; top: {}px; width: {}px; height: {}px"></div>
+HTML_TEMPLATE_WITH_INDEX: Final[
+    str
+] = """<div class="{}" style="index: {}; left: {}px; top: {}px; width: {}px; height: {}px"></div>
 """
 
 
-class Serializer:
-    def __init__(
-        self,
-        input_format: str,
-        output_format: str,
-        index2label: dict,
-        canvas_width: int,
-        canvas_height: int,
-        add_index_token: bool = True,
-        add_sep_token: bool = True,
-        sep_token: str = "|",
-        add_unk_token: bool = False,
-        unk_token: str = "<unk>",
-    ):
-        self.input_format = input_format
-        self.output_format = output_format
-        self.index2label = index2label
-        self.canvas_width = canvas_width
-        self.canvas_height = canvas_height
-        self.add_index_token = add_index_token
-        self.add_sep_token = add_sep_token
-        self.sep_token = sep_token
-        self.add_unk_token = add_unk_token
-        self.unk_token = unk_token
+@dataclass
+class Serializer(object, metaclass=abc.ABCMeta):
+    input_format: str
+    output_format: str
+
+    index2label: Dict[int, str]
+
+    canvas_width: int
+    canvas_height: int
+
+    task_type: str = "NOT SPECIFIED"
+
+    preamble_template: str = PREAMBLE_TEMPLATE
+    add_index_token: bool = True
+    add_sep_token: bool = True
+    sep_token: str = "|"
+    add_unk_token: bool = False
+    unk_token: str = "<unk>"
 
     def build_input(self, data):
         if self.input_format == "seq":
@@ -58,9 +70,11 @@ class Serializer:
         else:
             raise ValueError(f"Unsupported input format: {self.input_format}")
 
+    @abc.abstractmethod
     def _build_seq_input(self, data):
         raise NotImplementedError
 
+    @abc.abstractmethod
     def _build_html_input(self, data):
         raise NotImplementedError
 
@@ -103,14 +117,56 @@ class Serializer:
         htmls.append(HTML_SUFFIX)
         return "".join(htmls)
 
+    def build_prompt(
+        self,
+        exemplars: List[Dict[str, torch.Tensor]],
+        test_data: Dict[str, torch.Tensor],
+        dataset: str,
+        max_length: int = 8000,
+        separator_in_samples: str = "\n",
+        separator_between_samples: str = "\n\n",
+    ) -> Prompt:
+        system_prompt = self.preamble_template.format(
+            task_description=self.task_type,
+            layout_domain=LAYOUT_DOMAIN[dataset],
+            canvas_width=CANVAS_SIZE[dataset][0],
+            canvas_height=CANVAS_SIZE[dataset][1],
+        )
+        logger.info(f"System prompt: \n{system_prompt}")
 
+        user_prompts: List[str] = []
+        for i in range(len(exemplars)):
+            _prompt = (
+                self.build_input(exemplars[i])
+                + separator_in_samples
+                + self.build_output(exemplars[i])
+            )
+            if (
+                len(separator_between_samples.join(user_prompts) + _prompt)
+                <= max_length
+            ):
+                user_prompts.append(_prompt)
+            else:
+                break
+        user_prompts.append(self.build_input(test_data) + separator_in_samples)
+        user_prompt = separator_between_samples.join(user_prompts)
+        logger.info(f"User prompt: \n{user_prompt}")
+
+        return {"system_prompt": system_prompt, "user_prompt": user_prompt}
+
+
+@dataclass
 class GenTypeSerializer(Serializer):
-    task_type = "generation conditioned on given element types"
-    constraint_type = ["Element Type Constraint: "]
-    HTML_TEMPLATE_WITHOUT_ANK = '<div class="{}"></div>\n'
-    HTML_TEMPLATE_WITHOUT_ANK_WITH_INDEX = '<div class="{}" style="index: {}"></div>\n'
+    task_type: str = "generation conditioned on given element types"
+    constraint_type: List[str] = field(
+        default_factory=lambda: ["Element Type Constraint: "]
+    )
+    HTML_TEMPLATE_WITHOUT_ANK: str = '<div class="{}"></div>\n'
+    HTML_TEMPLATE_WITHOUT_ANK_WITH_INDEX: str = (
+        '<div class="{}" style="index: {}"></div>\n'
+    )
 
-    def _build_seq_input(self, data):
+    def _build_seq_input(self, data: Dict[str, torch.Tensor]) -> str:
         labels = data["labels"]
         tokens = []
 
@@ -125,7 +181,7 @@ class GenTypeSerializer(Serializer):
                 tokens.append(self.sep_token)
         return " ".join(tokens)
 
-    def _build_html_input(self, data):
+    def _build_html_input(self, data) -> str:
         labels = data["labels"]
         htmls = [HTML_PREFIX.format(self.canvas_width, self.canvas_height)]
         if self.add_index_token and self.add_unk_token:
@@ -152,13 +208,16 @@ class GenTypeSerializer(Serializer):
         return self.constraint_type[0] + super().build_input(data)
 
 
+@dataclass
 class GenTypeSizeSerializer(Serializer):
-    task_type = "generation conditioned on given element types and sizes"
-    constraint_type = ["Element Type and Size Constraint: "]
-    HTML_TEMPLATE_WITHOUT_ANK = (
+    task_type: str = "generation conditioned on given element types and sizes"
+    constraint_type: List[str] = field(
+        default_factory=lambda: ["Element Type and Size Constraint: "]
+    )
+    HTML_TEMPLATE_WITHOUT_ANK: str = (
         '<div class="{}" style="width: {}px; height: {}px"></div>\n'
     )
-    HTML_TEMPLATE_WITHOUT_ANK_WITH_INDEX = (
+    HTML_TEMPLATE_WITHOUT_ANK_WITH_INDEX: str = (
         '<div class="{}" style="index: {}; width: {}px; height: {}px"></div>\n'
     )
 
@@ -210,8 +269,9 @@ class GenTypeSizeSerializer(Serializer):
         return self.constraint_type[0] + super().build_input(data)
 
 
+@dataclass
 class GenRelationSerializer(Serializer):
-    task_type = (
+    task_type: str = (
         "generation conditioned on given element relationships\n"
         "'A left B' means that the center coordinate of A is to the left of the center coordinate of B. "
         "'A right B' means that the center coordinate of A is to the right of the center coordinate of B. "
@@ -224,13 +284,19 @@ class GenRelationSerializer(Serializer):
         "Here, center coordinate = (left + width / 2, top + height / 2), "
         "area = width * height"
     )
-    constraint_type = ["Element Type Constraint: ", "Element Relationship Constraint: "]
-    HTML_TEMPLATE_WITHOUT_ANK = '<div class="{}"></div>\n'
-    HTML_TEMPLATE_WITHOUT_ANK_WITH_INDEX = '<div class="{}" style="index: {}"></div>\n'
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.index2type = RelationTypes.index2type()
+    constraint_type: List[str] = field(
+        default_factory=lambda: [
+            "Element Type Constraint: ",
+            "Element Relationship Constraint: ",
+        ]
+    )
+    HTML_TEMPLATE_WITHOUT_ANK: str = '<div class="{}"></div>\n'
+    HTML_TEMPLATE_WITHOUT_ANK_WITH_INDEX: str = (
+        '<div class="{}" style="index: {}"></div>\n'
+    )
+    index2type: Dict[int, str] = field(
+        default_factory=lambda: RelationTypes.index2type()
+    )
 
     def _build_seq_input(self, data):
         labels = data["labels"]
@@ -327,9 +393,10 @@ class GenRelationSerializer(Serializer):
         )
 
 
+@dataclass
 class CompletionSerializer(Serializer):
-    task_type = "layout completion"
-    constraint_type = ["Partial Layout: "]
+    task_type: str = "layout completion"
+    constraint_type: List[str] = field(default_factory=lambda: ["Partial Layout: "])
 
     def _build_seq_input(self, data):
         data["partial_labels"] = data["labels"][:1]
@@ -345,9 +412,10 @@ class CompletionSerializer(Serializer):
         return self.constraint_type[0] + super().build_input(data)
 
 
+@dataclass
 class RefinementSerializer(Serializer):
-    task_type = "layout refinement"
-    constraint_type = ["Noise Layout: "]
+    task_type: str = "layout refinement"
+    constraint_type: List[str] = field(default_factory=lambda: ["Noise Layout: "])
 
     def _build_seq_input(self, data):
         return self._build_seq_output(data, "labels", "discrete_bboxes")
@@ -359,13 +427,16 @@ class RefinementSerializer(Serializer):
         return self.constraint_type[0] + super().build_input(data)
 
 
+@dataclass
 class ContentAwareSerializer(Serializer):
-    task_type = (
+    task_type: str = (
         "content-aware layout generation\n"
         "Please place the following elements to avoid salient content, and underlay must be the background of text or logo."
     )
-    constraint_type = ["Content Constraint: ", "Element Type Constraint: "]
-    CONTENT_TEMPLATE = "left {}px, top {}px, width {}px, height {}px"
+    constraint_type: List[str] = field(
+        default_factory=lambda: ["Content Constraint: ", "Element Type Constraint: "]
+    )
+    CONTENT_TEMPLATE: str = "left {}px, top {}px, width {}px, height {}px"
 
     def _build_seq_input(self, data):
         labels = data["labels"]
@@ -399,14 +470,15 @@ class ContentAwareSerializer(Serializer):
         )
 
 
+@dataclass
 class TextToLayoutSerializer(Serializer):
-    task_type = (
+    task_type: str = (
         "text-to-layout\n"
         "There are ten optional element types, including: image, icon, logo, background, title, description, text, link, input, button. "
         "Please do not exceed the boundaries of the canvas. "
         "Besides, do not generate elements at the edge of the canvas, that is, reduce top: 0px and left: 0px predictions as much as possible."
     )
-    constraint_type = ["Text: "]
+    constraint_type: List[str] = field(default_factory=lambda: ["Text: "])
 
     def _build_seq_input(self, data):
         return data["text"]
@@ -415,7 +487,7 @@ class TextToLayoutSerializer(Serializer):
         return self.constraint_type[0] + super().build_input(data)
 
 
-SERIALIZER_MAP = {
+SERIALIZER_MAP: Dict[str, Type[Serializer]] = {
     "gent": GenTypeSerializer,
     "gents": GenTypeSizeSerializer,
     "genr": GenRelationSerializer,
@@ -427,14 +499,14 @@ SERIALIZER_MAP = {
 
 
 def create_serializer(
-    dataset,
-    task,
-    input_format,
-    output_format,
-    add_index_token,
-    add_sep_token,
-    add_unk_token,
-):
+    dataset: str,
+    task: str,
+    input_format: str,
+    output_format: str,
+    add_index_token: bool,
+    add_sep_token: bool,
+    add_unk_token: bool,
+) -> Serializer:
     serializer_cls = SERIALIZER_MAP[task]
     index2label = ID2LABEL[dataset]
     canvas_width, canvas_height = CANVAS_SIZE[dataset]
@@ -449,72 +521,3 @@ def create_serializer(
         add_unk_token=add_unk_token,
     )
     return serializer
-
-
-def build_prompt(
-    serializer,
-    exemplars,
-    test_data,
-    dataset,
-    max_length=8000,
-    separator_in_samples="\n",
-    separator_between_samples="\n\n",
-):
-    prompt = [
-        PREAMBLE.format(
-            serializer.task_type, LAYOUT_DOMAIN[dataset], *CANVAS_SIZE[dataset]
-        )
-    ]
-    for i in range(len(exemplars)):
-        _prompt = (
-            serializer.build_input(exemplars[i])
-            + separator_in_samples
-            + serializer.build_output(exemplars[i])
-        )
-        if len(separator_between_samples.join(prompt) + _prompt) <= max_length:
-            prompt.append(_prompt)
-        else:
-            break
-    prompt.append(serializer.build_input(test_data) + separator_in_samples)
-    return separator_between_samples.join(prompt)
-
-
-if __name__ == "__main__":
-    import torch
-    from utils import ID2LABEL
-
-    ls = RefinementSerializer(
-        input_format="seq",
-        output_format="html",
-        index2label=ID2LABEL["publaynet"],
-        canvas_width=120,
-        canvas_height=160,
-        add_sep_token=True,
-        add_unk_token=False,
-        add_index_token=True,
-    )
-    labels = torch.tensor([4, 4, 1, 1, 1, 1])
-    bboxes = torch.tensor(
-        [
-            [29, 14, 59, 2],
-            [10, 18, 99, 57],
-            [10, 79, 99, 4],
-            [10, 85, 99, 7],
-            [10, 99, 47, 50],
-            [61, 99, 47, 50],
-        ]
-    )
-
-    rearranged_labels = torch.tensor([1, 4, 1, 4, 1, 1])
-    relations = torch.tensor([[4, 1, 0, 1, 4], [1, 2, 1, 3, 2]])
-    data = {
-        "labels": labels,
-        "discrete_bboxes": bboxes,
-        "discrete_gold_bboxes": bboxes,
-        "relations": relations,
-        "rearranged_labels": rearranged_labels,
-    }
-    print("--------")
-    print(ls.build_input(data))
-    print("--------")
-    print(ls.build_output(data))

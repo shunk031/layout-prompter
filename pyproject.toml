@@ -8,15 +8,16 @@ packages = [{ include = "layout_prompter" }]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-openai = "^1.12.0"
-opencv-python = "^4.9.0.80"
-opencv-contrib-python = "^4.9.0.80"
-scipy = "^1.12.0"
-torch = "^2.2.0"
-torchvision = "^0.17.0"
-pandas = "^2.2.0"
-seaborn = "^0.13.2"
-clip = {git = "https://github.com/openai/CLIP.git"}
+openai = ">=1.0.0"
+opencv-python = ">=4.0.0.21"
+opencv-contrib-python = ">=4.0.0.21"
+scipy = ">=1.0.0"
+torch = ">=1.0.0"
+torchvision = ">=0.2.1"
+pandas = ">=1.0.0"
+seaborn = ">=0.10.0"
+clip = { git = "https://github.com/openai/CLIP.git" }
+transformers = ">=4.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -24,6 +25,9 @@ ruff = "^0.2.1"
 black = "^24.2.0"
 mypy = "^1.8.0"
 pytest = "^8.0.1"
+types-requests = "^2.31.0.20240125"
+types-tqdm = "^4.66.0.20240106"
+types-pillow = "^10.2.0.20240213"
 
 [build-system]
 requires = ["poetry-core"]
