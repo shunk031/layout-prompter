@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -U pip setuptools wheel poetry
-          poetry install -E all
+          poetry install
 
       - name: Format
         run: |
