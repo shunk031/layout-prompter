@@ -365,7 +365,7 @@ class SaliencyMapToBBoxes(nn.Module):
 
 
 class CLIPTextEncoder(nn.Module):
-    def __init__(self, model_name: str = "ViT-B/32") -> None:
+    def __init__(self, model_name: str = "openai/clip-vit-base-patch32") -> None:
         super().__init__()
 
         self.model_name = model_name

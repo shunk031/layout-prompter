@@ -1,6 +1,6 @@
 import abc
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, TypedDict
 
 import requests
 from openai import OpenAI
@@ -60,6 +60,36 @@ class GPTCallar(LLM):
         return response
 
 
+class TGIToken(TypedDict):
+    id: int
+    text: str
+    logprob: float
+    special: bool
+
+
+class TGISequence(TypedDict):
+    generated_text: str
+    finish_reason: str
+    generated_tokens: int
+    seed: int
+    prefill: List[str]
+    tokens: List[TGIToken]
+
+
+class TGIDetails(TypedDict):
+    finish_reason: str
+    generated_tokens: int
+    seed: int
+    prefill: List[str]
+    tokens: List[TGIToken]
+    best_of_sequences: List[TGISequence]
+
+
+class TGIOutput(TypedDict):
+    generated_text: str
+    details: str
+
+
 @dataclass
 class TGICaller(LLM):
     """The text generation inference (TGI) caller."""
@@ -93,7 +123,7 @@ class TGICaller(LLM):
         assert self._eos_token_id is not None
         return self._eos_token_id
 
-    def __call__(self, prompt_messages: List[Dict[str, str]]):
+    def __call__(self, prompt_messages: List[Dict[str, str]]) -> TGIOutput:
         prompt = self.tokenizer.apply_chat_template(
             prompt_messages, add_generation_prompt=True, tokenize=False
         )

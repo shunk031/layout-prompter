@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Type
 
 import cv2
+import pandas as pd
 import torch
 import torch.nn as nn
 import torchvision.transforms as T
@@ -38,6 +39,7 @@ class Processor(object):
     transform: Optional[T.Compose] = None
 
     return_keys: Optional[Tuple[str, ...]] = None
+    metadata: Optional[pd.DataFrame] = None
 
     def __post_init__(self) -> None:
         conds = (
@@ -361,7 +363,9 @@ PROCESSOR_MAP = {
 }
 
 
-def create_processor(dataset: str, task: str) -> Processor:
+def create_processor(
+    dataset: str, task: str, metadata: Optional[pd.DataFrame] = None
+) -> Processor:
     processor_cls: Type[Processor] = PROCESSOR_MAP[task]
     index2label: Dict[int, str] = ID2LABEL[dataset]
     canvas_width, canvas_height = CANVAS_SIZE[dataset]
@@ -369,5 +373,6 @@ def create_processor(dataset: str, task: str) -> Processor:
         index2label=index2label,
         canvas_width=canvas_width,
         canvas_height=canvas_height,
+        metadata=metadata,
     )
     return processor

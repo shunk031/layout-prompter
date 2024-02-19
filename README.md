@@ -3,6 +3,13 @@
 ![LayoutPrompter](./images/teaser.png)
 
 [LayoutPrompter](https://arxiv.org/pdf/2311.06495.pdf) is a versatile method for graphic layout generation, capable of solving various conditional layout generation tasks (as illustrated on the left side) across a range of layout domains (as illustrated on the right side) without any model training or fine-tuning.
+## Installation
+
+```shell
+pip install git+https://github.com/shunk031/layout-prompter
+```
+
+---
 
 ## Results
 
