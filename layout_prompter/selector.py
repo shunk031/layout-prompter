@@ -15,7 +15,7 @@ from layout_prompter.utils import (
 
 
 @dataclass
-class ExemplarSelection(object, metaclass=abc.ABCMeta):
+class ExemplarSelector(object, metaclass=abc.ABCMeta):
     train_data: List
     candidate_size: int
     num_prompt: int
@@ -47,7 +47,7 @@ class ExemplarSelection(object, metaclass=abc.ABCMeta):
 
 
 @dataclass
-class GenTypeExemplarSelection(ExemplarSelection):
+class GenTypeExemplarSelector(ExemplarSelector):
     def __call__(self, test_data: dict):
         scores = []
         test_labels = test_data["labels"]
@@ -59,7 +59,7 @@ class GenTypeExemplarSelection(ExemplarSelection):
 
 
 @dataclass
-class GenTypeSizeExemplarSelection(ExemplarSelection):
+class GenTypeSizeExemplarSelector(ExemplarSelector):
     labels_weight: float = 0.5
     bboxes_weight: float = 0.5
 
@@ -83,7 +83,7 @@ class GenTypeSizeExemplarSelection(ExemplarSelection):
 
 
 @dataclass
-class GenRelationExemplarSelection(ExemplarSelection):
+class GenRelationExemplarSelector(ExemplarSelector):
     def __call__(self, test_data: dict):
         scores = []
         test_labels = test_data["labels"]
@@ -95,7 +95,7 @@ class GenRelationExemplarSelection(ExemplarSelection):
 
 
 @dataclass
-class CompletionExemplarSelection(ExemplarSelection):
+class CompletionExemplarSelector(ExemplarSelector):
     labels_weight: float = 0.0
     bboxes_weight: float = 1.0
 
@@ -119,7 +119,7 @@ class CompletionExemplarSelection(ExemplarSelection):
 
 
 @dataclass
-class RefinementExemplarSelection(ExemplarSelection):
+class RefinementExemplarSelector(ExemplarSelector):
     labels_weight: float = 0.5
     bboxes_weight: float = 0.5
 
@@ -143,7 +143,7 @@ class RefinementExemplarSelection(ExemplarSelection):
 
 
 @dataclass
-class ContentAwareExemplarSelection(ExemplarSelection):
+class ContentAwareExemplarSelector(ExemplarSelector):
     canvas_width, canvas_height = CANVAS_SIZE["posterlayout"]
 
     def _to_binary_image(self, content_bboxes):
@@ -175,7 +175,7 @@ class ContentAwareExemplarSelection(ExemplarSelection):
 
 
 @dataclass
-class TextToLayoutExemplarSelection(ExemplarSelection):
+class TextToLayoutExemplarSelector(ExemplarSelector):
     def __call__(self, test_data: dict):
         scores = []
         test_embedding = test_data["embedding"]
@@ -186,14 +186,14 @@ class TextToLayoutExemplarSelection(ExemplarSelection):
         return self._retrieve_exemplars(scores)
 
 
-SELECTOR_MAP: Dict[str, Type[ExemplarSelection]] = {
-    "gent": GenTypeExemplarSelection,
-    "gents": GenTypeSizeExemplarSelection,
-    "genr": GenRelationExemplarSelection,
-    "completion": CompletionExemplarSelection,
-    "refinement": RefinementExemplarSelection,
-    "content": ContentAwareExemplarSelection,
-    "text": TextToLayoutExemplarSelection,
+SELECTOR_MAP: Dict[str, Type[ExemplarSelector]] = {
+    "gent": GenTypeExemplarSelector,
+    "gents": GenTypeSizeExemplarSelector,
+    "genr": GenRelationExemplarSelector,
+    "completion": CompletionExemplarSelector,
+    "refinement": RefinementExemplarSelector,
+    "content": ContentAwareExemplarSelector,
+    "text": TextToLayoutExemplarSelector,
 }
 
 
@@ -202,7 +202,7 @@ def create_selector(
     train_data: List[Dict[str, torch.Tensor]],
     candidate_size: int,
     num_prompt: int,
-) -> ExemplarSelection:
+) -> ExemplarSelector:
     selector_cls = SELECTOR_MAP[task]
     selector = selector_cls(
         train_data=train_data,

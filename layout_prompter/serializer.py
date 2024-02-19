@@ -501,9 +501,9 @@ class TextToLayoutSerializer(Serializer):
 
 
 SERIALIZER_MAP: Dict[str, Type[SerializerMixin]] = {
-    "gent": GenTypeSerializer,
-    "gents": GenTypeSizeSerializer,
-    "genr": GenRelationSerializer,
+    "gen-t": GenTypeSerializer,
+    "gen-ts": GenTypeSizeSerializer,
+    "gen-r": GenRelationSerializer,
     "completion": CompletionSerializer,
     "refinement": RefinementSerializer,
     "content": ContentAwareSerializer,

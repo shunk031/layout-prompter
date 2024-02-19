@@ -353,9 +353,9 @@ class TextToLayoutProcessor(Processor):
 
 
 PROCESSOR_MAP = {
-    "gent": GenTypeProcessor,
-    "gents": GenTypeSizeProcessor,
-    "genr": GenRelationProcessor,
+    "gen-t": GenTypeProcessor,
+    "gen-ts": GenTypeSizeProcessor,
+    "gen-r": GenRelationProcessor,
     "completion": CompletionProcessor,
     "refinement": RefinementProcessor,
     "content": ContentAwareProcessor,
