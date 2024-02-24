@@ -7,7 +7,7 @@ import torch
 from PIL import Image, ImageDraw
 from PIL.Image import Image as PilImage
 
-from layout_prompter.ranker import RankerOutput
+from layout_prompter.rankers import RankerOutput
 from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, get_raw_data_path
 
 
