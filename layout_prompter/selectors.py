@@ -187,9 +187,9 @@ class TextToLayoutExemplarSelector(ExemplarSelector):
 
 
 SELECTOR_MAP: Dict[str, Type[ExemplarSelector]] = {
-    "gent": GenTypeExemplarSelector,
-    "gents": GenTypeSizeExemplarSelector,
-    "genr": GenRelationExemplarSelector,
+    "gen-t": GenTypeExemplarSelector,
+    "gen-ts": GenTypeSizeExemplarSelector,
+    "gen-r": GenRelationExemplarSelector,
     "completion": CompletionExemplarSelector,
     "refinement": RefinementExemplarSelector,
     "content": ContentAwareExemplarSelector,

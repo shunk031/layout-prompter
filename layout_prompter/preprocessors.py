@@ -1,7 +1,7 @@
 import copy
 import random
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple, Type
+from typing import Dict, List, Optional, Tuple, Type, TypedDict
 
 import cv2
 import pandas as pd
@@ -304,6 +304,14 @@ class ContentAwareProcessor(Processor):
         return super().__call__(data)  # type: ignore
 
 
+class TextToLayoutProcessorOutput(TypedDict):
+    text: str
+    embedding: torch.Tensor
+    labels: torch.Tensor
+    discrete_gold_bboxes: torch.Tensor
+    discrete_bboxes: torch.Tensor
+
+
 @dataclass
 class TextToLayoutProcessor(Processor):
     return_keys: Tuple[str, ...] = (
@@ -329,7 +337,10 @@ class TextToLayoutProcessor(Processor):
             elements[i]["position"][3] = int(ratio * elements[i]["position"][3])
         return elements
 
-    def __call__(self, data) -> Dict[str, torch.Tensor]:
+    def __call__(  # type: ignore[override]
+        self,
+        data,
+    ) -> TextToLayoutProcessorOutput:
         text = clean_text(data["text"])
         embedding = self.text_encoder(clean_text(data["text"], remove_summary=True))
         original_width = data["canvas_width"]
@@ -352,7 +363,7 @@ class TextToLayoutProcessor(Processor):
         }
 
 
-PROCESSOR_MAP = {
+PROCESSOR_MAP: Dict[str, Type[Processor]] = {
     "gen-t": GenTypeProcessor,
     "gen-ts": GenTypeSizeProcessor,
     "gen-r": GenRelationProcessor,
