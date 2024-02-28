@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, List, Optional, TypedDict
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, TypedDict
 
 import torch
 
@@ -28,19 +28,18 @@ class Ranker(object):
     lambda_2: float = 0.2
     lambda_3: float = 0.6
 
-    val_path: Optional[str] = None
-    val_labels: Optional[List[torch.Tensor]] = None
+    val_dataset: Optional[List[Dict[str, Any]]] = None
     val_bboxes: Optional[List[torch.Tensor]] = None
+    val_labels: Optional[List[torch.Tensor]] = None
 
     def __post_init__(self) -> None:
         assert self.lambda_1 + self.lambda_2 + self.lambda_3 == 1.0
 
-        if self.val_path is None:
+        if self.val_dataset is None:
             return
 
-        self.val_data = read_pt(self.val_path)
-        self.val_labels = [vd["labels"] for vd in self.val_data]
-        self.val_bboxes = [vd["bboxes"] for vd in self.val_data]
+        self._val_bboxes = [vd["bboxes"] for vd in self.val_dataset]
+        self._val_labels = [vd["labels"] for vd in self.val_dataset]
 
     def __call__(self, predictions: List[ParserOutput]) -> List[RankerOutput]:
         metrics = []
@@ -55,14 +54,12 @@ class Ranker(object):
             _pred_padding_mask = torch.ones_like(_pred_labels).bool()
             metric.append(compute_alignment(_pred_bboxes, _pred_padding_mask))
             metric.append(compute_overlap(_pred_bboxes, _pred_padding_mask))
-            if self.val_path:
-                assert self.val_labels is not None and self.val_bboxes is not None
+
+            if self.val_dataset:
+                assert self.val_bboxes is not None and self.val_labels is not None
                 metric.append(
                     compute_maximum_iou(
-                        pred_labels,
-                        pred_bboxes,
-                        self.val_labels,
-                        self.val_bboxes,
+                        pred_labels, pred_bboxes, self.val_labels, self.val_bboxes
                     )
                 )
             metrics.append(metric)
@@ -71,7 +68,7 @@ class Ranker(object):
         min_vals, _ = torch.min(metrics_tensor, 0, keepdim=True)
         max_vals, _ = torch.max(metrics_tensor, 0, keepdim=True)
         scaled_metrics = (metrics_tensor - min_vals) / (max_vals - min_vals)
-        if self.val_path:
+        if self.val_dataset:
             quality = (
                 scaled_metrics[:, 0] * self.lambda_1
                 + scaled_metrics[:, 1] * self.lambda_2
