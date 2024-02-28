@@ -29,8 +29,8 @@ class Ranker(object):
     lambda_3: float = 0.6
 
     val_dataset: Optional[List[Dict[str, Any]]] = None
-    val_bboxes: Optional[List[torch.Tensor]] = None
-    val_labels: Optional[List[torch.Tensor]] = None
+    _val_bboxes: Optional[List[torch.Tensor]] = None
+    _val_labels: Optional[List[torch.Tensor]] = None
 
     def __post_init__(self) -> None:
         assert self.lambda_1 + self.lambda_2 + self.lambda_3 == 1.0
@@ -40,6 +40,16 @@ class Ranker(object):
 
         self._val_bboxes = [vd["bboxes"] for vd in self.val_dataset]
         self._val_labels = [vd["labels"] for vd in self.val_dataset]
+
+    @property
+    def val_bboxes(self) -> List[torch.Tensor]:
+        assert self._val_bboxes is not None
+        return self._val_bboxes
+
+    @property
+    def val_labels(self) -> List[torch.Tensor]:
+        assert self._val_labels is not None
+        return self._val_labels
 
     def __call__(self, predictions: List[ParserOutput]) -> List[RankerOutput]:
         metrics = []
@@ -56,7 +66,6 @@ class Ranker(object):
             metric.append(compute_overlap(_pred_bboxes, _pred_padding_mask))
 
             if self.val_dataset:
-                assert self.val_bboxes is not None and self.val_labels is not None
                 metric.append(
                     compute_maximum_iou(
                         pred_labels, pred_bboxes, self.val_labels, self.val_bboxes
