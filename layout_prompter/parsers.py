@@ -1,7 +1,8 @@
 import abc
 import logging
 import re
-from typing import List, TypedDict
+from dataclasses import dataclass
+from typing import Dict, List, Optional, TypedDict
 
 import torch
 from openai.types.chat import ChatCompletion, ChatCompletionMessage
@@ -19,13 +20,37 @@ class ParserOutput(TypedDict):
     labels: torch.Tensor
 
 
+@dataclass
 class Parser(object, metaclass=abc.ABCMeta):
-    def __init__(self, dataset: str, output_format: str) -> None:
-        self.dataset = dataset
-        self.output_format = output_format
-        self.id2label = ID2LABEL[self.dataset]
-        self.label2id = {v: k for k, v in self.id2label.items()}
-        self.canvas_width, self.canvas_height = CANVAS_SIZE[self.dataset]
+    dataset: str
+    output_format: str
+
+    _id2label: Optional[Dict[int, str]] = None
+    _label2id: Optional[Dict[str, int]] = None
+
+    def __post_init__(self) -> None:
+        self._id2label = ID2LABEL[self.dataset]
+        self._label2id = {v: k for k, v in self._id2label.items()}
+
+    @property
+    def canvas_width(self) -> int:
+        width, _ = CANVAS_SIZE[self.dataset]
+        return width
+
+    @property
+    def canvas_height(self) -> int:
+        _, height = CANVAS_SIZE[self.dataset]
+        return height
+
+    @property
+    def id2label(self) -> Dict[int, str]:
+        assert self._id2label is not None
+        return self._id2label
+
+    @property
+    def label2id(self) -> Dict[str, int]:
+        assert self._label2id is not None
+        return self._label2id
 
     def _extract_labels_and_bboxes(self, prediction: str) -> ParserOutput:
         if self.output_format == "seq":
@@ -41,6 +66,7 @@ class Parser(object, metaclass=abc.ABCMeta):
         y = re.findall(r"top:.?(\d+)px", predition)[1:]
         w = re.findall(r"width:.?(\d+)px", predition)[1:]
         h = re.findall(r"height:.?(\d+)px", predition)[1:]
+
         if not (len(labels) == len(x) == len(y) == len(w) == len(h)):
             raise RuntimeError
 

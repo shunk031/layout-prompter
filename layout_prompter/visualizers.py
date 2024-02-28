@@ -1,5 +1,7 @@
+import abc
 import os
-from typing import List, Tuple
+from dataclasses import dataclass
+from typing import List, Optional, Tuple
 
 import numpy as np
 import seaborn as sns
@@ -8,22 +10,52 @@ from PIL import Image, ImageDraw
 from PIL.Image import Image as PilImage
 
 from layout_prompter.rankers import RankerOutput
-from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, get_raw_data_path
+from layout_prompter.utils import CANVAS_SIZE, ID2LABEL
 
 
-class Visualizer(object):
-    def __init__(self, dataset: str, times: float = 3.0):
-        self.dataset = dataset
-        self.times = times
+@dataclass
+class VisualizerMixin(object, metaclass=abc.ABCMeta):
+    dataset: str
+    times: float = 3.0
 
-        self.canvas_width, self.canvas_height = CANVAS_SIZE[self.dataset]
-        self._colors = None
+    @property
+    def canvas_width(self) -> int:
+        width, _ = CANVAS_SIZE[self.dataset]
+        return int(width * self.times)
+
+    @property
+    def canvas_height(self) -> int:
+        _, height = CANVAS_SIZE[self.dataset]
+        return int(height * self.times)
+
+    @abc.abstractmethod
+    def draw_layout(self, *args, **kwargs) -> PilImage:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def __call__(self, predictions: List[RankerOutput]) -> List[PilImage]:
+        pass
+
+
+@dataclass
+class Visualizer(VisualizerMixin):
+    _colors: Optional[List[Tuple[int, int, int]]] = None
+
+    @property
+    def colors(self) -> List[Tuple[int, int, int]]:
+        if self._colors is None:
+            n_colors = len(ID2LABEL[self.dataset]) + 1
+            colors = sns.color_palette("husl", n_colors=n_colors)
+            self._colors = [
+                (int(c[0] * 255), int(c[1] * 255), int(c[2] * 255)) for c in colors
+            ]
+        return self._colors
 
     def draw_layout(
         self, labels_tensor: torch.Tensor, bboxes_tensor: torch.Tensor
     ) -> PilImage:
-        _canvas_w = int(self.canvas_width * self.times)
-        _canvas_h = int(self.canvas_height * self.times)
+        _canvas_w = self.canvas_width
+        _canvas_h = self.canvas_height
         img = Image.new("RGB", (_canvas_w, _canvas_h), color=(255, 255, 255))
 
         draw = ImageDraw.Draw(img, "RGBA")
@@ -44,14 +76,6 @@ class Visualizer(object):
             draw.rectangle(xy=(x1, y1, x2, y2), outline=color, fill=c_fill)
         return img
 
-    @property
-    def colors(self):
-        if self._colors is None:
-            n_colors = len(ID2LABEL[self.dataset]) + 1
-            colors = sns.color_palette("husl", n_colors=n_colors)
-            self._colors = [tuple(map(lambda x: int(x * 255), c)) for c in colors]
-        return self._colors
-
     def __call__(self, predictions: List[RankerOutput]) -> List[PilImage]:
         images: List[PilImage] = []
         for prediction in predictions:
@@ -61,20 +85,19 @@ class Visualizer(object):
         return images
 
 
-class ContentAwareVisualizer:
-    def __init__(self, times: float = 3.0):
-        self.canvas_path = os.path.join(
-            get_raw_data_path("posterlayout"), "./test/image_canvas"
-        )
-        self.canvas_width, self.canvas_height = CANVAS_SIZE["posterlayout"]
-        self.canvas_width = int(self.canvas_width * times)
-        self.canvas_height = int(self.canvas_height * times)
+@dataclass
+class ContentAwareVisualizer(VisualizerMixin):
+    canvas_path: str = ""
+
+    def __post_init__(self) -> None:
+        assert self.canvas_path != "", "`canvas_path` is required."
 
     def draw_layout(self, img, elems, elems2):
         drawn_outline = img.copy()
         drawn_fill = img.copy()
         draw_ol = ImageDraw.ImageDraw(drawn_outline)
         draw_f = ImageDraw.ImageDraw(drawn_fill)
+
         cls_color_dict = {1: "green", 2: "red", 3: "orange"}
 
         for cls, box in elems:

@@ -2,11 +2,13 @@ import json
 import os
 import re
 from collections import Counter
-from typing import Dict, Final, List
+from typing import Any, Dict, Final, List, Tuple
 
 import numpy as np
 import torch
 from scipy.optimize import linear_sum_assignment
+
+JsonDict = Dict[str, Any]
 
 ID2LABEL: Final[Dict[str, Dict[int, str]]] = {
     "publaynet": {
@@ -63,7 +65,7 @@ ID2LABEL: Final[Dict[str, Dict[int, str]]] = {
 }
 
 
-CANVAS_SIZE = {
+CANVAS_SIZE: Final[Dict[str, Tuple[int, int]]] = {
     "rico": (90, 160),
     "publaynet": (120, 160),
     "posterlayout": (102, 150),
@@ -75,7 +77,7 @@ def get_raw_data_path(x):
     return os.path.join(os.path.dirname(__file__), f"../dataset/{x}/raw")
 
 
-LAYOUT_DOMAIN = {
+LAYOUT_DOMAIN: Dict[str, str] = {
     "rico": "android",
     "publaynet": "document",
     "posterlayout": "poster",
@@ -83,7 +85,7 @@ LAYOUT_DOMAIN = {
 }
 
 
-def clean_text(text: str, remove_summary: bool = False):
+def clean_text(text: str, remove_summary: bool = False) -> str:
     if remove_summary:
         text = re.sub(r"#.*?#", "", text)
     text = text.replace("[#]", " ")
@@ -95,18 +97,18 @@ def clean_text(text: str, remove_summary: bool = False):
     return text
 
 
-def read_json(filename):
+def read_json(filename: str) -> JsonDict:
     with open(filename, "r") as f:
         data = json.load(f)
     return data
 
 
-def read_pt(filename):
+def read_pt(filename: str):
     with open(filename, "rb") as f:
         return torch.load(f)
 
 
-def write_pt(filename, obj):
+def write_pt(filename: str, obj):
     with open(filename, "wb") as f:
         torch.save(obj, f)
 
