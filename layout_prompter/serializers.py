@@ -45,6 +45,7 @@ HTML_TEMPLATE_WITH_INDEX: Final[
 
 @dataclass
 class SerializerMixin(object):
+    dataset: str
     input_format: str
     output_format: str
 
@@ -74,7 +75,6 @@ class SerializerMixin(object):
 
 @dataclass
 class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
-
     def build_input(self, data):
         if self.input_format == "seq":
             return self._build_seq_input(data)
@@ -134,16 +134,15 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
         self,
         exemplars: List[Dict[str, torch.Tensor]],
         test_data: Dict[str, torch.Tensor],
-        dataset: str,
         max_length: int = 8000,
         separator_in_samples: str = "\n",
         separator_between_samples: str = "\n\n",
     ) -> Prompt:
         system_prompt = self.preamble_template.format(
             task_description=self.task_type,
-            layout_domain=LAYOUT_DOMAIN[dataset],
-            canvas_width=CANVAS_SIZE[dataset][0],
-            canvas_height=CANVAS_SIZE[dataset][1],
+            layout_domain=LAYOUT_DOMAIN[self.dataset],
+            canvas_width=CANVAS_SIZE[self.dataset][0],
+            canvas_height=CANVAS_SIZE[self.dataset][1],
         )
         logger.info(f"System prompt: \n{system_prompt}")
 
@@ -524,6 +523,7 @@ def create_serializer(
     index2label = ID2LABEL[dataset]
     canvas_width, canvas_height = CANVAS_SIZE[dataset]
     serializer = serializer_cls(
+        dataset=dataset,
         input_format=input_format,
         output_format=output_format,
         index2label=index2label,

@@ -6,6 +6,7 @@ from typing import List, TypedDict
 import torch
 from openai.types.chat import ChatCompletion, ChatCompletionMessage
 
+from layout_prompter.llm import TGIOutput
 from layout_prompter.utils import CANVAS_SIZE, ID2LABEL
 
 logger = logging.getLogger(__name__)
@@ -76,15 +77,32 @@ class Parser(object, metaclass=abc.ABCMeta):
         return {"bboxes": bboxes_tensor, "labels": labels_tensor}
 
     @abc.abstractmethod
-    def __call__(self, response, *args, **kwargs) -> List[ParserOutput]:
+    def parse(self, response, *args, **kwargs) -> List[ParserOutput]:
         raise NotImplementedError
+
+    def check_filtered_response_count(
+        self, original_response, parsed_response: List[ParserOutput]
+    ) -> None:
+        pass
+
+    def __call__(self, response, *args, **kwargs) -> List[ParserOutput]:
+        parsed_response = self.parse(response, *args, **kwargs)
+        self.check_filtered_response_count(response, parsed_response)
+
+        return parsed_response
 
 
 class GPTResponseParser(Parser):
     def __init__(self, dataset: str, output_format: str) -> None:
         super().__init__(dataset, output_format)
 
-    def __call__(  # type: ignore[override]
+    def check_filtered_response_count(
+        self, original_response: ChatCompletion, parsed_response: List[ParserOutput]
+    ) -> None:
+        num_return = len(original_response.choices)
+        logger.debug(f"Filter {num_return - len(parsed_response)} invalid response.")
+
+    def parse(  # type: ignore[override]
         self,
         response: ChatCompletion,
     ) -> List[ParserOutput]:
@@ -105,9 +123,15 @@ class TGIResponseParser(Parser):
     def __init__(self, dataset: str, output_format: str):
         super().__init__(dataset, output_format)
 
-    def __call__(  # type: ignore[override]
+    def check_filtered_response_count(
+        self, original_response: TGIOutput, parsed_response: List[ParserOutput]
+    ) -> None:
+        num_return = 1
+        num_return += len(original_response["details"]["best_of_sequences"])
+
+    def parse(  # type: ignore[override]
         self,
-        response,
+        response: TGIOutput,
     ) -> List[ParserOutput]:
         generated_texts = [response["generated_text"]] + [
             res["generated_text"] for res in response["details"]["best_of_sequences"]

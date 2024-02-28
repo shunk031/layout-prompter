@@ -118,8 +118,12 @@ class ContentAwareVisualizer:
 
 
 def create_image_grid(
-    image_list, rows=2, cols=5, border_size=6, border_color=(0, 0, 0)
-):
+    image_list: List[PilImage],
+    rows: int = 2,
+    cols: int = 5,
+    border_size: int = 6,
+    border_color: Tuple[int, int, int] = (0, 0, 0),
+) -> PilImage:
     result_width = (
         image_list[0].width * cols + (cols - 1) * border_size + 2 * border_size
     )

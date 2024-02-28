@@ -89,7 +89,7 @@ class TGIDetails(TypedDict):
 
 class TGIOutput(TypedDict):
     generated_text: str
-    details: str
+    details: TGIDetails
 
 
 @dataclass
