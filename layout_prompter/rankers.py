@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Optional, TypedDict
+from typing import TYPE_CHECKING, List, Optional, TypedDict
 
 import torch
 
@@ -11,10 +11,8 @@ from layout_prompter.utils import (
     read_pt,
 )
 
-
-class ParserOutput(TypedDict):
-    bboxes: torch.Tensor
-    labels: torch.Tensor
+if TYPE_CHECKING:
+    from layout_prompter.parsers import ParserOutput
 
 
 class RankerOutput(TypedDict):
