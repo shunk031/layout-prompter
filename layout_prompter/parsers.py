@@ -106,6 +106,11 @@ class Parser(object, metaclass=abc.ABCMeta):
     def parse(self, response, *args, **kwargs) -> List[ParserOutput]:
         raise NotImplementedError
 
+    def log_filter_response_count(
+        self, num_return: int, parsed_response: List[ParserOutput]
+    ) -> None:
+        logger.debug(f"Filter {num_return - len(parsed_response)} invalid response.")
+
     def check_filtered_response_count(
         self, original_response, parsed_response: List[ParserOutput]
     ) -> None:
@@ -126,7 +131,7 @@ class GPTResponseParser(Parser):
         self, original_response: ChatCompletion, parsed_response: List[ParserOutput]
     ) -> None:
         num_return = len(original_response.choices)
-        logger.debug(f"Filter {num_return - len(parsed_response)} invalid response.")
+        self.log_filter_response_count(num_return, parsed_response)
 
     def parse(  # type: ignore[override]
         self,
@@ -154,6 +159,7 @@ class TGIResponseParser(Parser):
     ) -> None:
         num_return = 1
         num_return += len(original_response["details"]["best_of_sequences"])
+        self.log_filter_response_count(num_return, parsed_response)
 
     def parse(  # type: ignore[override]
         self,

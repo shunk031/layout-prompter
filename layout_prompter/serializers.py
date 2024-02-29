@@ -144,7 +144,7 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
             canvas_width=CANVAS_SIZE[self.dataset][0],
             canvas_height=CANVAS_SIZE[self.dataset][1],
         )
-        logger.info(f"System prompt: \n{system_prompt}")
+        logger.debug(f"System prompt: \n{system_prompt}")
 
         user_prompts: List[str] = []
         for i in range(len(exemplars)):
@@ -162,7 +162,7 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
                 break
         user_prompts.append(self.build_input(test_data) + separator_in_samples)
         user_prompt = separator_between_samples.join(user_prompts)
-        logger.info(f"User prompt: \n{user_prompt}")
+        logger.debug(f"User prompt: \n{user_prompt}")
 
         return {"system_prompt": system_prompt, "user_prompt": user_prompt}
 
