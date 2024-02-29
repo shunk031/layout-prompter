@@ -47,10 +47,9 @@ class Processor(object):
     sort_by_pos_before_sort_by_label: Optional[bool] = None
 
     transform_functions: Optional[List[nn.Module]] = None
-    transform: Optional[T.Compose] = None
 
     return_keys: Optional[Tuple[str, ...]] = None
-    metadata: Optional[pd.DataFrame] = None
+    metadata: Optional[pd.DataFrame] = field(repr=False, default=None)
 
     def __post_init__(self) -> None:
         conds = (
@@ -67,6 +66,10 @@ class Processor(object):
         self.transform_functions = self._config_base_transform()
 
         assert self.return_keys is not None
+
+    @property
+    def transform(self) -> T.Compose:
+        return T.Compose(self.transform_functions)
 
     def _config_base_transform(self) -> List[nn.Module]:
         transform_functions: List[nn.Module] = []
@@ -105,10 +108,6 @@ class GenTypeProcessor(Processor):
     shuffle_before_sort_by_label: bool = False
     sort_by_pos_before_sort_by_label: bool = True
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-        self.transform = T.Compose(self.transform_functions)
-
 
 @dataclass
 class GenTypeSizeProcessor(Processor):
@@ -123,10 +122,6 @@ class GenTypeSizeProcessor(Processor):
     sort_by_pos: bool = False
     shuffle_before_sort_by_label: bool = True
     sort_by_pos_before_sort_by_label: bool = False
-
-    def __post_init__(self) -> None:
-        super().__post_init__()
-        self.transform = T.Compose(self.transform_functions)
 
 
 @dataclass
@@ -168,7 +163,6 @@ class GenRelationProcessor(Processor):
                     num_x_grid=self.canvas_width, num_y_grid=self.canvas_height
                 )
             )
-        self.transform = T.Compose(self.transform_functions)
 
 
 @dataclass
@@ -184,11 +178,6 @@ class CompletionProcessor(Processor):
     sort_by_pos: bool = True
     shuffle_before_sort_by_label: bool = False
     sort_by_pos_before_sort_by_label: bool = False
-
-    def __post_init__(self) -> None:
-        super().__post_init__()
-
-        self.transform = T.Compose(self.transform_functions)
 
 
 @dataclass
@@ -221,7 +210,6 @@ class RefinementProcessor(Processor):
                 bernoulli_beta=self.train_bernoulli_beta,
             )
         ] + self.transform_functions
-        self.transform = T.Compose(self.transform_functions)
 
 
 @dataclass
@@ -250,14 +238,9 @@ class ContentAwareProcessor(Processor):
 
     possible_labels: List[torch.Tensor] = field(default_factory=list)
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-        assert self.transform_functions is not None
-
-        self.saliency_map_to_bboxes = SaliencyMapToBBoxes(
-            threshold=self.filter_threshold
-        )
-        # self.possible_labels: list = []
+    @property
+    def saliency_map_to_bboxes(self) -> SaliencyMapToBBoxes:
+        return SaliencyMapToBBoxes(threshold=self.filter_threshold)
 
     def _normalize_bboxes(self, bboxes):
         bboxes = bboxes.float()

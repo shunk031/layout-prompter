@@ -1,5 +1,5 @@
 import abc
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, TypedDict
 
 import requests
@@ -31,9 +31,9 @@ class GPTCallar(LLM):
     num_return: int = 10
     stop_token: str = "\n\n"
 
-    user_id: Optional[str] = None
-    api_key: Optional[str] = None
-    api_base: Optional[str] = None
+    user_id: Optional[str] = field(repr=False, default=None)
+    api_key: Optional[str] = field(repr=False, default=None)
+    api_base: Optional[str] = field(repr=False, default=None)
 
     _client: Optional[OpenAI] = None
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, TypedDict
 
 import torch
@@ -10,7 +10,6 @@ from layout_prompter.utils import (
     compute_maximum_iou,
     compute_overlap,
     convert_ltwh_to_ltrb,
-    read_pt,
 )
 
 if TYPE_CHECKING:
@@ -28,9 +27,9 @@ class Ranker(object):
     lambda_2: float = 0.2
     lambda_3: float = 0.6
 
-    val_dataset: Optional[List[Dict[str, Any]]] = None
-    _val_bboxes: Optional[List[torch.Tensor]] = None
-    _val_labels: Optional[List[torch.Tensor]] = None
+    val_dataset: Optional[List[Dict[str, Any]]] = field(repr=False, default=None)
+    _val_bboxes: Optional[List[torch.Tensor]] = field(repr=False, default=None)
+    _val_labels: Optional[List[torch.Tensor]] = field(repr=False, default=None)
 
     def __post_init__(self) -> None:
         assert self.lambda_1 + self.lambda_2 + self.lambda_3 == 1.0

@@ -54,7 +54,7 @@ class SerializerMixin(object):
     canvas_width: int
     canvas_height: int
 
-    task_type: str = "NOT SPECIFIED"
+    task_type: str = ""
 
     preamble_template: str = PREAMBLE_TEMPLATE
     add_index_token: bool = True
@@ -62,6 +62,9 @@ class SerializerMixin(object):
     sep_token: str = "|"
     add_unk_token: bool = False
     unk_token: str = "<unk>"
+
+    def __post_init__(self) -> None:
+        assert self.task_type != "", "`task_type` must be specified"
 
     def _build_seq_input(self, data):
         raise NotImplementedError
