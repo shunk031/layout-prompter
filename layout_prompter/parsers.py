@@ -75,7 +75,7 @@ class Parser(object, metaclass=abc.ABCMeta):
         if not (len(labels) == len(x) == len(y) == len(w) == len(h)):
             raise RuntimeError(
                 "The number of labels, x, y, w, h are not the same "
-                f"(labels = {labels}, x = {x}, y = {y}, w = {w}, h = {h})."
+                f"(#labels = {len(labels)}, #x = {len(x)}, #y = {len(y)}, #w = {len(w)}, #h = {len(h)})."
             )
 
         labels_tensor = torch.tensor([self.label2id[label] for label in labels])
