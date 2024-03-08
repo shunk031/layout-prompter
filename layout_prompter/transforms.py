@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 import copy
 import logging
 import math
 import random
 from itertools import combinations, product
-from typing import Dict, List, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional
 
 import cv2
 import numpy as np
@@ -12,6 +14,9 @@ import torch.nn as nn
 from transformers import CLIPModel, CLIPProcessor
 
 from layout_prompter.utils import decapulate, detect_loc_relation, detect_size_relation
+
+if TYPE_CHECKING:
+    from layout_prompter.typehint import ProcessedLayoutData
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +38,7 @@ class ShuffleElements(nn.Module):
     def __init__(self) -> None:
         super().__init__()
 
-    def __call__(self, data):
+    def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
 
@@ -51,12 +56,12 @@ class LabelDictSort(nn.Module):
     sort elements in one layout by their label
     """
 
-    def __init__(self, index2label) -> None:
+    def __init__(self, index2label: Optional[Dict[int, str]]) -> None:
         super().__init__()
         assert index2label is not None
         self.index2label = index2label
 
-    def __call__(self, data):
+    def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
         # NOTE: for refinement
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
@@ -81,7 +86,7 @@ class LexicographicSort(nn.Module):
     def __init__(self) -> None:
         super().__init__()
 
-    def __call__(self, data):
+    def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
         try:
@@ -104,8 +109,8 @@ class AddGaussianNoise(nn.Module):
 
     def __init__(
         self,
-        mean=0.0,
-        std=1.0,
+        mean: float = 0.0,
+        std: float = 1.0,
         normalized: bool = True,
         bernoulli_beta: float = 1.0,
     ) -> None:
@@ -122,7 +127,7 @@ class AddGaussianNoise(nn.Module):
             )
         )
 
-    def __call__(self, data):
+    def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
         # Gold Label
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
@@ -179,7 +184,7 @@ class DiscretizeBoundingBox(nn.Module):
         self.max_x = self.num_x_grid
         self.max_y = self.num_y_grid
 
-    def discretize(self, bbox):
+    def discretize(self, bbox: torch.Tensor) -> torch.Tensor:
         """
         Args:
             continuous_bbox torch.Tensor: N * 4
@@ -196,7 +201,7 @@ class DiscretizeBoundingBox(nn.Module):
             [discrete_x1, discrete_y1, discrete_x2, discrete_y2], dim=-1
         ).long()
 
-    def continuize(self, bbox):
+    def continuize(self, bbox: torch.Tensor) -> torch.Tensor:
         """
         Args:
             discrete_bbox torch.LongTensor: N * 4
@@ -215,13 +220,15 @@ class DiscretizeBoundingBox(nn.Module):
     def discretize_num(self, num: float) -> int:
         return int(math.floor(num * self.max_y))
 
-    def __call__(self, data):
+    def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
+
         data["discrete_bboxes"] = self.discretize(data["bboxes"])
         data["discrete_gold_bboxes"] = self.discretize(data["gold_bboxes"])
         if "content_bboxes" in data.keys():
             data["discrete_content_bboxes"] = self.discretize(data["content_bboxes"])
+
         return data
 
 

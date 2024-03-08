@@ -7,7 +7,7 @@ from typing import Dict, List, Optional, TypedDict
 import torch
 from openai.types.chat import ChatCompletion, ChatCompletionMessage
 
-from layout_prompter.llm import TGIOutput
+from layout_prompter.modules.llm import TGIOutput
 from layout_prompter.utils import CANVAS_SIZE, ID2LABEL
 
 logger = logging.getLogger(__name__)
@@ -68,7 +68,10 @@ class Parser(object, metaclass=abc.ABCMeta):
         h = re.findall(r"height:.?(\d+)px", predition)[1:]
 
         if not (len(labels) == len(x) == len(y) == len(w) == len(h)):
-            raise RuntimeError
+            raise RuntimeError(
+                "The number of labels, x, y, w, h are not the same "
+                f"(labels = {labels}, x = {x}, y = {y}, w = {w}, h = {h})."
+            )
 
         labels_tensor = torch.tensor([self.label2id[label] for label in labels])
         bboxes_tensor = torch.tensor(

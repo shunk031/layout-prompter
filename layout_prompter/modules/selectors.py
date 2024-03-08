@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import abc
 import random
 from dataclasses import dataclass
-from typing import Dict, List, Type
+from typing import TYPE_CHECKING, Dict, List, Type
 
 import cv2
 import numpy as np
@@ -13,6 +15,9 @@ from layout_prompter.utils import (
     labels_similarity,
 )
 
+if TYPE_CHECKING:
+    from layout_prompter.typehint import LayoutData
+
 __all__ = [
     "ExemplarSelector",
     "GenTypeExemplarSelector",
@@ -22,6 +27,7 @@ __all__ = [
     "RefinementExemplarSelector",
     "ContentAwareExemplarSelector",
     "TextToLayoutExemplarSelector",
+    "create_selector",
 ]
 
 
@@ -38,13 +44,13 @@ class ExemplarSelector(object, metaclass=abc.ABCMeta):
             self.train_data = self.train_data[: self.candidate_size]
 
     @abc.abstractmethod
-    def __call__(self, test_data: dict):
+    def __call__(self, test_data: LayoutData):
         raise NotImplementedError
 
-    def _is_filter(self, data):
+    def _is_filter(self, data: LayoutData):
         return (data["discrete_gold_bboxes"][:, 2:] == 0).sum().bool().item()
 
-    def _retrieve_exemplars(self, scores: list):
+    def _retrieve_exemplars(self, scores: list) -> List[LayoutData]:
         scores = sorted(scores, key=lambda x: x[1], reverse=True)
         exemplars = []
         for i in range(len(self.train_data)):
@@ -59,9 +65,9 @@ class ExemplarSelector(object, metaclass=abc.ABCMeta):
 
 @dataclass
 class GenTypeExemplarSelector(ExemplarSelector):
-    def __call__(self, test_data: dict):
+    def __call__(self, layout_data: LayoutData):
         scores = []
-        test_labels = test_data["labels"]
+        test_labels = layout_data["labels"]
         for i in range(len(self.train_data)):
             train_labels = self.train_data[i]["labels"]
             score = labels_similarity(train_labels, test_labels)

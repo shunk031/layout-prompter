@@ -8,18 +8,28 @@ from openai.types.chat import ChatCompletion, ChatCompletionMessageParam
 from transformers import AutoTokenizer
 from transformers.tokenization_utils import PreTrainedTokenizer
 
+from layout_prompter.parsers import GPTResponseParser, Parser, TGIResponseParser
+
 __all__ = ["LLM", "GPTCallar", "TGICaller"]
 
 
 class LLM(object, metaclass=abc.ABCMeta):
+    parser: Parser
+
     @abc.abstractmethod
-    def __call__(self, *args, **kwargs) -> Any:
+    def generate(self, *args, **kwargs) -> Any:
         raise NotImplementedError
+
+    def __call__(self, *args, **kwargs) -> Any:
+        generated_results = self.generate(*args, **kwargs)
+        return self.parser(generated_results)
 
 
 @dataclass
 class GPTCallar(LLM):
     """The GPT caller."""
+
+    parser: GPTResponseParser
 
     model: str
     max_tokens: int
@@ -45,7 +55,7 @@ class GPTCallar(LLM):
         assert self._client is not None
         return self._client
 
-    def __call__(
+    def generate(
         self, prompt_messages: List[ChatCompletionMessageParam]
     ) -> ChatCompletion:
         response = self.client.chat.completions.create(
@@ -96,6 +106,8 @@ class TGIOutput(TypedDict):
 class TGICaller(LLM):
     """The text generation inference (TGI) caller."""
 
+    parser: TGIResponseParser
+
     endpoint_url: str
     model_id: str
 
@@ -125,7 +137,7 @@ class TGICaller(LLM):
         assert self._eos_token_id is not None
         return self._eos_token_id
 
-    def __call__(self, prompt_messages: List[Dict[str, str]]) -> TGIOutput:
+    def generate(self, prompt_messages: List[Dict[str, str]]) -> TGIOutput:
         prompt = self.tokenizer.apply_chat_template(
             prompt_messages, add_generation_prompt=True, tokenize=False
         )

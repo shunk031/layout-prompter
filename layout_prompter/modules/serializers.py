@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import abc
 import logging
 from dataclasses import dataclass, field
-from typing import Dict, Final, List, Type
+from typing import TYPE_CHECKING, Dict, Final, List, Type
 
 import torch
 
@@ -9,7 +11,23 @@ from layout_prompter.transforms import RelationTypes
 from layout_prompter.typehint import Prompt
 from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, LAYOUT_DOMAIN
 
+if TYPE_CHECKING:
+    from layout_prompter.typehint import LayoutData
+
 logger = logging.getLogger(__name__)
+
+__all__ = [
+    "SerializerMixin",
+    "Serializer",
+    "GenTypeSerializer",
+    "GenTypeSizeSerializer",
+    "GenRelationSerializer",
+    "CompletionSerializer",
+    "RefinementSerializer",
+    "ContentAwareSerializer",
+    "TextToLayoutSerializer",
+    "create_serializer",
+]
 
 PREAMBLE_TEMPLATE: Final[str] = (
     "Please generate a layout based on the given information. "
@@ -24,7 +42,7 @@ HTML_PREFIX: Final[
     str
 ] = """<html>
 <body>
-<div class="canvas" style="left: 0px; top: 0px; width: {}px; height: {}px"></div>
+<div class="canvas" style="left: 0px; top: 0px; width: {width}px; height: {height}px"></div>
 """
 
 HTML_SUFFIX: Final[
@@ -119,7 +137,7 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
     def _build_html_output(self, data, label_key, bbox_key):
         labels = data[label_key]
         bboxes = data[bbox_key]
-        htmls = [HTML_PREFIX.format(self.canvas_width, self.canvas_height)]
+        htmls = [HTML_PREFIX.format(width=self.canvas_width, height=self.canvas_height)]
         _TEMPLATE = HTML_TEMPLATE_WITH_INDEX if self.add_index_token else HTML_TEMPLATE
 
         for idx in range(len(labels)):
@@ -136,7 +154,7 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
     def build_prompt(
         self,
         exemplars: List[Dict[str, torch.Tensor]],
-        test_data: Dict[str, torch.Tensor],
+        layout_data: LayoutData,
         max_length: int = 8000,
         separator_in_samples: str = "\n",
         separator_between_samples: str = "\n\n",
@@ -163,7 +181,7 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
                 user_prompts.append(_prompt)
             else:
                 break
-        user_prompts.append(self.build_input(test_data) + separator_in_samples)
+        user_prompts.append(self.build_input(layout_data) + separator_in_samples)
         user_prompt = separator_between_samples.join(user_prompts)
         logger.debug(f"User prompt: \n{user_prompt}")
 
