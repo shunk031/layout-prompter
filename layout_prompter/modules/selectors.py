@@ -16,7 +16,7 @@ from layout_prompter.utils import (
 )
 
 if TYPE_CHECKING:
-    from layout_prompter.typehint import LayoutData, ProcessedLayoutData
+    from layout_prompter.typehint import ProcessedLayoutData
 
 __all__ = [
     "ExemplarSelector",
