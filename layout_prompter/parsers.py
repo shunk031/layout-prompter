@@ -1,14 +1,19 @@
+from __future__ import annotations
+
 import abc
 import logging
 import re
 from dataclasses import dataclass
-from typing import Dict, List, Optional, TypedDict
+from typing import TYPE_CHECKING, Dict, List, Optional, TypedDict
 
 import torch
 from openai.types.chat import ChatCompletion, ChatCompletionMessage
 
-from layout_prompter.modules.llm import TGIOutput
 from layout_prompter.utils import CANVAS_SIZE, ID2LABEL
+
+if TYPE_CHECKING:
+    from layout_prompter.modules.llm import TGIOutput
+
 
 logger = logging.getLogger(__name__)
 
