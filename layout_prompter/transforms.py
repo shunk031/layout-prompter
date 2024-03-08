@@ -68,7 +68,7 @@ class LabelDictSort(nn.Module):
 
         labels = data["labels"].tolist()
         idx2label = [[idx, self.index2label[labels[idx]]] for idx in range(len(labels))]
-        idx2label_sorted = sorted(idx2label, key=lambda x: x[1])
+        idx2label_sorted = sorted(idx2label, key=lambda x: x[1])  # type: ignore
         idx_sorted = [d[0] for d in idx2label_sorted]
         data["bboxes"], data["labels"] = (
             data["bboxes"][idx_sorted],

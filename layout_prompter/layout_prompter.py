@@ -13,7 +13,7 @@ from layout_prompter.modules import (
 )
 
 if TYPE_CHECKING:
-    from layout_prompter.typehint import LayoutData
+    from layout_prompter.typehint import ProcessedLayoutData
 
 logger = logging.getLogger(__name__)
 
@@ -42,10 +42,10 @@ class LayoutPrompter(object):
 
         raise ValueError(f"Failed to generate layout for prompt: {prompt_messages}")
 
-    def __call__(self, layout_data: LayoutData, max_num_try: int = 5) -> Any:
-        exemplars = self.selector(layout_data)
+    def __call__(self, test_data: ProcessedLayoutData, max_num_try: int = 5) -> Any:
+        exemplars = self.selector(test_data)
         prompt = self.serializer.build_prompt(
-            exemplars=exemplars, layout_data=layout_data
+            exemplars=exemplars, layout_data=test_data
         )
         prompt_messages = [
             {"role": "system", "content": prompt["system_prompt"]},

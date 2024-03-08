@@ -12,7 +12,7 @@ from layout_prompter.typehint import Prompt
 from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, LAYOUT_DOMAIN
 
 if TYPE_CHECKING:
-    from layout_prompter.typehint import LayoutData
+    from layout_prompter.typehint import ProcessedLayoutData
 
 logger = logging.getLogger(__name__)
 
@@ -153,8 +153,8 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
 
     def build_prompt(
         self,
-        exemplars: List[Dict[str, torch.Tensor]],
-        layout_data: LayoutData,
+        exemplars: List[ProcessedLayoutData],
+        layout_data: ProcessedLayoutData,
         max_length: int = 8000,
         separator_in_samples: str = "\n",
         separator_between_samples: str = "\n\n",

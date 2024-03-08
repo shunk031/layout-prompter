@@ -24,6 +24,11 @@ class ProcessedLayoutData(TypedDict):
 
     canvas_size: Tuple[float, float]
 
+    ori_bboxes: torch.Tensor
+    ori_labels: torch.Tensor
+
+    embedding: torch.Tensor
+
 
 class Prompt(TypedDict):
     system_prompt: str
