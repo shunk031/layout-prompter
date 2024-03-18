@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING, Dict, List, Type
 
 import cv2
 import numpy as np
-import torch
 
 from layout_prompter.utils import (
     CANVAS_SIZE,
