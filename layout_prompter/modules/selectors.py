@@ -216,7 +216,7 @@ SELECTOR_MAP: Dict[str, Type[ExemplarSelector]] = {
 
 def create_selector(
     task: str,
-    train_data: List[Dict[str, torch.Tensor]],
+    train_data: List[ProcessedLayoutData],
     candidate_size: int,
     num_prompt: int,
 ) -> ExemplarSelector:
