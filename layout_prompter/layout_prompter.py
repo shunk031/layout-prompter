@@ -31,18 +31,7 @@ class LayoutPrompter(object):
         response = self.llm(prompt_messages)
         return self.ranker(response)
 
-    def generate_layout(
-        self, prompt_messages: List[Dict[str, str]], max_num_try: int = 5
-    ) -> List[RankerOutput]:
-        for num_try in range(max_num_try):
-            try:
-                return self._generate_layout(prompt_messages)
-            except Exception as err:
-                logger.warning(f"#try {num_try}: {err}")
-
-        raise ValueError(f"Failed to generate layout for prompt: {prompt_messages}")
-
-    def __call__(self, test_data: ProcessedLayoutData, max_num_try: int = 5) -> Any:
+    def build_prompt_messages(self, test_data: ProcessedLayoutData):
         exemplars = self.selector(test_data)
         prompt = self.serializer.build_prompt(
             exemplars=exemplars, layout_data=test_data
@@ -51,4 +40,19 @@ class LayoutPrompter(object):
             {"role": "system", "content": prompt["system_prompt"]},
             {"role": "user", "content": prompt["user_prompt"]},
         ]
+        return prompt_messages
+
+    def generate_layout(
+        self, prompt_messages: List[Dict[str, str]], max_num_try: int = 5
+    ) -> List[RankerOutput]:
+        for num_try in range(max_num_try):
+            try:
+                return self._generate_layout(prompt_messages)
+            except Exception as err:
+                logger.warning(f"#try {num_try + 1}: {err}")
+
+        raise ValueError(f"Failed to generate layout for prompt: {prompt_messages}")
+
+    def __call__(self, test_data: ProcessedLayoutData, max_num_try: int = 5) -> Any:
+        prompt_messages = self.build_prompt_messages(test_data=test_data)
         return self.generate_layout(prompt_messages, max_num_try=max_num_try)
