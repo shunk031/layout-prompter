@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import abc
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Dict, List, Type
 
 import cv2
@@ -33,7 +33,7 @@ __all__ = [
 
 @dataclass
 class ExemplarSelector(object, metaclass=abc.ABCMeta):
-    train_data: List
+    train_data: List[ProcessedLayoutData] = field(repr=False)
     candidate_size: int
     num_prompt: int
     shuffle: bool = True
