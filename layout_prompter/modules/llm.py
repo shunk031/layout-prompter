@@ -58,13 +58,25 @@ class GPTCallar(LLM):
         self, prompt_messages: List[ChatCompletionMessageParam], **kwargs
     ) -> ChatCompletion:
         response = self.client.chat.completions.create(
-            model=self.model,
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-            top_p=self.top_p,
-            frequency_penalty=self.frequency_penalty,
-            presence_penalty=self.presence_penalty,
-            n=self.num_return,
+            model=kwargs["model"] if "model" in kwargs else self.model,
+            temperature=(
+                kwargs["temperature"] if "temperature" in kwargs else self.temperature
+            ),
+            max_tokens=(
+                kwargs["max_tokens"] if "max_tokens" in kwargs else self.max_tokens
+            ),
+            top_p=kwargs["top_p"] if "top_p" in kwargs else self.top_p,
+            frequency_penalty=(
+                kwargs["frequency_penalty"]
+                if "frequency_penalty" in kwargs
+                else self.frequency_penalty
+            ),
+            presence_penalty=(
+                kwargs["presence_penalty"]
+                if "presence_penalty" in kwargs
+                else self.presence_penalty
+            ),
+            n=kwargs["n"] if "n" in kwargs else self.num_return,
             messages=prompt_messages,
             **kwargs,
         )
