@@ -41,7 +41,6 @@ class GPTCallar(LLM):
     num_return: int = 10
     stop_token: str = "\n\n"
 
-    user_id: Optional[str] = field(repr=False, default=None)
     api_key: Optional[str] = field(repr=False, default=None)
     api_base: Optional[str] = field(repr=False, default=None)
 
@@ -56,7 +55,7 @@ class GPTCallar(LLM):
         return self._client
 
     def generate(
-        self, prompt_messages: List[ChatCompletionMessageParam]
+        self, prompt_messages: List[ChatCompletionMessageParam], **kwargs
     ) -> ChatCompletion:
         response = self.client.chat.completions.create(
             model=self.model,
@@ -67,7 +66,7 @@ class GPTCallar(LLM):
             presence_penalty=self.presence_penalty,
             n=self.num_return,
             messages=prompt_messages,
-            extra_headers={"X-User-Id": self.user_id} if self.user_id else None,
+            **kwargs,
         )
         return response
 
