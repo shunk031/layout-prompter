@@ -26,9 +26,9 @@ class LayoutPrompter(object):
     ranker: Ranker
 
     def _generate_layout(
-        self, prompt_messages: List[Dict[str, str]]
+        self, prompt_messages: List[Dict[str, str]], **kwargs
     ) -> List[RankerOutput]:
-        response = self.llm(prompt_messages)
+        response = self.llm(prompt_messages, **kwargs)
         return self.ranker(response)
 
     def build_prompt_messages(self, test_data: ProcessedLayoutData):
@@ -43,16 +43,18 @@ class LayoutPrompter(object):
         return prompt_messages
 
     def generate_layout(
-        self, prompt_messages: List[Dict[str, str]], max_num_try: int = 5
+        self, prompt_messages: List[Dict[str, str]], max_num_try: int = 5, **kwargs
     ) -> List[RankerOutput]:
         for num_try in range(max_num_try):
             try:
-                return self._generate_layout(prompt_messages)
+                return self._generate_layout(prompt_messages, **kwargs)
             except Exception as err:
                 logger.warning(f"#try {num_try + 1}: {err}")
 
         raise ValueError(f"Failed to generate layout for prompt: {prompt_messages}")
 
-    def __call__(self, test_data: ProcessedLayoutData, max_num_try: int = 5) -> Any:
+    def __call__(
+        self, test_data: ProcessedLayoutData, max_num_try: int = 5, **kwargs
+    ) -> Any:
         prompt_messages = self.build_prompt_messages(test_data=test_data)
-        return self.generate_layout(prompt_messages, max_num_try=max_num_try)
+        return self.generate_layout(prompt_messages, max_num_try=max_num_try, **kwargs)
