@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import copy
 import random
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple, Type, TypedDict
+from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Type, TypedDict
 
 import cv2
 import pandas as pd
@@ -23,6 +25,9 @@ from layout_prompter.transforms import (
 )
 from layout_prompter.typehint import LayoutData
 from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, clean_text
+
+if TYPE_CHECKING:
+    from layout_prompter.typehint import ProcessedLayoutData
 
 __all__ = [
     "Processor",
@@ -88,10 +93,10 @@ class Processor(object):
         )
         return transform_functions
 
-    def __call__(self, data: LayoutData) -> Dict[str, torch.Tensor]:
+    def __call__(self, data: LayoutData) -> ProcessedLayoutData:
         assert self.transform is not None and self.return_keys is not None
         _data = self.transform(copy.deepcopy(data))
-        return {k: _data[k] for k in self.return_keys}
+        return {k: _data[k] for k in self.return_keys}  # type: ignore
 
 
 @dataclass
