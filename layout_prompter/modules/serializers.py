@@ -87,7 +87,7 @@ class SerializerMixin(object):
     def _build_seq_input(self, data):
         raise NotImplementedError
 
-    def _build_html_input(self, data):
+    def _build_html_input(self, data) -> str:
         raise NotImplementedError
 
     def build_prompt(self, *args, **kwargs):
@@ -96,7 +96,7 @@ class SerializerMixin(object):
 
 @dataclass
 class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
-    def build_input(self, data):
+    def build_input(self, data: ProcessedLayoutData) -> str:
         if self.input_format == "seq":
             return self._build_seq_input(data)
         elif self.input_format == "html":
@@ -105,23 +105,32 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
             raise ValueError(f"Unsupported input format: {self.input_format}")
 
     @abc.abstractmethod
-    def _build_seq_input(self, data):
+    def _build_seq_input(self, data: ProcessedLayoutData) -> str:
         raise NotImplementedError
 
     @abc.abstractmethod
-    def _build_html_input(self, data):
+    def _build_html_input(self, data: ProcessedLayoutData) -> str:
         raise NotImplementedError
 
-    def build_output(self, data, label_key="labels", bbox_key="discrete_gold_bboxes"):
+    def build_output(
+        self,
+        data: ProcessedLayoutData,
+        label_key: str = "labels",
+        bbox_key: str = "discrete_gold_bboxes",
+    ) -> str:
         if self.output_format == "seq":
             return self._build_seq_output(data, label_key, bbox_key)
         elif self.output_format == "html":
             return self._build_html_output(data, label_key, bbox_key)
+        else:
+            raise ValueError(f"Unsupported output format: {self.output_format}")
 
-    def _build_seq_output(self, data, label_key, bbox_key):
-        labels = data[label_key]
-        bboxes = data[bbox_key]
-        tokens = []
+    def _build_seq_output(
+        self, data: ProcessedLayoutData, label_key: str, bbox_key: str
+    ) -> str:
+        bboxes, labels = data[bbox_key], data[label_key]  # type: ignore
+
+        tokens: List[str] = []
 
         for idx in range(len(labels)):
             label = self.index2label[int(labels[idx])]
@@ -134,9 +143,11 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
                 tokens.append(self.sep_token)
         return " ".join(tokens)
 
-    def _build_html_output(self, data, label_key, bbox_key):
-        labels = data[label_key]
-        bboxes = data[bbox_key]
+    def _build_html_output(
+        self, data: ProcessedLayoutData, label_key: str, bbox_key: str
+    ) -> str:
+        bboxes, labels = data[bbox_key], data[label_key]  # type: ignore
+
         htmls = [HTML_PREFIX.format(width=self.canvas_width, height=self.canvas_height)]
         _TEMPLATE = HTML_TEMPLATE_WITH_INDEX if self.add_index_token else HTML_TEMPLATE
 
@@ -199,9 +210,9 @@ class GenTypeSerializer(Serializer):
         '<div class="{}" style="index: {}"></div>\n'
     )
 
-    def _build_seq_input(self, data: Dict[str, torch.Tensor]) -> str:
+    def _build_seq_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
-        tokens = []
+        tokens: List[str] = []
 
         for idx in range(len(labels)):
             label = self.index2label[int(labels[idx])]
@@ -214,7 +225,7 @@ class GenTypeSerializer(Serializer):
                 tokens.append(self.sep_token)
         return " ".join(tokens)
 
-    def _build_html_input(self, data) -> str:
+    def _build_html_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
         htmls = [HTML_PREFIX.format(self.canvas_width, self.canvas_height)]
         if self.add_index_token and self.add_unk_token:
@@ -254,7 +265,7 @@ class GenTypeSizeSerializer(Serializer):
         '<div class="{}" style="index: {}; width: {}px; height: {}px"></div>\n'
     )
 
-    def _build_seq_input(self, data):
+    def _build_seq_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
         bboxes = data["discrete_gold_bboxes"]
         tokens = []
@@ -272,7 +283,7 @@ class GenTypeSizeSerializer(Serializer):
                 tokens.append(self.sep_token)
         return " ".join(tokens)
 
-    def _build_html_input(self, data):
+    def _build_html_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
         bboxes = data["discrete_gold_bboxes"]
         htmls = [HTML_PREFIX.format(self.canvas_width, self.canvas_height)]
@@ -298,7 +309,7 @@ class GenTypeSizeSerializer(Serializer):
         htmls.append(HTML_SUFFIX)
         return "".join(htmls)
 
-    def build_input(self, data):
+    def build_input(self, data: ProcessedLayoutData) -> str:
         return self.constraint_type[0] + super().build_input(data)
 
 
