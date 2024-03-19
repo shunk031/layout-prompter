@@ -5,8 +5,6 @@ import logging
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Dict, Final, List, Type
 
-import torch
-
 from layout_prompter.transforms import RelationTypes
 from layout_prompter.typehint import Prompt
 from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, LAYOUT_DOMAIN
