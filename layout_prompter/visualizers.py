@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import abc
 import os
 from dataclasses import dataclass
-from typing import List, Optional, Tuple
+from typing import TYPE_CHECKING, List, Optional, Tuple, Union
 
 import numpy as np
 import seaborn as sns
@@ -11,6 +13,9 @@ from PIL.Image import Image as PilImage
 
 from layout_prompter.modules.rankers import RankerOutput
 from layout_prompter.utils import CANVAS_SIZE, ID2LABEL
+
+if TYPE_CHECKING:
+    from layout_prompter.typehint import ProcessedLayoutData
 
 
 @dataclass
@@ -76,7 +81,9 @@ class Visualizer(VisualizerMixin):
             draw.rectangle(xy=(x1, y1, x2, y2), outline=color, fill=c_fill)
         return img
 
-    def __call__(self, predictions: List[RankerOutput]) -> List[PilImage]:
+    def __call__(
+        self, predictions: Union[List[ProcessedLayoutData], List[RankerOutput]]
+    ) -> List[PilImage]:
         images: List[PilImage] = []
         for prediction in predictions:
             labels, bboxes = prediction["labels"], prediction["bboxes"]
