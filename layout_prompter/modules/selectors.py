@@ -32,15 +32,15 @@ __all__ = [
 
 @dataclass
 class ExemplarSelector(object, metaclass=abc.ABCMeta):
-    train_data: List[ProcessedLayoutData] = field(repr=False)
+    train_dataset: List[ProcessedLayoutData] = field(repr=False)
     candidate_size: int
     num_prompt: int
     shuffle: bool = True
 
     def __post_init__(self) -> None:
         if self.candidate_size > 0:
-            random.shuffle(self.train_data)
-            self.train_data = self.train_data[: self.candidate_size]
+            random.shuffle(self.train_dataset)
+            self.train_dataset = self.train_dataset[: self.candidate_size]
 
     @abc.abstractmethod
     def __call__(self, test_data: ProcessedLayoutData) -> List[ProcessedLayoutData]:
@@ -52,9 +52,9 @@ class ExemplarSelector(object, metaclass=abc.ABCMeta):
     def _retrieve_exemplars(self, scores: list) -> List[ProcessedLayoutData]:
         scores = sorted(scores, key=lambda x: x[1], reverse=True)
         exemplars = []
-        for i in range(len(self.train_data)):
-            if not self._is_filter(self.train_data[scores[i][0]]):
-                exemplars.append(self.train_data[scores[i][0]])
+        for i in range(len(self.train_dataset)):
+            if not self._is_filter(self.train_dataset[scores[i][0]]):
+                exemplars.append(self.train_dataset[scores[i][0]])
                 if len(exemplars) == self.num_prompt:
                     break
         if self.shuffle:
@@ -67,8 +67,8 @@ class GenTypeExemplarSelector(ExemplarSelector):
     def __call__(self, test_data: ProcessedLayoutData) -> List[ProcessedLayoutData]:
         scores = []
         test_labels = test_data["labels"]
-        for i in range(len(self.train_data)):
-            train_labels = self.train_data[i]["labels"]
+        for i in range(len(self.train_dataset)):
+            train_labels = self.train_dataset[i]["labels"]
             score = labels_similarity(train_labels, test_labels)
             scores.append([i, score])
         return self._retrieve_exemplars(scores)
@@ -83,9 +83,9 @@ class GenTypeSizeExemplarSelector(ExemplarSelector):
         scores = []
         test_labels = test_data["labels"]
         test_bboxes = test_data["bboxes"][:, 2:]
-        for i in range(len(self.train_data)):
-            train_labels = self.train_data[i]["labels"]
-            train_bboxes = self.train_data[i]["bboxes"][:, 2:]
+        for i in range(len(self.train_dataset)):
+            train_labels = self.train_dataset[i]["labels"]
+            train_bboxes = self.train_dataset[i]["bboxes"][:, 2:]
             score = labels_bboxes_similarity(
                 train_labels,
                 train_bboxes,
@@ -103,8 +103,8 @@ class GenRelationExemplarSelector(ExemplarSelector):
     def __call__(self, test_data: ProcessedLayoutData) -> List[ProcessedLayoutData]:
         scores = []
         test_labels = test_data["labels"]
-        for i in range(len(self.train_data)):
-            train_labels = self.train_data[i]["labels"]
+        for i in range(len(self.train_dataset)):
+            train_labels = self.train_dataset[i]["labels"]
             score = labels_similarity(train_labels, test_labels)
             scores.append([i, score])
         return self._retrieve_exemplars(scores)
@@ -119,9 +119,9 @@ class CompletionExemplarSelector(ExemplarSelector):
         scores = []
         test_labels = test_data["labels"][:1]
         test_bboxes = test_data["bboxes"][:1, :]
-        for i in range(len(self.train_data)):
-            train_labels = self.train_data[i]["labels"][:1]
-            train_bboxes = self.train_data[i]["bboxes"][:1, :]
+        for i in range(len(self.train_dataset)):
+            train_labels = self.train_dataset[i]["labels"][:1]
+            train_bboxes = self.train_dataset[i]["bboxes"][:1, :]
             score = labels_bboxes_similarity(
                 bboxes_1=train_bboxes,
                 bboxes_2=test_bboxes,
@@ -143,9 +143,9 @@ class RefinementExemplarSelector(ExemplarSelector):
         scores = []
         test_labels = test_data["labels"]
         test_bboxes = test_data["bboxes"]
-        for i in range(len(self.train_data)):
-            train_labels = self.train_data[i]["labels"]
-            train_bboxes = self.train_data[i]["bboxes"]
+        for i in range(len(self.train_dataset)):
+            train_labels = self.train_dataset[i]["labels"]
+            train_bboxes = self.train_dataset[i]["bboxes"]
             score = labels_bboxes_similarity(
                 train_labels,
                 train_bboxes,
@@ -180,8 +180,8 @@ class ContentAwareExemplarSelector(ExemplarSelector):
         scores = []
         test_content_bboxes = test_data["discrete_content_bboxes"]
         test_binary = self._to_binary_image(test_content_bboxes)
-        for i in range(len(self.train_data)):
-            train_content_bboxes = self.train_data[i]["discrete_content_bboxes"]
+        for i in range(len(self.train_dataset)):
+            train_content_bboxes = self.train_dataset[i]["discrete_content_bboxes"]
             train_binary = self._to_binary_image(train_content_bboxes)
             intersection = cv2.bitwise_and(train_binary, test_binary)
             union = cv2.bitwise_or(train_binary, test_binary)
@@ -195,8 +195,8 @@ class TextToLayoutExemplarSelector(ExemplarSelector):
     def __call__(self, test_data: ProcessedLayoutData) -> List[ProcessedLayoutData]:
         scores = []
         test_embedding = test_data["embedding"]
-        for i in range(len(self.train_data)):
-            train_embedding = self.train_data[i]["embedding"]
+        for i in range(len(self.train_dataset)):
+            train_embedding = self.train_dataset[i]["embedding"]
             score = (train_embedding @ test_embedding.T).item()
             scores.append([i, score])
         return self._retrieve_exemplars(scores)
@@ -215,13 +215,13 @@ SELECTOR_MAP: Dict[str, Type[ExemplarSelector]] = {
 
 def create_selector(
     task: str,
-    train_data: List[ProcessedLayoutData],
+    train_dataset: List[ProcessedLayoutData],
     candidate_size: int,
     num_prompt: int,
 ) -> ExemplarSelector:
     selector_cls = SELECTOR_MAP[task]
     selector = selector_cls(
-        train_data=train_data,
+        train_dataset=train_dataset,
         candidate_size=candidate_size,
         num_prompt=num_prompt,
     )

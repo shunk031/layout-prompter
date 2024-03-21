@@ -14,6 +14,7 @@ from layout_prompter.utils import (
 
 if TYPE_CHECKING:
     from layout_prompter.parsers import ParserOutput
+    from layout_prompter.typehint import ProcessedLayoutData
 
 __all__ = ["Ranker", "RankerOutput"]
 
@@ -29,7 +30,7 @@ class Ranker(object):
     lambda_2: float = 0.2
     lambda_3: float = 0.6
 
-    val_dataset: Optional[List[Dict[str, Any]]] = field(repr=False, default=None)
+    val_dataset: Optional[List[ProcessedLayoutData]] = field(repr=False, default=None)
     _val_bboxes: Optional[List[torch.Tensor]] = field(repr=False, default=None)
     _val_labels: Optional[List[torch.Tensor]] = field(repr=False, default=None)
 
