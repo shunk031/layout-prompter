@@ -8,7 +8,12 @@ from openai.types.chat import ChatCompletion, ChatCompletionMessageParam
 from transformers import AutoTokenizer
 from transformers.tokenization_utils import PreTrainedTokenizer
 
-from layout_prompter.parsers import GPTResponseParser, Parser, TGIResponseParser
+from layout_prompter.parsers import (
+    GPTResponseParser,
+    Parser,
+    ParserOutput,
+    TGIResponseParser,
+)
 
 __all__ = ["LLM", "GPTCallar", "TGICaller"]
 
@@ -20,7 +25,7 @@ class LLM(object, metaclass=abc.ABCMeta):
     def generate(self, *args, **kwargs) -> Any:
         raise NotImplementedError
 
-    def __call__(self, *args, **kwargs) -> Any:
+    def __call__(self, *args, **kwargs) -> List[ParserOutput]:
         generated_results = self.generate(*args, **kwargs)
         return self.parser(generated_results)
 

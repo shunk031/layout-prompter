@@ -70,7 +70,7 @@ class LayoutPrompter(object):
         max_num_try: int = 5,
         exemplars: Optional[List[ProcessedLayoutData]] = None,
         **kwargs,
-    ) -> Any:
+    ) -> List[RankerOutput]:
         prompt_messages = self.build_prompt_messages(
             test_data=test_data, exemplars=exemplars
         )
