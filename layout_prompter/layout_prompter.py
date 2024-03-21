@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 from layout_prompter.modules import (
     LLM,
@@ -31,10 +31,21 @@ class LayoutPrompter(object):
         response = self.llm(prompt_messages, **kwargs)
         return self.ranker(response)
 
-    def build_prompt_messages(self, test_data: ProcessedLayoutData):
-        exemplars = self.selector(test_data)
+    def get_exemplars(
+        self, test_data: ProcessedLayoutData
+    ) -> List[ProcessedLayoutData]:
+        return self.selector(test_data)
+
+    def build_prompt_messages(
+        self,
+        test_data: ProcessedLayoutData,
+        exemplars: Optional[List[ProcessedLayoutData]] = None,
+    ) -> List[Dict[str, str]]:
         prompt = self.serializer.build_prompt(
-            exemplars=exemplars, layout_data=test_data
+            exemplars=(
+                exemplars if exemplars is not None else self.get_exemplars(test_data)
+            ),
+            layout_data=test_data,
         )
         prompt_messages = [
             {"role": "system", "content": prompt["system_prompt"]},
@@ -54,7 +65,13 @@ class LayoutPrompter(object):
         raise ValueError(f"Failed to generate layout for prompt: {prompt_messages}")
 
     def __call__(
-        self, test_data: ProcessedLayoutData, max_num_try: int = 5, **kwargs
+        self,
+        test_data: ProcessedLayoutData,
+        max_num_try: int = 5,
+        exemplars: Optional[List[ProcessedLayoutData]] = None,
+        **kwargs,
     ) -> Any:
-        prompt_messages = self.build_prompt_messages(test_data=test_data)
+        prompt_messages = self.build_prompt_messages(
+            test_data=test_data, exemplars=exemplars
+        )
         return self.generate_layout(prompt_messages, max_num_try=max_num_try, **kwargs)
