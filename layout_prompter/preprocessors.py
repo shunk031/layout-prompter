@@ -12,6 +12,7 @@ import torch.nn as nn
 import torchvision.transforms as T
 from pandas import DataFrame
 
+from layout_prompter.dataset import LayoutDataset
 from layout_prompter.transforms import (
     AddCanvasElement,
     AddGaussianNoise,
@@ -24,7 +25,7 @@ from layout_prompter.transforms import (
     ShuffleElements,
 )
 from layout_prompter.typehint import LayoutData
-from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, clean_text
+from layout_prompter.utils import clean_text
 
 if TYPE_CHECKING:
     from layout_prompter.typehint import ProcessedLayoutData
@@ -43,9 +44,7 @@ __all__ = [
 
 @dataclass
 class Processor(object):
-    index2label: Dict[int, str]
-    canvas_width: int
-    canvas_height: int
+    dataset: LayoutDataset
 
     sort_by_pos: Optional[bool] = None
     shuffle_before_sort_by_label: Optional[bool] = None
@@ -85,10 +84,11 @@ class Processor(object):
                 transform_functions.append(ShuffleElements())
             elif self.sort_by_pos_before_sort_by_label:
                 transform_functions.append(LexicographicSort())
-            transform_functions.append(LabelDictSort(self.index2label))
+            transform_functions.append(LabelDictSort(self.dataset.id2label))
         transform_functions.append(
             DiscretizeBoundingBox(
-                num_x_grid=self.canvas_width, num_y_grid=self.canvas_height
+                num_x_grid=self.dataset.canvas_width,
+                num_y_grid=self.dataset.canvas_height,
             )
         )
         return transform_functions
@@ -375,15 +375,11 @@ PROCESSOR_MAP: Dict[str, Type[Processor]] = {
 
 
 def create_processor(
-    dataset: str, task: str, metadata: Optional[pd.DataFrame] = None
+    dataset: LayoutDataset, task: str, metadata: Optional[pd.DataFrame] = None
 ) -> Processor:
     processor_cls: Type[Processor] = PROCESSOR_MAP[task]
-    index2label: Dict[int, str] = ID2LABEL[dataset]
-    canvas_width, canvas_height = CANVAS_SIZE[dataset]
     processor = processor_cls(
-        index2label=index2label,
-        canvas_width=canvas_width,
-        canvas_height=canvas_height,
+        dataset=dataset,
         metadata=metadata,
     )
     return processor

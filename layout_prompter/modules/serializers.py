@@ -5,9 +5,9 @@ import logging
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Dict, Final, List, Type
 
+from layout_prompter.dataset import LayoutDataset
 from layout_prompter.transforms import RelationTypes
 from layout_prompter.typehint import Prompt
-from layout_prompter.utils import CANVAS_SIZE, ID2LABEL, LAYOUT_DOMAIN
 
 if TYPE_CHECKING:
     from layout_prompter.typehint import ProcessedLayoutData
@@ -61,14 +61,9 @@ HTML_TEMPLATE_WITH_INDEX: Final[
 
 @dataclass
 class SerializerMixin(object):
-    dataset: str
+    dataset: LayoutDataset
     input_format: str
     output_format: str
-
-    index2label: Dict[int, str]
-
-    canvas_width: int
-    canvas_height: int
 
     task_type: str = ""
 
@@ -170,9 +165,9 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
     ) -> Prompt:
         system_prompt = self.preamble_template.format(
             task_description=self.task_type,
-            layout_domain=LAYOUT_DOMAIN[self.dataset],
-            canvas_width=CANVAS_SIZE[self.dataset][0],
-            canvas_height=CANVAS_SIZE[self.dataset][1],
+            layout_domain=self.dataset.layout_domain,
+            canvas_width=self.dataset.canvas_width,
+            canvas_height=self.dataset.canvas_height,
         )
         logger.debug(f"System prompt: \n{system_prompt}")
 
@@ -541,7 +536,7 @@ SERIALIZER_MAP: Dict[str, Type[SerializerMixin]] = {
 
 
 def create_serializer(
-    dataset: str,
+    dataset: LayoutDataset,
     task: str,
     input_format: str,
     output_format: str,
@@ -550,15 +545,10 @@ def create_serializer(
     add_unk_token: bool,
 ) -> SerializerMixin:
     serializer_cls = SERIALIZER_MAP[task]
-    index2label = ID2LABEL[dataset]
-    canvas_width, canvas_height = CANVAS_SIZE[dataset]
     serializer = serializer_cls(
         dataset=dataset,
         input_format=input_format,
         output_format=output_format,
-        index2label=index2label,
-        canvas_width=canvas_width,
-        canvas_height=canvas_height,
         add_index_token=add_index_token,
         add_sep_token=add_sep_token,
         add_unk_token=add_unk_token,

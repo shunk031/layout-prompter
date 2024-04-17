@@ -11,8 +11,8 @@ import torch
 from PIL import Image, ImageDraw
 from PIL.Image import Image as PilImage
 
+from layout_prompter.dataset import LayoutDataset
 from layout_prompter.modules.rankers import RankerOutput
-from layout_prompter.utils import CANVAS_SIZE, ID2LABEL
 
 if TYPE_CHECKING:
     from layout_prompter.typehint import ProcessedLayoutData
@@ -20,18 +20,8 @@ if TYPE_CHECKING:
 
 @dataclass
 class VisualizerMixin(object, metaclass=abc.ABCMeta):
-    dataset: str
+    dataset: LayoutDataset
     times: float = 3.0
-
-    @property
-    def canvas_width(self) -> int:
-        width, _ = CANVAS_SIZE[self.dataset]
-        return int(width * self.times)
-
-    @property
-    def canvas_height(self) -> int:
-        _, height = CANVAS_SIZE[self.dataset]
-        return int(height * self.times)
 
     @abc.abstractmethod
     def draw_layout(self, *args, **kwargs) -> PilImage:
@@ -49,7 +39,7 @@ class Visualizer(VisualizerMixin):
     @property
     def colors(self) -> List[Tuple[int, int, int]]:
         if self._colors is None:
-            n_colors = len(ID2LABEL[self.dataset]) + 1
+            n_colors = len(self.dataset.id2label) + 1
             colors = sns.color_palette("husl", n_colors=n_colors)
             self._colors = [
                 (int(c[0] * 255), int(c[1] * 255), int(c[2] * 255)) for c in colors
@@ -59,8 +49,8 @@ class Visualizer(VisualizerMixin):
     def draw_layout(
         self, labels_tensor: torch.Tensor, bboxes_tensor: torch.Tensor
     ) -> PilImage:
-        _canvas_w = self.canvas_width
-        _canvas_h = self.canvas_height
+        _canvas_w = self.dataset.canvas_width
+        _canvas_h = self.dataset.canvas_height
         img = Image.new("RGB", (_canvas_w, _canvas_h), color=(255, 255, 255))
 
         draw = ImageDraw.Draw(img, "RGBA")
@@ -130,15 +120,15 @@ class ContentAwareVisualizer(VisualizerMixin):
         pic = (
             Image.open(os.path.join(self.canvas_path, f"{test_idx}.png"))
             .convert("RGB")
-            .resize((self.canvas_width, self.canvas_height))
+            .resize((self.dataset.canvas_width, self.dataset.canvas_height))
         )
         for prediction in predictions:
             labels, bboxes = prediction
             labels = labels.unsqueeze(-1)
             labels = np.array(labels, dtype=int)
             bboxes = np.array(bboxes)
-            bboxes[:, 0::2] *= self.canvas_width
-            bboxes[:, 1::2] *= self.canvas_height
+            bboxes[:, 0::2] *= self.dataset.canvas_width
+            bboxes[:, 1::2] *= self.dataset.canvas_height
             bboxes[:, 2] += bboxes[:, 0]
             bboxes[:, 3] += bboxes[:, 1]
             images.append(

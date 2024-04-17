@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, Dict, List, Optional, TypedDict
 import torch
 from openai.types.chat import ChatCompletion, ChatCompletionMessage
 
-from layout_prompter.utils import CANVAS_SIZE, ID2LABEL
+from layout_prompter.dataset import LayoutDataset
 
 if TYPE_CHECKING:
     from layout_prompter.modules.llm import TGIOutput
@@ -27,35 +27,8 @@ class ParserOutput(TypedDict):
 
 @dataclass
 class Parser(object, metaclass=abc.ABCMeta):
-    dataset: str
+    dataset: LayoutDataset
     output_format: str
-
-    _id2label: Optional[Dict[int, str]] = None
-    _label2id: Optional[Dict[str, int]] = None
-
-    def __post_init__(self) -> None:
-        self._id2label = ID2LABEL[self.dataset]
-        self._label2id = {v: k for k, v in self._id2label.items()}
-
-    @property
-    def canvas_width(self) -> int:
-        width, _ = CANVAS_SIZE[self.dataset]
-        return width
-
-    @property
-    def canvas_height(self) -> int:
-        _, height = CANVAS_SIZE[self.dataset]
-        return height
-
-    @property
-    def id2label(self) -> Dict[int, str]:
-        assert self._id2label is not None
-        return self._id2label
-
-    @property
-    def label2id(self) -> Dict[str, int]:
-        assert self._label2id is not None
-        return self._label2id
 
     def _extract_labels_and_bboxes(self, prediction: str) -> ParserOutput:
         if self.output_format == "seq":
@@ -78,14 +51,14 @@ class Parser(object, metaclass=abc.ABCMeta):
                 f"(#labels = {len(labels)}, #x = {len(x)}, #y = {len(y)}, #w = {len(w)}, #h = {len(h)})."
             )
 
-        labels_tensor = torch.tensor([self.label2id[label] for label in labels])
+        labels_tensor = torch.tensor([self.dataset.label2id[label] for label in labels])
         bboxes_tensor = torch.tensor(
             [
                 [
-                    int(x[i]) / self.canvas_width,
-                    int(y[i]) / self.canvas_height,
-                    int(w[i]) / self.canvas_width,
-                    int(h[i]) / self.canvas_height,
+                    int(x[i]) / self.dataset.canvas_width,
+                    int(y[i]) / self.dataset.canvas_height,
+                    int(w[i]) / self.dataset.canvas_width,
+                    int(h[i]) / self.dataset.canvas_height,
                 ]
                 for i in range(len(x))
             ]
@@ -93,17 +66,17 @@ class Parser(object, metaclass=abc.ABCMeta):
         return {"bboxes": bboxes_tensor, "labels": labels_tensor}
 
     def _extract_labels_and_bboxes_from_seq(self, prediction: str) -> ParserOutput:
-        label_set = list(self.label2id.keys())
+        label_set = list(self.dataset.label2id.keys())
         seq_pattern = r"(" + "|".join(label_set) + r") (\d+) (\d+) (\d+) (\d+)"
         res = re.findall(seq_pattern, prediction)
-        labels_tensor = torch.tensor([self.label2id[item[0]] for item in res])
+        labels_tensor = torch.tensor([self.dataset.label2id[item[0]] for item in res])
         bboxes_tensor = torch.tensor(
             [
                 [
-                    int(item[1]) / self.canvas_width,
-                    int(item[2]) / self.canvas_height,
-                    int(item[3]) / self.canvas_width,
-                    int(item[4]) / self.canvas_height,
+                    int(item[1]) / self.dataset.canvas_width,
+                    int(item[2]) / self.dataset.canvas_height,
+                    int(item[3]) / self.dataset.canvas_width,
+                    int(item[4]) / self.dataset.canvas_height,
                 ]
                 for item in res
             ]
@@ -131,9 +104,8 @@ class Parser(object, metaclass=abc.ABCMeta):
         return parsed_response
 
 
+@dataclass
 class GPTResponseParser(Parser):
-    def __init__(self, dataset: str, output_format: str) -> None:
-        super().__init__(dataset, output_format)
 
     def check_filtered_response_count(
         self, original_response: ChatCompletion, parsed_response: List[ParserOutput]
@@ -158,9 +130,8 @@ class GPTResponseParser(Parser):
         return parsed_predictions
 
 
+@dataclass
 class TGIResponseParser(Parser):
-    def __init__(self, dataset: str, output_format: str):
-        super().__init__(dataset, output_format)
 
     def check_filtered_response_count(
         self, original_response: TGIOutput, parsed_response: List[ParserOutput]

@@ -2,7 +2,7 @@ import json
 import os
 import re
 from collections import Counter
-from typing import Any, Dict, Final, List, Tuple
+from typing import Any, Dict, List
 
 import numpy as np
 import torch
@@ -10,79 +10,9 @@ from scipy.optimize import linear_sum_assignment
 
 JsonDict = Dict[str, Any]
 
-ID2LABEL: Final[Dict[str, Dict[int, str]]] = {
-    "publaynet": {
-        1: "text",
-        2: "title",
-        3: "list",
-        4: "table",
-        5: "figure",
-    },
-    "rico": {
-        1: "text",
-        2: "image",
-        3: "icon",
-        4: "list-item",
-        5: "text-button",
-        6: "toolbar",
-        7: "web-view",
-        8: "input",
-        9: "card",
-        10: "advertisement",
-        11: "background-image",
-        12: "drawer",
-        13: "radio-button",
-        14: "checkbox",
-        15: "multi-tab",
-        16: "pager-indicator",
-        17: "modal",
-        18: "on/off-switch",
-        19: "slider",
-        20: "map-view",
-        21: "button-bar",
-        22: "video",
-        23: "bottom-navigation",
-        24: "number-stepper",
-        25: "date-picker",
-    },
-    "posterlayout": {
-        1: "text",
-        2: "logo",
-        3: "underlay",
-    },
-    "webui": {
-        0: "text",
-        1: "link",
-        2: "button",
-        3: "title",
-        4: "description",
-        5: "image",
-        6: "background",
-        7: "logo",
-        8: "icon",
-        9: "input",
-    },
-}
-
-
-CANVAS_SIZE: Final[Dict[str, Tuple[int, int]]] = {
-    "rico": (90, 160),
-    "publaynet": (120, 160),
-    "posterlayout": (102, 150),
-    "webui": (120, 120),
-}
-
 
 def get_raw_data_path(x):
     return os.path.join(os.path.dirname(__file__), f"../dataset/{x}/raw")
-
-
-LAYOUT_DOMAIN: Dict[str, str] = {
-    "rico": "android",
-    "publaynet": "document",
-    "posterlayout": "poster",
-    "webui": "web",
-}
 
 
 def clean_text(text: str, remove_summary: bool = False) -> str:
