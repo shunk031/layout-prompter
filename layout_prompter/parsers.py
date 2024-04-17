@@ -4,7 +4,7 @@ import abc
 import logging
 import re
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Dict, List, Optional, TypedDict
+from typing import TYPE_CHECKING, List, TypedDict
 
 import torch
 from openai.types.chat import ChatCompletion, ChatCompletionMessage
