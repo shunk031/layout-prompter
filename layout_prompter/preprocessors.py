@@ -153,7 +153,8 @@ class GenRelationProcessor(Processor):
         if self.relation_constrained_discrete_before_induce_relations:
             self.transform_functions.append(
                 DiscretizeBoundingBox(
-                    num_x_grid=self.canvas_width, num_y_grid=self.canvas_height
+                    num_x_grid=self.dataset.canvas_width,
+                    num_y_grid=self.dataset.canvas_height,
                 )
             )
             self.transform_functions.append(
@@ -165,7 +166,8 @@ class GenRelationProcessor(Processor):
             self.transform_functions.append(AddRelation())
             self.transform_functions.append(
                 DiscretizeBoundingBox(
-                    num_x_grid=self.canvas_width, num_y_grid=self.canvas_height
+                    num_x_grid=self.dataset.canvas_width,
+                    num_y_grid=self.dataset.canvas_height,
                 )
             )
 
@@ -322,14 +324,10 @@ class TextToLayoutProcessor(Processor):
         "embedding",
     )
     text_encoder: CLIPTextEncoder = CLIPTextEncoder()
-    label2index: Optional[Dict[str, int]] = None
-
-    def __post_init__(self) -> None:
-        self.label2index = {v: k for k, v in self.index2label.items()}
 
     def _scale(self, original_width, elements_):
         elements = copy.deepcopy(elements_)
-        ratio = self.canvas_width / original_width
+        ratio = self.dataset.canvas_width / original_width
         for i in range(len(elements)):
             elements[i]["position"][0] = int(ratio * elements[i]["position"][0])
             elements[i]["position"][1] = int(ratio * elements[i]["position"][1])
@@ -348,8 +346,7 @@ class TextToLayoutProcessor(Processor):
         elements = self._scale(original_width, elements)
         elements = sorted(elements, key=lambda x: (x["position"][1], x["position"][0]))
 
-        assert self.label2index is not None
-        labels = [self.label2index[element["type"]] for element in elements]
+        labels = [self.dataset.label2id[element["type"]] for element in elements]
         labels_tensor = torch.tensor(labels)
         bboxes = [element["position"] for element in elements]
         bboxes_tensor = torch.tensor(bboxes)

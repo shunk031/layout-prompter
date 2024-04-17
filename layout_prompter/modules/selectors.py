@@ -3,13 +3,13 @@ from __future__ import annotations
 import abc
 import random
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Dict, List, Type
+from typing import TYPE_CHECKING, Dict, List, Optional, Type
 
 import cv2
 import numpy as np
 
+from layout_prompter.dataset import LayoutDataset
 from layout_prompter.utils import (
-    CANVAS_SIZE,
     labels_bboxes_similarity,
     labels_similarity,
 )
@@ -36,6 +36,7 @@ class ExemplarSelector(object, metaclass=abc.ABCMeta):
     candidate_size: int
     num_prompt: int
     shuffle: bool = True
+    dataset: Optional[LayoutDataset] = None
 
     def __post_init__(self) -> None:
         if self.candidate_size > 0:
@@ -160,10 +161,13 @@ class RefinementExemplarSelector(ExemplarSelector):
 
 @dataclass
 class ContentAwareExemplarSelector(ExemplarSelector):
-    canvas_width, canvas_height = CANVAS_SIZE["posterlayout"]
 
     def _to_binary_image(self, content_bboxes):
-        binary_image = np.zeros((self.canvas_height, self.canvas_width), dtype=np.uint8)
+        assert self.dataset is not None
+
+        binary_image = np.zeros(
+            (self.dataset.canvas_height, self.dataset.canvas_width), dtype=np.uint8
+        )
         content_bboxes = content_bboxes.tolist()
         for content_bbox in content_bboxes:
             left, top, width, height = content_bbox
@@ -218,11 +222,13 @@ def create_selector(
     train_dataset: List[ProcessedLayoutData],
     candidate_size: int,
     num_prompt: int,
+    dataset: Optional[LayoutDataset] = None,
 ) -> ExemplarSelector:
     selector_cls = SELECTOR_MAP[task]
     selector = selector_cls(
         train_dataset=train_dataset,
         candidate_size=candidate_size,
         num_prompt=num_prompt,
+        dataset=dataset,
     )
     return selector

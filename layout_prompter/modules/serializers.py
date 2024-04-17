@@ -3,7 +3,7 @@ from __future__ import annotations
 import abc
 import logging
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Dict, Final, List, Type
+from typing import TYPE_CHECKING, Dict, Final, List, Literal, Type
 
 from layout_prompter.dataset import LayoutDataset
 from layout_prompter.transforms import RelationTypes
@@ -11,6 +11,8 @@ from layout_prompter.typehint import Prompt
 
 if TYPE_CHECKING:
     from layout_prompter.typehint import ProcessedLayoutData
+
+InOutFormat = Literal["seq", "html"]
 
 logger = logging.getLogger(__name__)
 
@@ -62,8 +64,8 @@ HTML_TEMPLATE_WITH_INDEX: Final[
 @dataclass
 class SerializerMixin(object):
     dataset: LayoutDataset
-    input_format: str
-    output_format: str
+    input_format: InOutFormat
+    output_format: InOutFormat
 
     task_type: str = ""
 
@@ -126,7 +128,7 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
         tokens: List[str] = []
 
         for idx in range(len(labels)):
-            label = self.index2label[int(labels[idx])]
+            label = self.dataset.id2label[int(labels[idx])]
             bbox = bboxes[idx].tolist()
             tokens.append(label)
             if self.add_index_token:
@@ -141,11 +143,15 @@ class Serializer(SerializerMixin, metaclass=abc.ABCMeta):
     ) -> str:
         bboxes, labels = data[bbox_key], data[label_key]  # type: ignore
 
-        htmls = [HTML_PREFIX.format(width=self.canvas_width, height=self.canvas_height)]
+        htmls = [
+            HTML_PREFIX.format(
+                width=self.dataset.canvas_width, height=self.dataset.canvas_height
+            )
+        ]
         _TEMPLATE = HTML_TEMPLATE_WITH_INDEX if self.add_index_token else HTML_TEMPLATE
 
         for idx in range(len(labels)):
-            label = self.index2label[int(labels[idx])]
+            label = self.dataset.id2label[int(labels[idx])]
             bbox = bboxes[idx].tolist()
             element = [label]
             if self.add_index_token:
@@ -208,7 +214,7 @@ class GenTypeSerializer(Serializer):
         tokens: List[str] = []
 
         for idx in range(len(labels)):
-            label = self.index2label[int(labels[idx])]
+            label = self.dataset.id2label[int(labels[idx])]
             tokens.append(label)
             if self.add_index_token:
                 tokens.append(str(idx))
@@ -220,7 +226,9 @@ class GenTypeSerializer(Serializer):
 
     def _build_html_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
-        htmls = [HTML_PREFIX.format(self.canvas_width, self.canvas_height)]
+        htmls = [
+            HTML_PREFIX.format(self.dataset.canvas_width, self.dataset.canvas_height)
+        ]
         if self.add_index_token and self.add_unk_token:
             _TEMPLATE = HTML_TEMPLATE_WITH_INDEX
         elif self.add_index_token and not self.add_unk_token:
@@ -231,7 +239,7 @@ class GenTypeSerializer(Serializer):
             _TEMPLATE = self.HTML_TEMPLATE_WITHOUT_ANK
 
         for idx in range(len(labels)):
-            label = self.index2label[int(labels[idx])]
+            label = self.dataset.id2label[int(labels[idx])]
             element = [label]
             if self.add_index_token:
                 element.append(str(idx))
@@ -264,7 +272,7 @@ class GenTypeSizeSerializer(Serializer):
         tokens = []
 
         for idx in range(len(labels)):
-            label = self.index2label[int(labels[idx])]
+            label = self.dataset.id2label[int(labels[idx])]
             bbox = bboxes[idx].tolist()
             tokens.append(label)
             if self.add_index_token:
@@ -279,7 +287,9 @@ class GenTypeSizeSerializer(Serializer):
     def _build_html_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
         bboxes = data["discrete_gold_bboxes"]
-        htmls = [HTML_PREFIX.format(self.canvas_width, self.canvas_height)]
+        htmls = [
+            HTML_PREFIX.format(self.dataset.canvas_width, self.dataset.canvas_height)
+        ]
         if self.add_index_token and self.add_unk_token:
             _TEMPLATE = HTML_TEMPLATE_WITH_INDEX
         elif self.add_index_token and not self.add_unk_token:
@@ -290,7 +300,7 @@ class GenTypeSizeSerializer(Serializer):
             _TEMPLATE = self.HTML_TEMPLATE_WITHOUT_ANK
 
         for idx in range(len(labels)):
-            label = self.index2label[int(labels[idx])]
+            label = self.dataset.id2label[int(labels[idx])]
             bbox = bboxes[idx].tolist()
             element = [label]
             if self.add_index_token:
@@ -341,7 +351,7 @@ class GenRelationSerializer(Serializer):
         tokens = []
 
         for idx in range(len(labels)):
-            label = self.index2label[int(labels[idx])]
+            label = self.dataset.id2label[int(labels[idx])]
             tokens.append(label)
             if self.add_index_token:
                 tokens.append(str(idx))
@@ -357,14 +367,18 @@ class GenRelationSerializer(Serializer):
             label_i = relations[idx][2]
             index_i = relations[idx][3]
             if label_i != 0:
-                tokens.append("{} {}".format(self.index2label[int(label_i)], index_i))
+                tokens.append(
+                    "{} {}".format(self.dataset.id2label[int(label_i)], index_i)
+                )
             else:
                 tokens.append("canvas")
             tokens.append(self.index2type[int(relations[idx][4])])
             label_j = relations[idx][0]
             index_j = relations[idx][1]
             if label_j != 0:
-                tokens.append("{} {}".format(self.index2label[int(label_j)], index_j))
+                tokens.append(
+                    "{} {}".format(self.dataset.id2label[int(label_j)], index_j)
+                )
             else:
                 tokens.append("canvas")
             if self.add_sep_token and idx < len(relations) - 1:
@@ -381,7 +395,9 @@ class GenRelationSerializer(Serializer):
     def _build_html_input(self, data):
         labels = data["labels"]
         relations = data["relations"]
-        htmls = [HTML_PREFIX.format(self.canvas_width, self.canvas_height)]
+        htmls = [
+            HTML_PREFIX.format(self.dataset.canvas_width, self.dataset.canvas_height)
+        ]
         if self.add_index_token and self.add_unk_token:
             _TEMPLATE = HTML_TEMPLATE_WITH_INDEX
         elif self.add_index_token and not self.add_unk_token:
@@ -392,7 +408,7 @@ class GenRelationSerializer(Serializer):
             _TEMPLATE = self.HTML_TEMPLATE_WITHOUT_ANK
 
         for idx in range(len(labels)):
-            label = self.index2label[int(labels[idx])]
+            label = self.dataset.id2label[int(labels[idx])]
             element = [label]
             if self.add_index_token:
                 element.append(str(idx))
@@ -408,14 +424,18 @@ class GenRelationSerializer(Serializer):
             label_i = relations[idx][2]
             index_i = relations[idx][3]
             if label_i != 0:
-                tokens.append("{} {}".format(self.index2label[int(label_i)], index_i))
+                tokens.append(
+                    "{} {}".format(self.dataset.id2label[int(label_i)], index_i)
+                )
             else:
                 tokens.append("canvas")
             tokens.append(self.index2type[int(relations[idx][4])])
             label_j = relations[idx][0]
             index_j = relations[idx][1]
             if label_j != 0:
-                tokens.append("{} {}".format(self.index2label[int(label_j)], index_j))
+                tokens.append(
+                    "{} {}".format(self.dataset.id2label[int(label_j)], index_j)
+                )
             else:
                 tokens.append("canvas")
             if self.add_sep_token and idx < len(relations) - 1:
@@ -489,7 +509,7 @@ class ContentAwareSerializer(Serializer):
 
         tokens = []
         for idx in range(len(labels)):
-            label = self.index2label[int(labels[idx])]
+            label = self.dataset.id2label[int(labels[idx])]
             tokens.append(label)
             if self.add_index_token:
                 tokens.append(str(idx))
@@ -538,8 +558,8 @@ SERIALIZER_MAP: Dict[str, Type[SerializerMixin]] = {
 def create_serializer(
     dataset: LayoutDataset,
     task: str,
-    input_format: str,
-    output_format: str,
+    input_format: InOutFormat,
+    output_format: InOutFormat,
     add_index_token: bool,
     add_sep_token: bool,
     add_unk_token: bool,
