@@ -49,9 +49,9 @@ class Visualizer(VisualizerMixin):
     def draw_layout(
         self, labels_tensor: torch.Tensor, bboxes_tensor: torch.Tensor
     ) -> PilImage:
-        _canvas_w = self.dataset.canvas_width
-        _canvas_h = self.dataset.canvas_height
-        img = Image.new("RGB", (_canvas_w, _canvas_h), color=(255, 255, 255))
+        canvas_w = self.dataset.canvas_width
+        canvas_h = self.dataset.canvas_height
+        img = Image.new("RGB", (canvas_w, canvas_h), color=(255, 255, 255))
 
         draw = ImageDraw.Draw(img, "RGBA")
         labels: List[int] = labels_tensor.tolist()
@@ -66,8 +66,8 @@ class Visualizer(VisualizerMixin):
             x1, y1, x2, y2 = bbox
             x2 += x1
             y2 += y1
-            x1, x2 = x1 * _canvas_w, x2 * _canvas_w
-            y1, y2 = y1 * _canvas_h, y2 * _canvas_h
+            x1, x2 = x1 * canvas_w, x2 * canvas_w
+            y1, y2 = y1 * canvas_h, y2 * canvas_h
             draw.rectangle(xy=(x1, y1, x2, y2), outline=color, fill=c_fill)
         return img
 
