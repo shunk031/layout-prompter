@@ -30,7 +30,7 @@ __all__ = [
     "AddRelation",
     "RelationTypes",
     "SaliencyMapToBBoxes",
-    "CLIPTextEncoder",
+    "CLIPTextEncoderTransform",
 ]
 
 
@@ -356,7 +356,7 @@ class SaliencyMapToBBoxes(nn.Module):
         self.min_side = min_side
         self.min_area = min_area
 
-    def _is_small_bbox(self, bbox):
+    def _is_small_bbox(self, bbox) -> bool:
         return any(
             [
                 all([bbox[2] <= self.min_side, bbox[3] <= self.min_side]),
@@ -364,7 +364,7 @@ class SaliencyMapToBBoxes(nn.Module):
             ]
         )
 
-    def __call__(self, saliency_map):
+    def __call__(self, saliency_map: np.ndarray) -> torch.Tensor:
         saliency_map_gray = cv2.cvtColor(saliency_map, cv2.COLOR_BGR2GRAY)
         _, thresholded_map = cv2.threshold(
             saliency_map_gray, self.threshold, 255, cv2.THRESH_BINARY
@@ -384,18 +384,33 @@ class SaliencyMapToBBoxes(nn.Module):
         return bboxes
 
 
-class CLIPTextEncoder(nn.Module):
+class CLIPTextEncoderTransform(nn.Module):
     def __init__(self, model_name: str = "openai/clip-vit-base-patch32") -> None:
         super().__init__()
 
-        self.model_name = model_name
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model = CLIPModel.from_pretrained(model_name).eval().to(self.device)
-        self.processor = CLIPProcessor.from_pretrained(model_name)
+        self.model = self._get_clip_model(model_name)
+        self.processor = self._get_clip_processor(model_name)
+
+    def _get_clip_model(self, model_name: str) -> CLIPModel:
+        model: CLIPModel = CLIPModel.from_pretrained(model_name)  # type: ignore
+        model.eval()
+
+        model = model.to("cuda" if torch.cuda.is_available() else "cpu")  # type: ignore
+        return model
+
+    def _get_clip_processor(self, model_name: str) -> CLIPProcessor:
+        processor: CLIPProcessor = CLIPProcessor.from_pretrained(model_name)  # type: ignore
+        return processor
 
     @torch.no_grad()
     def __call__(self, text: str):
-        inputs = self.processor(text, return_tensors="pt", padding=True)
-        text_features = self.model.get_text_features(**inputs)
+        inputs = self.processor(
+            text,
+            return_tensors="pt",
+            max_length=self.processor.tokenizer.model_max_length,  # type: ignore
+            padding="max_length",
+            truncation=True,
+        )
+        text_features = self.model.get_text_features(**inputs)  # type: ignore
         text_features = text_features / text_features.norm(p=2, dim=-1, keepdim=True)
         return text_features

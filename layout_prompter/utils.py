@@ -2,18 +2,17 @@ import json
 import os
 import re
 from collections import Counter
-from typing import Any, Dict, List
+from typing import List
 
 import numpy as np
 import torch
 from scipy.optimize import linear_sum_assignment
 
 from layout_prompter.datasets import LayoutDataset
+from layout_prompter.typehint import JsonDict
 
-JsonDict = Dict[str, Any]
 
-
-def get_raw_data_path(x: LayoutDataset):
+def get_raw_data_path(x: LayoutDataset) -> str:
     return os.path.join(os.path.dirname(__file__), f"../dataset/{x.name}/raw")
 
 

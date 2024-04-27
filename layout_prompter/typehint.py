@@ -1,6 +1,8 @@
-from typing import Tuple, TypedDict
+from typing import Any, Dict, List, Tuple, TypedDict
 
 import torch
+
+JsonDict = Dict[str, Any]
 
 
 class LayoutData(TypedDict):
@@ -9,6 +11,12 @@ class LayoutData(TypedDict):
     labels: torch.Tensor
     canvas_size: Tuple[float, float]
     filtered: bool
+
+
+class TextToLayoutData(TypedDict):
+    text: str
+    canvas_width: int
+    elements: List[JsonDict]
 
 
 class ProcessedLayoutData(TypedDict):

@@ -223,6 +223,9 @@ def create_selector(
     num_prompt: int,
     dataset: Optional[LayoutDataset] = None,
 ) -> ExemplarSelector:
+    if task == "content":
+        assert dataset is not None, "`dataset` must be provided for content-aware task"
+
     selector_cls = SELECTOR_MAP[task]
 
     selector = selector_cls(

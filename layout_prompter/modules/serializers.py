@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Dict, Final, List, Literal, Type
 
 from layout_prompter.datasets import LayoutDataset
 from layout_prompter.transforms import RelationTypes
-from layout_prompter.typehint import Prompt
+from layout_prompter.typehint import ProcessedLayoutData, Prompt
 
 if TYPE_CHECKING:
     from layout_prompter.typehint import ProcessedLayoutData
@@ -38,12 +38,16 @@ PREAMBLE_TEMPLATE: Final[str] = (
 )
 
 
-HTML_PREFIX: Final[str] = """<html>
+HTML_PREFIX: Final[
+    str
+] = """<html>
 <body>
 <div class="canvas" style="left: 0px; top: 0px; width: {width}px; height: {height}px"></div>
 """
 
-HTML_SUFFIX: Final[str] = """</body>
+HTML_SUFFIX: Final[
+    str
+] = """</body>
 </html>"""
 
 HTML_TEMPLATE: Final[
@@ -75,13 +79,13 @@ class SerializerMixin(object):
     def __post_init__(self) -> None:
         assert self.task_type != "", "`task_type` must be specified"
 
-    def _build_seq_input(self, data):
+    def _build_seq_input(self, data: ProcessedLayoutData) -> str:
         raise NotImplementedError
 
-    def _build_html_input(self, data) -> str:
+    def _build_html_input(self, data: ProcessedLayoutData) -> str:
         raise NotImplementedError
 
-    def build_prompt(self, *args, **kwargs):
+    def build_prompt(self, *args, **kwargs) -> Prompt:
         raise NotImplementedError
 
 
@@ -245,7 +249,7 @@ class GenTypeSerializer(Serializer):
         htmls.append(HTML_SUFFIX)
         return "".join(htmls)
 
-    def build_input(self, data):
+    def build_input(self, data: ProcessedLayoutData) -> str:
         return self.constraint_type[0] + super().build_input(data)
 
 
@@ -341,7 +345,7 @@ class GenRelationSerializer(Serializer):
         default_factory=lambda: RelationTypes.index2type()
     )
 
-    def _build_seq_input(self, data):
+    def _build_seq_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
         relations = data["relations"]
         tokens = []
@@ -388,7 +392,7 @@ class GenRelationSerializer(Serializer):
             + relation_cons
         )
 
-    def _build_html_input(self, data):
+    def _build_html_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
         relations = data["relations"]
         htmls = [
@@ -451,12 +455,12 @@ class CompletionSerializer(Serializer):
     task_type: str = "layout completion"
     constraint_type: List[str] = field(default_factory=lambda: ["Partial Layout: "])
 
-    def _build_seq_input(self, data):
+    def _build_seq_input(self, data: ProcessedLayoutData) -> str:
         data["partial_labels"] = data["labels"][:1]
         data["partial_bboxes"] = data["discrete_bboxes"][:1, :]
         return self._build_seq_output(data, "partial_labels", "partial_bboxes")
 
-    def _build_html_input(self, data):
+    def _build_html_input(self, data: ProcessedLayoutData) -> str:
         data["partial_labels"] = data["labels"][:1]
         data["partial_bboxes"] = data["discrete_bboxes"][:1, :]
         return self._build_html_output(data, "partial_labels", "partial_bboxes")
@@ -470,13 +474,13 @@ class RefinementSerializer(Serializer):
     task_type: str = "layout refinement"
     constraint_type: List[str] = field(default_factory=lambda: ["Noise Layout: "])
 
-    def _build_seq_input(self, data):
+    def _build_seq_input(self, data: ProcessedLayoutData) -> str:
         return self._build_seq_output(data, "labels", "discrete_bboxes")
 
-    def _build_html_input(self, data):
+    def _build_html_input(self, data: ProcessedLayoutData) -> str:
         return self._build_html_output(data, "labels", "discrete_bboxes")
 
-    def build_input(self, data):
+    def build_input(self, data: ProcessedLayoutData) -> str:
         return self.constraint_type[0] + super().build_input(data)
 
 
@@ -491,7 +495,10 @@ class ContentAwareSerializer(Serializer):
     )
     CONTENT_TEMPLATE: str = "left {}px, top {}px, width {}px, height {}px"
 
-    def _build_seq_input(self, data):
+    def _build_html_input(self, data: ProcessedLayoutData) -> str:
+        raise NotImplementedError
+
+    def _build_seq_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
         content_bboxes = data["discrete_content_bboxes"]
 
@@ -533,10 +540,13 @@ class TextToLayoutSerializer(Serializer):
     )
     constraint_type: List[str] = field(default_factory=lambda: ["Text: "])
 
-    def _build_seq_input(self, data):
+    def _build_html_input(self, data: ProcessedLayoutData) -> str:
+        raise NotImplementedError
+
+    def _build_seq_input(self, data: ProcessedLayoutData) -> str:
         return data["text"]
 
-    def build_input(self, data):
+    def build_input(self, data: ProcessedLayoutData) -> str:
         return self.constraint_type[0] + super().build_input(data)
 
 

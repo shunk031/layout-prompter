@@ -17,14 +17,14 @@ from layout_prompter.transforms import (
     AddCanvasElement,
     AddGaussianNoise,
     AddRelation,
-    CLIPTextEncoder,
+    CLIPTextEncoderTransform,
     DiscretizeBoundingBox,
     LabelDictSort,
     LexicographicSort,
     SaliencyMapToBBoxes,
     ShuffleElements,
 )
-from layout_prompter.typehint import LayoutData
+from layout_prompter.typehint import LayoutData, TextToLayoutData
 from layout_prompter.utils import clean_text
 
 if TYPE_CHECKING:
@@ -43,17 +43,26 @@ __all__ = [
 
 
 @dataclass
-class Processor(object):
+class ProcessorMixin(object):
     dataset: LayoutDataset
+    return_keys: Optional[Tuple[str, ...]] = None
 
+    metadata: Optional[pd.DataFrame] = field(repr=False, default=None)
+
+    def __post_init__(self) -> None:
+        assert self.return_keys is not None
+
+    def __call__(self, data: LayoutData) -> ProcessedLayoutData:
+        raise NotImplementedError
+
+
+@dataclass
+class Processor(ProcessorMixin):
     sort_by_pos: Optional[bool] = None
     shuffle_before_sort_by_label: Optional[bool] = None
     sort_by_pos_before_sort_by_label: Optional[bool] = None
 
     transform_functions: Optional[List[nn.Module]] = None
-
-    return_keys: Optional[Tuple[str, ...]] = None
-    metadata: Optional[pd.DataFrame] = field(repr=False, default=None)
 
     def __post_init__(self) -> None:
         conds = (
@@ -68,8 +77,6 @@ class Processor(object):
             )
 
         self.transform_functions = self._config_base_transform()
-
-        assert self.return_keys is not None
 
     @property
     def transform(self) -> T.Compose:
@@ -102,7 +109,6 @@ class Processor(object):
 @dataclass
 class GenTypeProcessor(Processor):
     return_keys: Tuple[str, ...] = (
-        "name",
         "labels",
         "bboxes",
         "gold_bboxes",
@@ -117,7 +123,6 @@ class GenTypeProcessor(Processor):
 @dataclass
 class GenTypeSizeProcessor(Processor):
     return_keys: Tuple[str, ...] = (
-        "name",
         "labels",
         "bboxes",
         "gold_bboxes",
@@ -132,7 +137,6 @@ class GenTypeSizeProcessor(Processor):
 @dataclass
 class GenRelationProcessor(Processor):
     return_keys: Tuple[str, ...] = (
-        "name",
         "labels",
         "bboxes",
         "gold_bboxes",
@@ -175,7 +179,6 @@ class GenRelationProcessor(Processor):
 @dataclass
 class CompletionProcessor(Processor):
     return_keys: Tuple[str, ...] = (
-        "name",
         "labels",
         "bboxes",
         "gold_bboxes",
@@ -190,7 +193,6 @@ class CompletionProcessor(Processor):
 @dataclass
 class RefinementProcessor(Processor):
     return_keys: Tuple[str, ...] = (
-        "name",
         "labels",
         "bboxes",
         "gold_bboxes",
@@ -223,7 +225,6 @@ class RefinementProcessor(Processor):
 class ContentAwareProcessor(Processor):
     return_keys: Tuple[str, ...] = (
         "idx",
-        "name",
         "labels",
         "bboxes",
         "gold_bboxes",
@@ -315,15 +316,14 @@ class TextToLayoutProcessorOutput(TypedDict):
 
 
 @dataclass
-class TextToLayoutProcessor(Processor):
+class TextToLayoutProcessor(ProcessorMixin):
     return_keys: Tuple[str, ...] = (
-        "name",
         "labels",
         "bboxes",
         "text",
         "embedding",
     )
-    text_encoder: CLIPTextEncoder = CLIPTextEncoder()
+    text_encode_transform: CLIPTextEncoderTransform = CLIPTextEncoderTransform()
 
     def _scale(self, original_width, elements_):
         elements = copy.deepcopy(elements_)
@@ -337,10 +337,13 @@ class TextToLayoutProcessor(Processor):
 
     def __call__(  # type: ignore[override]
         self,
-        data,
+        data: TextToLayoutData,
     ) -> TextToLayoutProcessorOutput:
         text = clean_text(data["text"])
-        embedding = self.text_encoder(clean_text(data["text"], remove_summary=True))
+
+        embedding = self.text_encode_transform(
+            clean_text(data["text"], remove_summary=True)
+        )
         original_width = data["canvas_width"]
         elements = data["elements"]
         elements = self._scale(original_width, elements)
@@ -360,7 +363,7 @@ class TextToLayoutProcessor(Processor):
         }
 
 
-PROCESSOR_MAP: Dict[str, Type[Processor]] = {
+PROCESSOR_MAP: Dict[str, Type[ProcessorMixin]] = {
     "gen-t": GenTypeProcessor,
     "gen-ts": GenTypeSizeProcessor,
     "gen-r": GenRelationProcessor,
@@ -373,8 +376,8 @@ PROCESSOR_MAP: Dict[str, Type[Processor]] = {
 
 def create_processor(
     dataset: LayoutDataset, task: str, metadata: Optional[pd.DataFrame] = None
-) -> Processor:
-    processor_cls: Type[Processor] = PROCESSOR_MAP[task]
+) -> ProcessorMixin:
+    processor_cls: Type[ProcessorMixin] = PROCESSOR_MAP[task]
     processor = processor_cls(
         dataset=dataset,
         metadata=metadata,
