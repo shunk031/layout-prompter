@@ -38,16 +38,12 @@ PREAMBLE_TEMPLATE: Final[str] = (
 )
 
 
-HTML_PREFIX: Final[
-    str
-] = """<html>
+HTML_PREFIX: Final[str] = """<html>
 <body>
 <div class="canvas" style="left: 0px; top: 0px; width: {width}px; height: {height}px"></div>
 """
 
-HTML_SUFFIX: Final[
-    str
-] = """</body>
+HTML_SUFFIX: Final[str] = """</body>
 </html>"""
 
 HTML_TEMPLATE: Final[
