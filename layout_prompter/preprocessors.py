@@ -12,7 +12,7 @@ import torch.nn as nn
 import torchvision.transforms as T
 from pandas import DataFrame
 
-from layout_prompter.dataset import LayoutDataset
+from layout_prompter.datasets import LayoutDataset
 from layout_prompter.transforms import (
     AddCanvasElement,
     AddGaussianNoise,

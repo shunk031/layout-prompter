@@ -5,7 +5,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Dict, Final, List, Literal, Type
 
-from layout_prompter.dataset import LayoutDataset
+from layout_prompter.datasets import LayoutDataset
 from layout_prompter.transforms import RelationTypes
 from layout_prompter.typehint import Prompt
 
@@ -38,16 +38,12 @@ PREAMBLE_TEMPLATE: Final[str] = (
 )
 
 
-HTML_PREFIX: Final[
-    str
-] = """<html>
+HTML_PREFIX: Final[str] = """<html>
 <body>
 <div class="canvas" style="left: 0px; top: 0px; width: {width}px; height: {height}px"></div>
 """
 
-HTML_SUFFIX: Final[
-    str
-] = """</body>
+HTML_SUFFIX: Final[str] = """</body>
 </html>"""
 
 HTML_TEMPLATE: Final[

@@ -8,11 +8,13 @@ import numpy as np
 import torch
 from scipy.optimize import linear_sum_assignment
 
+from layout_prompter.datasets import LayoutDataset
+
 JsonDict = Dict[str, Any]
 
 
-def get_raw_data_path(x):
-    return os.path.join(os.path.dirname(__file__), f"../dataset/{x}/raw")
+def get_raw_data_path(x: LayoutDataset):
+    return os.path.join(os.path.dirname(__file__), f"../dataset/{x.name}/raw")
 
 
 def clean_text(text: str, remove_summary: bool = False) -> str:

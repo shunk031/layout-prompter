@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Dict, List, Optional, Type
 import cv2
 import numpy as np
 
-from layout_prompter.dataset import LayoutDataset
+from layout_prompter.datasets import LayoutDataset
 from layout_prompter.utils import (
     labels_bboxes_similarity,
     labels_similarity,
@@ -161,7 +161,6 @@ class RefinementExemplarSelector(ExemplarSelector):
 
 @dataclass
 class ContentAwareExemplarSelector(ExemplarSelector):
-
     def _to_binary_image(self, content_bboxes):
         assert self.dataset is not None
 
@@ -225,6 +224,7 @@ def create_selector(
     dataset: Optional[LayoutDataset] = None,
 ) -> ExemplarSelector:
     selector_cls = SELECTOR_MAP[task]
+
     selector = selector_cls(
         train_dataset=train_dataset,
         candidate_size=candidate_size,

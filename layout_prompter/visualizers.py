@@ -11,7 +11,7 @@ import torch
 from PIL import Image, ImageDraw
 from PIL.Image import Image as PilImage
 
-from layout_prompter.dataset import LayoutDataset
+from layout_prompter.datasets import LayoutDataset
 from layout_prompter.modules.rankers import RankerOutput
 
 if TYPE_CHECKING:
