@@ -343,7 +343,7 @@ class GenRelationSerializer(Serializer):
 
     def _build_seq_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
-        relations = data["relations"]
+        relations = data["relations"]  # type: ignore
         tokens = []
 
         for idx in range(len(labels)):
@@ -390,7 +390,7 @@ class GenRelationSerializer(Serializer):
 
     def _build_html_input(self, data: ProcessedLayoutData) -> str:
         labels = data["labels"]
-        relations = data["relations"]
+        relations = data["relations"]  # type:ignore
         htmls = [
             HTML_PREFIX.format(self.dataset.canvas_width, self.dataset.canvas_height)
         ]
@@ -452,13 +452,13 @@ class CompletionSerializer(Serializer):
     constraint_type: List[str] = field(default_factory=lambda: ["Partial Layout: "])
 
     def _build_seq_input(self, data: ProcessedLayoutData) -> str:
-        data["partial_labels"] = data["labels"][:1]
-        data["partial_bboxes"] = data["discrete_bboxes"][:1, :]
+        data["partial_labels"] = data["labels"][:1]  # type: ignore
+        data["partial_bboxes"] = data["discrete_bboxes"][:1, :]  # type: ignore
         return self._build_seq_output(data, "partial_labels", "partial_bboxes")
 
     def _build_html_input(self, data: ProcessedLayoutData) -> str:
-        data["partial_labels"] = data["labels"][:1]
-        data["partial_bboxes"] = data["discrete_bboxes"][:1, :]
+        data["partial_labels"] = data["labels"][:1]  # type: ignore
+        data["partial_bboxes"] = data["discrete_bboxes"][:1, :]  # type: ignore
         return self._build_html_output(data, "partial_labels", "partial_bboxes")
 
     def build_input(self, data):
@@ -540,7 +540,7 @@ class TextToLayoutSerializer(Serializer):
         raise NotImplementedError
 
     def _build_seq_input(self, data: ProcessedLayoutData) -> str:
-        return data["text"]
+        return data["text"]  # type: ignore
 
     def build_input(self, data: ProcessedLayoutData) -> str:
         return self.constraint_type[0] + super().build_input(data)
