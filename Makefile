@@ -17,3 +17,7 @@ typecheck:
 
 .PHONY: check
 check: format lint typecheck
+
+.PHONY: test
+test:
+	poetry run pytest --nbmake notebooks/*.ipynb
