@@ -161,7 +161,6 @@ class RefinementExemplarSelector(ExemplarSelector):
 
 @dataclass
 class ContentAwareExemplarSelector(ExemplarSelector):
-
     def _to_binary_image(self, content_bboxes):
         assert self.dataset is not None
 

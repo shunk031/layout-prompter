@@ -106,7 +106,6 @@ class Parser(object, metaclass=abc.ABCMeta):
 
 @dataclass
 class GPTResponseParser(Parser):
-
     def check_filtered_response_count(
         self, original_response: ChatCompletion, parsed_response: List[ParserOutput]
     ) -> None:
@@ -132,7 +131,6 @@ class GPTResponseParser(Parser):
 
 @dataclass
 class TGIResponseParser(Parser):
-
     def check_filtered_response_count(
         self, original_response: TGIOutput, parsed_response: List[ParserOutput]
     ) -> None:
