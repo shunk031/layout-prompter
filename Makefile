@@ -5,11 +5,11 @@ setup:
 
 .PHONY: format
 format:
-	poetry run black --check .
+	poetry run ruff format --check --diff .
 
 .PHONY: lint
 lint:
-	poetry run ruff .
+	poetry run ruff check --output-format=github .
 
 .PHONY: typecheck
 typecheck:
