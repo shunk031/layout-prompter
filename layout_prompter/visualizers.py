@@ -39,7 +39,7 @@ class Visualizer(VisualizerMixin):
     @property
     def colors(self) -> List[Tuple[int, int, int]]:
         if self._colors is None:
-            n_colors = len(self.dataset.id2label) + 1
+            n_colors = len(self.dataset.labels) + 1
             colors = sns.color_palette("husl", n_colors=n_colors)
             self._colors = [
                 (int(c[0] * 255), int(c[1] * 255), int(c[2] * 255)) for c in colors

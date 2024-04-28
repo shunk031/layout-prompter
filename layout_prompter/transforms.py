@@ -56,9 +56,8 @@ class LabelDictSort(nn.Module):
     sort elements in one layout by their label
     """
 
-    def __init__(self, index2label: Optional[Dict[int, str]]) -> None:
+    def __init__(self, index2label: Dict[int, str]) -> None:
         super().__init__()
-        assert index2label is not None
         self.index2label = index2label
 
     def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:

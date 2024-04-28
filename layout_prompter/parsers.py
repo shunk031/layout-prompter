@@ -51,7 +51,7 @@ class Parser(object, metaclass=abc.ABCMeta):
                 f"(#labels = {len(labels)}, #x = {len(x)}, #y = {len(y)}, #w = {len(w)}, #h = {len(h)})."
             )
 
-        labels_tensor = torch.tensor([self.dataset.label2id[label] for label in labels])
+        labels_tensor = torch.tensor([self.dataset.to_index(label) for label in labels])
         bboxes_tensor = torch.tensor(
             [
                 [
@@ -66,10 +66,10 @@ class Parser(object, metaclass=abc.ABCMeta):
         return {"bboxes": bboxes_tensor, "labels": labels_tensor}
 
     def _extract_labels_and_bboxes_from_seq(self, prediction: str) -> ParserOutput:
-        label_set = list(self.dataset.label2id.keys())
+        label_set = self.dataset.labels
         seq_pattern = r"(" + "|".join(label_set) + r") (\d+) (\d+) (\d+) (\d+)"
         res = re.findall(seq_pattern, prediction)
-        labels_tensor = torch.tensor([self.dataset.label2id[item[0]] for item in res])
+        labels_tensor = torch.tensor([self.dataset.to_index(item[0]) for item in res])
         bboxes_tensor = torch.tensor(
             [
                 [
