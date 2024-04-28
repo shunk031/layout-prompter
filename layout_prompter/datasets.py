@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
-from typing import Dict, Optional, Tuple
+from dataclasses import dataclass
+from typing import Sequence, Tuple
 
 
 @dataclass
@@ -7,17 +7,17 @@ class LayoutDataset(object):
     name: str
     layout_domain: str
     canvas_size: Tuple[int, int]
+    labels: Sequence[str]
 
-    id2label: Dict[int, str]
-    _label2id: Optional[Dict[str, int]] = None
+    def to_index(self, label: str) -> int:
+        return self.labels.index(label)
 
-    def __post_init__(self) -> None:
-        self._label2id = {v: k for k, v in self.id2label.items()}
+    def to_label(self, index: int) -> str:
+        return self.labels[index]
 
     @property
-    def label2id(self) -> Dict[str, int]:
-        assert self._label2id is not None
-        return self._label2id
+    def index2label(self) -> dict:
+        return {i: label for i, label in enumerate(self.labels)}
 
     @property
     def canvas_width(self) -> int:
@@ -35,34 +35,32 @@ class RicoDataset(LayoutDataset):
     name: str = "rico"
     layout_domain: str = "android"
     canvas_size: Tuple[int, int] = (90, 160)
-    id2label: Dict[int, str] = field(
-        default_factory=lambda: {
-            1: "text",
-            2: "image",
-            3: "icon",
-            4: "list-item",
-            5: "text-button",
-            6: "toolbar",
-            7: "web-view",
-            8: "input",
-            9: "card",
-            10: "advertisement",
-            11: "background-image",
-            12: "drawer",
-            13: "radio-button",
-            14: "checkbox",
-            15: "multi-tab",
-            16: "pager-indicator",
-            17: "modal",
-            18: "on/off-switch",
-            19: "slider",
-            20: "map-view",
-            21: "button-bar",
-            22: "video",
-            23: "bottom-navigation",
-            24: "number-stepper",
-            25: "date-picker",
-        }
+    labels: Tuple[str, ...] = (
+        "text",
+        "image",
+        "icon",
+        "list-item",
+        "text-button",
+        "toolbar",
+        "web-view",
+        "input",
+        "card",
+        "advertisement",
+        "background-image",
+        "drawer",
+        "radio-button",
+        "checkbox",
+        "multi-tab",
+        "pager-indicator",
+        "modal",
+        "on/off-switch",
+        "slider",
+        "map-view",
+        "button-bar",
+        "video",
+        "bottom-navigation",
+        "number-stepper",
+        "date-picker",
     )
 
 
@@ -71,14 +69,12 @@ class PubLayNetDataset(LayoutDataset):
     name: str = "publaynet"
     layout_domain: str = "document"
     canvas_size: Tuple[int, int] = (120, 160)
-    id2label: Dict[int, str] = field(
-        default_factory=lambda: {
-            1: "text",
-            2: "title",
-            3: "list",
-            4: "table",
-            5: "figure",
-        }
+    labels: Tuple[str, ...] = (
+        "text",
+        "title",
+        "list",
+        "table",
+        "figure",
     )
 
 
@@ -87,12 +83,10 @@ class PosterLayoutDataset(LayoutDataset):
     name: str = "posterlayout"
     layout_domain: str = "poster"
     canvas_size: Tuple[int, int] = (102, 150)
-    id2label: Dict[int, str] = field(
-        default_factory=lambda: {
-            1: "text",
-            2: "logo",
-            3: "underlay",
-        }
+    labels: Tuple[str, ...] = (
+        "text",
+        "logo",
+        "underlay",
     )
 
 
@@ -101,17 +95,15 @@ class WebUIDataset(LayoutDataset):
     name: str = "webui"
     layout_domain: str = "web"
     canvas_size: Tuple[int, int] = (120, 120)
-    id2label: Dict[int, str] = field(
-        default_factory=lambda: {
-            0: "text",
-            1: "link",
-            2: "button",
-            3: "title",
-            4: "description",
-            5: "image",
-            6: "background",
-            7: "logo",
-            8: "icon",
-            9: "input",
-        }
+    labels: Tuple[str, ...] = (
+        "text",
+        "link",
+        "button",
+        "title",
+        "description",
+        "image",
+        "background",
+        "logo",
+        "icon",
+        "input",
     )

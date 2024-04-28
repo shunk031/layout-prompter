@@ -91,7 +91,7 @@ class Processor(ProcessorMixin):
                 transform_functions.append(ShuffleElements())
             elif self.sort_by_pos_before_sort_by_label:
                 transform_functions.append(LexicographicSort())
-            transform_functions.append(LabelDictSort(self.dataset.id2label))
+            transform_functions.append(LabelDictSort(self.dataset.index2label))
         transform_functions.append(
             DiscretizeBoundingBox(
                 num_x_grid=self.dataset.canvas_width,
@@ -349,7 +349,7 @@ class TextToLayoutProcessor(ProcessorMixin):
         elements = self._scale(original_width, elements)
         elements = sorted(elements, key=lambda x: (x["position"][1], x["position"][0]))
 
-        labels = [self.dataset.label2id[element["type"]] for element in elements]
+        labels = [self.dataset.to_index(element["type"]) for element in elements]
         labels_tensor = torch.tensor(labels)
         bboxes = [element["position"] for element in elements]
         bboxes_tensor = torch.tensor(bboxes)
