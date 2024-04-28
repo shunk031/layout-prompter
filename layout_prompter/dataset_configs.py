@@ -3,7 +3,7 @@ from typing import Dict, Optional, Tuple
 
 
 @dataclass
-class LayoutDataset(object):
+class LayoutDatasetConfig(object):
     name: str
     layout_domain: str
     canvas_size: Tuple[int, int]
@@ -31,7 +31,7 @@ class LayoutDataset(object):
 
 
 @dataclass
-class RicoDataset(LayoutDataset):
+class RicoDatasetConfig(LayoutDatasetConfig):
     name: str = "rico"
     layout_domain: str = "android"
     canvas_size: Tuple[int, int] = (90, 160)
@@ -67,7 +67,7 @@ class RicoDataset(LayoutDataset):
 
 
 @dataclass
-class PubLayNetDataset(LayoutDataset):
+class PubLayNetDatasetConfig(LayoutDatasetConfig):
     name: str = "publaynet"
     layout_domain: str = "document"
     canvas_size: Tuple[int, int] = (120, 160)
@@ -83,7 +83,7 @@ class PubLayNetDataset(LayoutDataset):
 
 
 @dataclass
-class PosterLayoutDataset(LayoutDataset):
+class PosterLayoutDatasetConfig(LayoutDatasetConfig):
     name: str = "posterlayout"
     layout_domain: str = "poster"
     canvas_size: Tuple[int, int] = (102, 150)
@@ -97,7 +97,7 @@ class PosterLayoutDataset(LayoutDataset):
 
 
 @dataclass
-class WebUIDataset(LayoutDataset):
+class WebUIDatasetConfig(LayoutDatasetConfig):
     name: str = "webui"
     layout_domain: str = "web"
     canvas_size: Tuple[int, int] = (120, 120)
