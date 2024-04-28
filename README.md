@@ -6,7 +6,7 @@
 ## Installation
 
 ```shell
-pip install git+https://github.com/shunk031/layout-prompter
+pip install git+https://github.com/creative-graphic-design/layout-prompter
 ```
 
 ---
