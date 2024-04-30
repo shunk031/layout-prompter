@@ -11,7 +11,7 @@ import torch
 from PIL import Image, ImageDraw
 from PIL.Image import Image as PilImage
 
-from layout_prompter.datasets import LayoutDataset
+from layout_prompter.dataset_configs import LayoutDatasetConfig
 from layout_prompter.modules.rankers import RankerOutput
 
 if TYPE_CHECKING:
@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class VisualizerMixin(object, metaclass=abc.ABCMeta):
-    dataset: LayoutDataset
+    dataset_config: LayoutDatasetConfig
     times: float = 3.0
 
     @abc.abstractmethod
@@ -39,7 +39,7 @@ class Visualizer(VisualizerMixin):
     @property
     def colors(self) -> List[Tuple[int, int, int]]:
         if self._colors is None:
-            n_colors = len(self.dataset.id2label) + 1
+            n_colors = len(self.dataset_config.id2label) + 1
             colors = sns.color_palette("husl", n_colors=n_colors)
             self._colors = [
                 (int(c[0] * 255), int(c[1] * 255), int(c[2] * 255)) for c in colors
@@ -49,8 +49,8 @@ class Visualizer(VisualizerMixin):
     def draw_layout(
         self, labels_tensor: torch.Tensor, bboxes_tensor: torch.Tensor
     ) -> PilImage:
-        canvas_w = self.dataset.canvas_width
-        canvas_h = self.dataset.canvas_height
+        canvas_w = self.dataset_config.canvas_width
+        canvas_h = self.dataset_config.canvas_height
         img = Image.new("RGB", (canvas_w, canvas_h), color=(255, 255, 255))
 
         draw = ImageDraw.Draw(img, "RGBA")
@@ -124,15 +124,17 @@ class ContentAwareVisualizer(VisualizerMixin):
         pic = (
             Image.open(os.path.join(self.canvas_path, f"{test_idx}.png"))
             .convert("RGB")
-            .resize((self.dataset.canvas_width, self.dataset.canvas_height))
+            .resize(
+                (self.dataset_config.canvas_width, self.dataset_config.canvas_height)
+            )
         )
         for prediction in predictions:
             labels, bboxes = prediction["labels"], prediction["bboxes"]
             labels = labels.unsqueeze(-1)
             labels = np.array(labels, dtype=int)
             bboxes = np.array(bboxes)
-            bboxes[:, 0::2] *= self.dataset.canvas_width
-            bboxes[:, 1::2] *= self.dataset.canvas_height
+            bboxes[:, 0::2] *= self.dataset_config.canvas_width
+            bboxes[:, 1::2] *= self.dataset_config.canvas_height
             bboxes[:, 2] += bboxes[:, 0]
             bboxes[:, 3] += bboxes[:, 1]
             images.append(

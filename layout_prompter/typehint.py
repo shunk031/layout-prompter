@@ -1,8 +1,12 @@
-from typing import Any, Dict, List, Tuple, TypedDict
+from typing import Any, Dict, List, Literal, Tuple, TypedDict
 
 import torch
 
 JsonDict = Dict[str, Any]
+
+Task = Literal[
+    "gen-t", "gen-ts", "gen-r", "completion", "refinement", "content", "text"
+]
 
 
 class LayoutData(TypedDict):

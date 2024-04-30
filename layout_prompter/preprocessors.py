@@ -12,7 +12,7 @@ import torch.nn as nn
 import torchvision.transforms as T
 from pandas import DataFrame
 
-from layout_prompter.datasets import LayoutDataset
+from layout_prompter.dataset_configs import LayoutDatasetConfig
 from layout_prompter.transforms import (
     AddCanvasElement,
     AddGaussianNoise,
@@ -28,7 +28,7 @@ from layout_prompter.typehint import LayoutData, TextToLayoutData
 from layout_prompter.utils import clean_text
 
 if TYPE_CHECKING:
-    from layout_prompter.typehint import ProcessedLayoutData
+    from layout_prompter.typehint import ProcessedLayoutData, Task
 
 __all__ = [
     "Processor",
@@ -44,7 +44,7 @@ __all__ = [
 
 @dataclass
 class ProcessorMixin(object):
-    dataset: LayoutDataset
+    dataset_config: LayoutDatasetConfig
     return_keys: Optional[Tuple[str, ...]] = None
 
     metadata: Optional[pd.DataFrame] = field(repr=False, default=None)
@@ -91,11 +91,11 @@ class Processor(ProcessorMixin):
                 transform_functions.append(ShuffleElements())
             elif self.sort_by_pos_before_sort_by_label:
                 transform_functions.append(LexicographicSort())
-            transform_functions.append(LabelDictSort(self.dataset.id2label))
+            transform_functions.append(LabelDictSort(self.dataset_config.id2label))
         transform_functions.append(
             DiscretizeBoundingBox(
-                num_x_grid=self.dataset.canvas_width,
-                num_y_grid=self.dataset.canvas_height,
+                num_x_grid=self.dataset_config.canvas_width,
+                num_y_grid=self.dataset_config.canvas_height,
             )
         )
         return transform_functions
@@ -157,8 +157,8 @@ class GenRelationProcessor(Processor):
         if self.relation_constrained_discrete_before_induce_relations:
             self.transform_functions.append(
                 DiscretizeBoundingBox(
-                    num_x_grid=self.dataset.canvas_width,
-                    num_y_grid=self.dataset.canvas_height,
+                    num_x_grid=self.dataset_config.canvas_width,
+                    num_y_grid=self.dataset_config.canvas_height,
                 )
             )
             self.transform_functions.append(
@@ -170,8 +170,8 @@ class GenRelationProcessor(Processor):
             self.transform_functions.append(AddRelation())
             self.transform_functions.append(
                 DiscretizeBoundingBox(
-                    num_x_grid=self.dataset.canvas_width,
-                    num_y_grid=self.dataset.canvas_height,
+                    num_x_grid=self.dataset_config.canvas_width,
+                    num_y_grid=self.dataset_config.canvas_height,
                 )
             )
 
@@ -327,7 +327,7 @@ class TextToLayoutProcessor(ProcessorMixin):
 
     def _scale(self, original_width, elements_):
         elements = copy.deepcopy(elements_)
-        ratio = self.dataset.canvas_width / original_width
+        ratio = self.dataset_config.canvas_width / original_width
         for i in range(len(elements)):
             elements[i]["position"][0] = int(ratio * elements[i]["position"][0])
             elements[i]["position"][1] = int(ratio * elements[i]["position"][1])
@@ -349,7 +349,7 @@ class TextToLayoutProcessor(ProcessorMixin):
         elements = self._scale(original_width, elements)
         elements = sorted(elements, key=lambda x: (x["position"][1], x["position"][0]))
 
-        labels = [self.dataset.label2id[element["type"]] for element in elements]
+        labels = [self.dataset_config.label2id[element["type"]] for element in elements]
         labels_tensor = torch.tensor(labels)
         bboxes = [element["position"] for element in elements]
         bboxes_tensor = torch.tensor(bboxes)
@@ -375,11 +375,13 @@ PROCESSOR_MAP: Dict[str, Type[ProcessorMixin]] = {
 
 
 def create_processor(
-    dataset: LayoutDataset, task: str, metadata: Optional[pd.DataFrame] = None
+    dataset_config: LayoutDatasetConfig,
+    task: Task,
+    metadata: Optional[pd.DataFrame] = None,
 ) -> ProcessorMixin:
     processor_cls: Type[ProcessorMixin] = PROCESSOR_MAP[task]
     processor = processor_cls(
-        dataset=dataset,
+        dataset_config=dataset_config,
         metadata=metadata,
     )
     return processor

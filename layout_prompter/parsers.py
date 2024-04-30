@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, List, TypedDict
 import torch
 from openai.types.chat import ChatCompletion, ChatCompletionMessage
 
-from layout_prompter.datasets import LayoutDataset
+from layout_prompter.dataset_configs import LayoutDatasetConfig
 
 if TYPE_CHECKING:
     from layout_prompter.modules.llm import TGIOutput
@@ -27,7 +27,7 @@ class ParserOutput(TypedDict):
 
 @dataclass
 class Parser(object, metaclass=abc.ABCMeta):
-    dataset: LayoutDataset
+    dataset_config: LayoutDatasetConfig
     output_format: str
 
     def _extract_labels_and_bboxes(self, prediction: str) -> ParserOutput:
@@ -51,14 +51,16 @@ class Parser(object, metaclass=abc.ABCMeta):
                 f"(#labels = {len(labels)}, #x = {len(x)}, #y = {len(y)}, #w = {len(w)}, #h = {len(h)})."
             )
 
-        labels_tensor = torch.tensor([self.dataset.label2id[label] for label in labels])
+        labels_tensor = torch.tensor(
+            [self.dataset_config.label2id[label] for label in labels]
+        )
         bboxes_tensor = torch.tensor(
             [
                 [
-                    int(x[i]) / self.dataset.canvas_width,
-                    int(y[i]) / self.dataset.canvas_height,
-                    int(w[i]) / self.dataset.canvas_width,
-                    int(h[i]) / self.dataset.canvas_height,
+                    int(x[i]) / self.dataset_config.canvas_width,
+                    int(y[i]) / self.dataset_config.canvas_height,
+                    int(w[i]) / self.dataset_config.canvas_width,
+                    int(h[i]) / self.dataset_config.canvas_height,
                 ]
                 for i in range(len(x))
             ]
@@ -66,17 +68,19 @@ class Parser(object, metaclass=abc.ABCMeta):
         return {"bboxes": bboxes_tensor, "labels": labels_tensor}
 
     def _extract_labels_and_bboxes_from_seq(self, prediction: str) -> ParserOutput:
-        label_set = list(self.dataset.label2id.keys())
+        label_set = list(self.dataset_config.label2id.keys())
         seq_pattern = r"(" + "|".join(label_set) + r") (\d+) (\d+) (\d+) (\d+)"
         res = re.findall(seq_pattern, prediction)
-        labels_tensor = torch.tensor([self.dataset.label2id[item[0]] for item in res])
+        labels_tensor = torch.tensor(
+            [self.dataset_config.label2id[item[0]] for item in res]
+        )
         bboxes_tensor = torch.tensor(
             [
                 [
-                    int(item[1]) / self.dataset.canvas_width,
-                    int(item[2]) / self.dataset.canvas_height,
-                    int(item[3]) / self.dataset.canvas_width,
-                    int(item[4]) / self.dataset.canvas_height,
+                    int(item[1]) / self.dataset_config.canvas_width,
+                    int(item[2]) / self.dataset_config.canvas_height,
+                    int(item[3]) / self.dataset_config.canvas_width,
+                    int(item[4]) / self.dataset_config.canvas_height,
                 ]
                 for item in res
             ]
