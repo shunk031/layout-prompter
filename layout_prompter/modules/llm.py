@@ -64,6 +64,11 @@ class GPTCallar(LLM):
     ) -> ChatCompletion:
         response = self.client.chat.completions.create(
             model=kwargs.pop("model") if "model" in kwargs else self.model,
+            temperature=(
+                kwargs.pop("templerature")
+                if "temperature" in kwargs
+                else self.temperature
+            ),
             max_tokens=(
                 kwargs.pop("max_tokens") if "max_tokens" in kwargs else self.max_tokens
             ),
@@ -80,6 +85,9 @@ class GPTCallar(LLM):
             ),
             n=kwargs.pop("num_return") if "num_return" in kwargs else self.num_return,
             messages=prompt_messages,
+            stop=kwargs.pop("stop_token")
+            if "stop_token" in kwargs
+            else self.stop_token,
             **kwargs,
         )
         return response
