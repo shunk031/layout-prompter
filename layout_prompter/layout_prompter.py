@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Dict, Final, List, Optional
 
 from tenacity import after_log, retry, stop_after_attempt
 
+from layout_prompter.exception import LayoutPrompterException
 from layout_prompter.modules import (
     LLM,
     ExemplarSelector,
@@ -75,7 +76,7 @@ class LayoutPrompter(object):
             )
             return retry_layout_generator(self, prompt_messages, **kwargs)
         except Exception as err:
-            raise ValueError(
+            raise LayoutPrompterException(
                 f"Failed to generate layout for prompt: {prompt_messages}"
             ) from err
 
