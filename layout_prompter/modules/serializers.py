@@ -3,16 +3,15 @@ from __future__ import annotations
 import abc
 import logging
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Dict, Final, List, Literal, Type
+from typing import TYPE_CHECKING, Dict, Final, List, Type
 
 from layout_prompter.dataset_configs import LayoutDatasetConfig
 from layout_prompter.transforms import RelationTypes
-from layout_prompter.typehint import ProcessedLayoutData, Prompt
+from layout_prompter.typehint import InOutFormat, ProcessedLayoutData, Prompt
 
 if TYPE_CHECKING:
     from layout_prompter.typehint import ProcessedLayoutData, Task
 
-InOutFormat = Literal["seq", "html"]
 
 logger = logging.getLogger(__name__)
 

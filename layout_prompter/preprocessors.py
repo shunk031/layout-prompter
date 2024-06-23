@@ -24,7 +24,7 @@ from layout_prompter.transforms import (
     SaliencyMapToBBoxes,
     ShuffleElements,
 )
-from layout_prompter.typehint import LayoutData, TextToLayoutData
+from layout_prompter.typehint import LayoutData, Task, TextToLayoutData
 from layout_prompter.utils import clean_text
 
 if TYPE_CHECKING:
@@ -283,6 +283,7 @@ class ContentAwareProcessor(Processor):
             bboxes[:, 2] -= bboxes[:, 0]
             bboxes[:, 3] -= bboxes[:, 1]
             bboxes = self._normalize_bboxes(bboxes)
+
             if len(labels) <= self.max_element_numbers:
                 self.possible_labels.append(labels)
 
@@ -363,7 +364,7 @@ class TextToLayoutProcessor(ProcessorMixin):
         }
 
 
-PROCESSOR_MAP: Dict[str, Type[ProcessorMixin]] = {
+PROCESSOR_MAP: Dict[Task, Type[ProcessorMixin]] = {
     "gen-t": GenTypeProcessor,
     "gen-ts": GenTypeSizeProcessor,
     "gen-r": GenRelationProcessor,

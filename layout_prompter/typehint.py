@@ -8,6 +8,8 @@ Task = Literal[
     "gen-t", "gen-ts", "gen-r", "completion", "refinement", "content", "text"
 ]
 
+InOutFormat = Literal["seq", "html"]
+
 
 class LayoutData(TypedDict):
     name: str
