@@ -30,6 +30,7 @@ types-tqdm = "^4.66.0.20240106"
 types-pillow = "^10.2.0.20240213"
 jupyterlab = "^4.1.6"
 ipywidgets = "^8.1.2"
+evaluate = "^0.4.2"
 
 [tool.mypy]
 python_version = "3.9"
