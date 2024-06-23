@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
+from pprint import pformat
 from typing import TYPE_CHECKING, Dict, Final, List, Optional
 
 from tenacity import after_log, retry, stop_after_attempt
@@ -65,6 +66,7 @@ class LayoutPrompter(object):
             {"role": "system", "content": prompt["system_prompt"]},
             {"role": "user", "content": prompt["user_prompt"]},
         ]
+        logger.debug(f"Prompt messages: {pformat(prompt_messages)}")
         return prompt_messages
 
     def generate_layout(

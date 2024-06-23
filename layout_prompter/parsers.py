@@ -40,6 +40,9 @@ class Parser(object, metaclass=abc.ABCMeta):
 
     def _extract_labels_and_bboxes_from_html(self, predition: str) -> ParserOutput:
         labels = re.findall('<div class="(.*?)"', predition)[1:]  # remove the canvas
+        if not labels:
+            raise RuntimeError("No labels found in the prediction.")
+
         x = re.findall(r"left:.?(\d+)px", predition)[1:]
         y = re.findall(r"top:.?(\d+)px", predition)[1:]
         w = re.findall(r"width:.?(\d+)px", predition)[1:]
@@ -94,7 +97,7 @@ class Parser(object, metaclass=abc.ABCMeta):
     def log_filter_response_count(
         self, num_return: int, parsed_response: List[ParserOutput]
     ) -> None:
-        logger.debug(f"Filter {num_return - len(parsed_response)} invalid response.")
+        logger.info(f"Filter {num_return - len(parsed_response)} invalid response.")
 
     def check_filtered_response_count(
         self, original_response, parsed_response: List[ParserOutput]
@@ -126,9 +129,14 @@ class GPTResponseParser(Parser):
         for choice in response.choices:
             message = choice.message
             assert isinstance(message, ChatCompletionMessage), type(message)
+
             content = message.content
             assert content is not None
-            parsed_predictions.append(self._extract_labels_and_bboxes(content))
+
+            try:
+                parsed_predictions.append(self._extract_labels_and_bboxes(content))
+            except Exception as err:
+                logger.warning(err)
 
         return parsed_predictions
 
