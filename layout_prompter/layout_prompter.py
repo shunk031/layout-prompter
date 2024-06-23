@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Dict, List, Optional
+from typing import TYPE_CHECKING, Dict, Final, List, Optional
 
+from tenacity import after_log, retry, stop_after_attempt
+
+from layout_prompter.exception import LayoutPrompterException
 from layout_prompter.modules import (
     LLM,
     ExemplarSelector,
@@ -17,6 +20,8 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
+DEFAULT_NUM_MAX_TRY: Final[int] = 5
+
 
 @dataclass
 class LayoutPrompter(object):
@@ -25,11 +30,20 @@ class LayoutPrompter(object):
     llm: LLM
     ranker: Ranker
 
+    @retry(
+        stop=stop_after_attempt(DEFAULT_NUM_MAX_TRY),
+        after=after_log(logger, logging.WARNING),
+        reraise=True,
+    )
     def _generate_layout(
         self, prompt_messages: List[Dict[str, str]], **kwargs
     ) -> List[RankerOutput]:
-        response = self.llm(prompt_messages, **kwargs)
-        return self.ranker(response)
+        try:
+            response = self.llm(prompt_messages, **kwargs)
+            return self.ranker(response)
+        except Exception as err:
+            logger.exception(err)
+            raise err
 
     def get_exemplars(
         self, test_data: ProcessedLayoutData
@@ -56,13 +70,15 @@ class LayoutPrompter(object):
     def generate_layout(
         self, prompt_messages: List[Dict[str, str]], max_num_try: int = 5, **kwargs
     ) -> List[RankerOutput]:
-        for num_try in range(max_num_try):
-            try:
-                return self._generate_layout(prompt_messages, **kwargs)
-            except Exception as err:
-                logger.warning(f"#try {num_try + 1}: {err}")
-
-        raise ValueError(f"Failed to generate layout for prompt: {prompt_messages}")
+        try:
+            retry_layout_generator = self._generate_layout.retry_with(
+                stop=stop_after_attempt(max_num_try)
+            )
+            return retry_layout_generator(self, prompt_messages, **kwargs)
+        except Exception as err:
+            raise LayoutPrompterException(
+                f"Failed to generate layout for prompt: {prompt_messages}"
+            ) from err
 
     def __call__(
         self,
