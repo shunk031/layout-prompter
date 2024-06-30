@@ -18,6 +18,13 @@ typecheck:
 .PHONY: check
 check: format lint typecheck
 
+.PHONY: test-package
+test-package:
+	poetry run pytest tests
+
+.PHONY: test-notebooks
+test-notebooks:
+	poetry run pytest --nbmake notebooks/*.ipynb	
+
 .PHONY: test
-test:
-	poetry run pytest --nbmake notebooks/*.ipynb
+test: test-package test-notebooks
