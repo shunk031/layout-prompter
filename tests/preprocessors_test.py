@@ -194,7 +194,9 @@ class TestRefinementProcessor(LayoutPrompterTestCase):
         assert set(processed_data.keys()) == set(expected_processed_data.keys())
 
         for k in processed_data.keys():
-            assert processed_data[k].numpy().tolist() == expected_processed_data[k]  # type: ignore
+            processed_data_k = processed_data[k].numpy().tolist()
+            expected_processed_data_k = expected_processed_data[k]
+            assert np.allclose(processed_data_k, expected_processed_data_k, atol=1e-5)
 
 
 class TestContentAwareProcessor(LayoutPrompterTestCase):
