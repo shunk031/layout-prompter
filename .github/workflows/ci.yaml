@@ -39,6 +39,6 @@ jobs:
         run: |
           make typecheck
 
-      # - name: Run tests
-      #   run: |
-      #     poetry run pytest --color=yes -rf
+      - name: Run tests
+        run: |
+          poetry run pytest
