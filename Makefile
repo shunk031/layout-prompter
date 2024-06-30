@@ -13,7 +13,7 @@ lint:
 
 .PHONY: typecheck
 typecheck:
-	poetry run mypy .
+	poetry run mypy layout_prompter
 
 .PHONY: check
 check: format lint typecheck
