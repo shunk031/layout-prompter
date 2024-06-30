@@ -4,6 +4,7 @@ import copy
 import logging
 import math
 import random
+from dataclasses import dataclass
 from itertools import combinations, product
 from typing import TYPE_CHECKING, Dict, List, Optional
 
@@ -39,6 +40,7 @@ class ShuffleElements(nn.Module):
         super().__init__()
 
     def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
+        logger.debug(f"Before ShuffleElements:\n{data}")
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
 
@@ -48,6 +50,7 @@ class ShuffleElements(nn.Module):
         data["bboxes"] = data["bboxes"][shuffle_idx]
         data["gold_bboxes"] = data["gold_bboxes"][shuffle_idx]
         data["labels"] = data["labels"][shuffle_idx]
+        logger.debug(f"After ShuffleElements:\n{data}")
         return data
 
 
@@ -62,6 +65,8 @@ class LabelDictSort(nn.Module):
         self.index2label = index2label
 
     def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
+        logger.debug(f"Before LabelDictSort:\n{data}")
+
         # NOTE: for refinement
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
@@ -75,6 +80,9 @@ class LabelDictSort(nn.Module):
             data["labels"][idx_sorted],
         )
         data["gold_bboxes"] = data["gold_bboxes"][idx_sorted]
+
+        logger.debug(f"After LabelDictSort:\n{data}")
+
         return data
 
 
@@ -221,6 +229,7 @@ class DiscretizeBoundingBox(nn.Module):
         return int(math.floor(num * self.max_y))
 
     def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
+        logger.debug(f"Before DiscretizeBoundingBox:\n{data}")
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
 
@@ -229,6 +238,7 @@ class DiscretizeBoundingBox(nn.Module):
         if "content_bboxes" in data.keys():
             data["discrete_content_bboxes"] = self.discretize(data["content_bboxes"])
 
+        logger.debug(f"After DiscretizeBoundingBox:\n{data}")
         return data
 
 
@@ -241,6 +251,7 @@ class AddCanvasElement(nn.Module):
         self.discrete_fn = discrete_fn
 
     def __call__(self, data):
+        logger.debug(f"Before AddCanvasElement:\n{data}")
         if self.discrete_fn:
             data["bboxes_with_canvas"] = torch.cat(
                 [self.x, self.discrete_fn.continuize(data["discrete_gold_bboxes"])],
@@ -249,20 +260,19 @@ class AddCanvasElement(nn.Module):
         else:
             data["bboxes_with_canvas"] = torch.cat([self.x, data["bboxes"]], dim=0)
         data["labels_with_canvas"] = torch.cat([self.y, data["labels"]], dim=0)
+        logger.debug(f"After AddCanvasElement:\n{data}")
         return data
 
 
 class AddRelation(nn.Module):
-    def __init__(self, seed: int = 1024, ratio: float = 0.1) -> None:
+    def __init__(self, ratio: float = 0.1) -> None:
         super().__init__()
 
         self.ratio = ratio
-        self.generator = random.Random()
-        if seed is not None:
-            self.generator.seed(seed)
         self.type2index = RelationTypes.type2index()
 
     def __call__(self, data):
+        logger.debug(f"Before AddRelation:\n{data}")
         data["labels_with_canvas_index"] = [0] + list(
             range(len(data["labels_with_canvas"]) - 1)
         )
@@ -271,7 +281,7 @@ class AddRelation(nn.Module):
         rel_all = list(product(range(2), combinations(range(N), 2)))
         # size = min(int(len(rel_all)                     * self.ratio), 10)
         size = int(len(rel_all) * self.ratio)
-        rel_sample = set(self.generator.sample(rel_all, size))
+        rel_sample = set(random.sample(rel_all, size))
 
         relations = []
         for i, j in combinations(range(N), 2):
@@ -303,11 +313,11 @@ class AddRelation(nn.Module):
                 )
 
         data["relations"] = torch.as_tensor(relations).long()
-
+        logger.debug(f"After AddRelation:\n{data}")
         return data
 
 
-class RelationTypes(nn.Module):
+class RelationTypes(object):
     types: List[str] = [
         "smaller",
         "equal",
@@ -320,9 +330,6 @@ class RelationTypes(nn.Module):
     ]
     _type2index: Optional[Dict[str, int]] = None
     _index2type: Optional[Dict[int, str]] = None
-
-    def __init__(self) -> None:
-        super().__init__()
 
     @classmethod
     def type2index(cls) -> Dict[str, int]:
@@ -412,5 +419,5 @@ class CLIPTextEncoderTransform(nn.Module):
             truncation=True,
         )
         text_features = self.model.get_text_features(**inputs)  # type: ignore
-        text_features = text_features / text_features.norm(p=2, dim=-1, keepdim=True)
+        text_features /= text_features.norm(dim=-1, keepdim=True)
         return text_features
