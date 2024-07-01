@@ -229,7 +229,7 @@ class TestContentAwareProcessor(LayoutPrompterTestCase):
             / f"{filenum}_mask_pred.png"
         )
         processed_data = processor(
-            str(raw_data_path),
+            saliency_map_path=raw_data_path,
             idx=filenum,
             split="train",
         )
