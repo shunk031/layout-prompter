@@ -1,12 +1,15 @@
-from typing import Any, Dict, List, Literal, Tuple, TypedDict
+from typing import Annotated, Any, Dict, List, Literal, Tuple, TypedDict
 
 import torch
+from PIL.Image import Image
 
 JsonDict = Dict[str, Any]
 
 Task = Literal[
     "gen-t", "gen-ts", "gen-r", "completion", "refinement", "content", "text"
 ]
+
+PilImage = Annotated[Image, "Pillow Image"]
 
 
 class LayoutData(TypedDict):

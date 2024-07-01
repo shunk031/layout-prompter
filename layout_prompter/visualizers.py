@@ -9,10 +9,10 @@ import numpy as np
 import seaborn as sns
 import torch
 from PIL import Image, ImageDraw
-from PIL.Image import Image as PilImage
 
 from layout_prompter.dataset_configs import LayoutDatasetConfig
 from layout_prompter.modules.rankers import RankerOutput
+from layout_prompter.typehint import PilImage
 
 if TYPE_CHECKING:
     from layout_prompter.typehint import ProcessedLayoutData
