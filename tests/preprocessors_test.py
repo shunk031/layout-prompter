@@ -253,10 +253,6 @@ class TestContentAwareProcessor(LayoutPrompterTestCase):
 class TestTextToLayoutProcessor(LayoutPrompterTestCase):
     TASK: Task = "text"
 
-    def _convert_raw_to_tensor_dict(self, data):
-        # There is no need to convert the data to tensor in this task
-        return data
-
     @pytest.mark.parametrize(
         argnames="dataset_config",
         argvalues=(WebUIDatasetConfig(),),

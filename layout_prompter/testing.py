@@ -1,3 +1,4 @@
+import copy
 import json
 import pathlib
 
@@ -11,11 +12,17 @@ class LayoutPrompterTestCase(object):
     FIXTURES_ROOT = PROJECT_ROOT / "test_fixtures"
 
     def _convert_raw_to_tensor_dict(self, data):
-        return {
-            **data,
-            "bboxes": torch.Tensor(data["bboxes"]),
-            "labels": torch.Tensor(data["labels"]),
-        }
+        converted_dict = copy.deepcopy(data)
+
+        bboxes = converted_dict.get("bboxes")
+        if bboxes:
+            converted_dict["bboxes"] = torch.Tensor(bboxes)
+
+        labels = converted_dict.get("labels")
+        if labels:
+            converted_dict["labels"] = torch.Tensor(labels)
+
+        return converted_dict
 
     def _load_json(self, filepath: pathlib.Path):
         with filepath.open("r") as rf:
