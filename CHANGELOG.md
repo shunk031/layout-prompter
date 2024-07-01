@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.1.1](https://github.com/creative-graphic-design/layout-prompter/compare/v0.1.0...v0.1.1) - 2024-07-01
+- add `PilImage` typehint for `PIL.Image.Image` by @shunk031 in https://github.com/creative-graphic-design/layout-prompter/pull/47
+- Use pillow image in `SaliencyMapToBBox` by @shunk031 in https://github.com/creative-graphic-design/layout-prompter/pull/49
+- update type hint by @shunk031 in https://github.com/creative-graphic-design/layout-prompter/pull/50
+
 ## [v0.1.0](https://github.com/creative-graphic-design/layout-prompter/commits/v0.1.0) - 2024-06-30
 - initialize for layout-prompter by @shunk031 in https://github.com/creative-graphic-design/layout-prompter/pull/1
 - Use poetry by @shunk031 in https://github.com/creative-graphic-design/layout-prompter/pull/2
