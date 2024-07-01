@@ -13,6 +13,7 @@ import torch
 import torch.nn as nn
 from transformers import CLIPModel, CLIPProcessor
 
+from layout_prompter.typehint import PilImage
 from layout_prompter.utils import decapulate, detect_loc_relation, detect_size_relation
 
 if TYPE_CHECKING:
@@ -370,8 +371,10 @@ class SaliencyMapToBBoxes(nn.Module):
             ]
         )
 
-    def __call__(self, saliency_map: np.ndarray) -> torch.Tensor:
-        saliency_map_gray = cv2.cvtColor(saliency_map, cv2.COLOR_BGR2GRAY)
+    def __call__(self, saliency_map: PilImage) -> torch.Tensor:
+        assert saliency_map.mode == "L", "saliency map must be grayscale image"
+        saliency_map_gray = np.array(saliency_map)
+
         _, thresholded_map = cv2.threshold(
             saliency_map_gray, self.threshold, 255, cv2.THRESH_BINARY
         )

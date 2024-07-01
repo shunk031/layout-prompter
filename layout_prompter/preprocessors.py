@@ -1,16 +1,19 @@
 from __future__ import annotations
 
+import base64
 import copy
+import io
+import os
 import random
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Type, TypedDict
+from typing import TYPE_CHECKING, Dict, List, Literal, Optional, Tuple, Type, TypedDict
 
-import cv2
 import pandas as pd
 import torch
 import torch.nn as nn
 import torchvision.transforms as T
 from pandas import DataFrame
+from PIL import Image
 
 from layout_prompter.dataset_configs import LayoutDatasetConfig
 from layout_prompter.transforms import (
@@ -24,7 +27,7 @@ from layout_prompter.transforms import (
     SaliencyMapToBBoxes,
     ShuffleElements,
 )
-from layout_prompter.typehint import LayoutData, TextToLayoutData
+from layout_prompter.typehint import LayoutData, PilImage, TextToLayoutData
 from layout_prompter.utils import clean_text
 
 if TYPE_CHECKING:
@@ -40,6 +43,8 @@ __all__ = [
     "ContentAwareProcessor",
     "TextToLayoutProcessor",
 ]
+
+CONTENT_IMAGE_FORMAT: Literal["png"] = "png"
 
 
 @dataclass
@@ -232,6 +237,7 @@ class ContentAwareProcessor(Processor):
         "discrete_bboxes",
         "discrete_gold_bboxes",
         "discrete_content_bboxes",
+        "inpainted_image",
     )
 
     metadata: Optional[DataFrame] = None
@@ -241,8 +247,6 @@ class ContentAwareProcessor(Processor):
     sort_by_pos_before_sort_by_label: bool = True
     filter_threshold: int = 100
     max_element_numbers: int = 10
-    original_width: float = 513.0
-    original_height: float = 750.0
 
     possible_labels: List[torch.Tensor] = field(default_factory=list)
 
@@ -250,24 +254,39 @@ class ContentAwareProcessor(Processor):
     def saliency_map_to_bboxes(self) -> SaliencyMapToBBoxes:
         return SaliencyMapToBBoxes(threshold=self.filter_threshold)
 
-    def _normalize_bboxes(self, bboxes):
+    def _encode_image(self, image: PilImage) -> str:
+        image = image.convert("RGB")
+        image_byte = io.BytesIO()
+        image.save(image_byte, format=CONTENT_IMAGE_FORMAT)
+        return base64.b64encode(image_byte.getvalue()).decode("utf-8")
+
+    def _normalize_bboxes(self, bboxes, w: int, h: int):
         bboxes = bboxes.float()
-        bboxes[:, 0::2] /= self.original_width
-        bboxes[:, 1::2] /= self.original_height
+        bboxes[:, 0::2] /= w
+        bboxes[:, 1::2] /= h
         return bboxes
 
     def __call__(  # type: ignore[override]
         self,
-        filename: str,
         idx: int,
         split: str,
+        saliency_map_path: os.PathLike,
+        inpainted_image_path: Optional[os.PathLike] = None,
     ) -> Optional[Dict[str, torch.Tensor]]:
-        saliency_map = cv2.imread(filename)
+        saliency_map = Image.open(saliency_map_path)  # type: ignore
         content_bboxes = self.saliency_map_to_bboxes(saliency_map)
         if len(content_bboxes) == 0:
             return None
 
-        content_bboxes = self._normalize_bboxes(content_bboxes)
+        map_w, map_h = saliency_map.size
+        content_bboxes = self._normalize_bboxes(content_bboxes, w=map_w, h=map_h)
+
+        encoded_inpainted_image: Optional[str] = None
+        if inpainted_image_path is not None:
+            inpainted_image = Image.open(inpainted_image_path)  # type: ignore
+            assert inpainted_image.size == saliency_map.size
+
+            encoded_inpainted_image = self._encode_image(inpainted_image)
 
         if split == "train":
             assert self.metadata is not None
@@ -282,7 +301,7 @@ class ContentAwareProcessor(Processor):
 
             bboxes[:, 2] -= bboxes[:, 0]
             bboxes[:, 3] -= bboxes[:, 1]
-            bboxes = self._normalize_bboxes(bboxes)
+            bboxes = self._normalize_bboxes(bboxes, w=map_w, h=map_h)
             if len(labels) <= self.max_element_numbers:
                 self.possible_labels.append(labels)
 
@@ -291,6 +310,7 @@ class ContentAwareProcessor(Processor):
                 "labels": labels,
                 "bboxes": bboxes,
                 "content_bboxes": content_bboxes,
+                "inpainted_image": encoded_inpainted_image,
             }
         else:
             if len(self.possible_labels) == 0:
@@ -302,6 +322,7 @@ class ContentAwareProcessor(Processor):
                 "labels": labels,
                 "bboxes": torch.zeros((len(labels), 4)),  # dummy
                 "content_bboxes": content_bboxes,
+                "inpainted_image": encoded_inpainted_image,
             }
 
         return super().__call__(data)  # type: ignore
