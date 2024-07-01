@@ -27,7 +27,7 @@ from layout_prompter.transforms import (
     SaliencyMapToBBoxes,
     ShuffleElements,
 )
-from layout_prompter.typehint import LayoutData, PilImage, TextToLayoutData
+from layout_prompter.typehint import LayoutData, PilImage, Task, TextToLayoutData
 from layout_prompter.utils import clean_text
 
 if TYPE_CHECKING:
@@ -384,7 +384,7 @@ class TextToLayoutProcessor(ProcessorMixin):
         }
 
 
-PROCESSOR_MAP: Dict[str, Type[ProcessorMixin]] = {
+PROCESSOR_MAP: Dict[Task, Type[ProcessorMixin]] = {
     "gen-t": GenTypeProcessor,
     "gen-ts": GenTypeSizeProcessor,
     "gen-r": GenRelationProcessor,

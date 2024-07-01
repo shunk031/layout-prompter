@@ -9,6 +9,7 @@ import cv2
 import numpy as np
 
 from layout_prompter.dataset_configs import LayoutDatasetConfig
+from layout_prompter.typehint import Task
 from layout_prompter.utils import (
     labels_bboxes_similarity,
     labels_similarity,
@@ -206,7 +207,7 @@ class TextToLayoutExemplarSelector(ExemplarSelector):
         return self._retrieve_exemplars(scores)
 
 
-SELECTOR_MAP: Dict[str, Type[ExemplarSelector]] = {
+SELECTOR_MAP: Dict[Task, Type[ExemplarSelector]] = {
     "gen-t": GenTypeExemplarSelector,
     "gen-ts": GenTypeSizeExemplarSelector,
     "gen-r": GenRelationExemplarSelector,

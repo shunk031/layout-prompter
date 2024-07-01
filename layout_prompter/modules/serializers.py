@@ -3,16 +3,15 @@ from __future__ import annotations
 import abc
 import logging
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Dict, Final, List, Literal, Type
+from typing import TYPE_CHECKING, Dict, Final, List, Type
 
 from layout_prompter.dataset_configs import LayoutDatasetConfig
 from layout_prompter.transforms import RelationTypes
-from layout_prompter.typehint import ProcessedLayoutData, Prompt
+from layout_prompter.typehint import InOutFormat, ProcessedLayoutData, Prompt, Task
 
 if TYPE_CHECKING:
     from layout_prompter.typehint import ProcessedLayoutData, Task
 
-InOutFormat = Literal["seq", "html"]
 
 logger = logging.getLogger(__name__)
 
@@ -553,7 +552,7 @@ class TextToLayoutSerializer(Serializer):
         return self.constraint_type[0] + super().build_input(data)
 
 
-SERIALIZER_MAP: Dict[str, Type[SerializerMixin]] = {
+SERIALIZER_MAP: Dict[Task, Type[SerializerMixin]] = {
     "gen-t": GenTypeSerializer,
     "gen-ts": GenTypeSizeSerializer,
     "gen-r": GenRelationSerializer,
