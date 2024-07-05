@@ -1,23 +1,14 @@
-from __future__ import annotations
-
 import abc
 import logging
 import re
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, List, TypedDict
+from typing import List, TypedDict
 
 import torch
-from openai.types.chat import ChatCompletion, ChatCompletionMessage
 
-from layout_prompter.dataset_configs import LayoutDatasetConfig
-
-if TYPE_CHECKING:
-    from layout_prompter.modules.llm import TGIOutput
-
+from layout_prompter.configs import LayoutDatasetConfig
 
 logger = logging.getLogger(__name__)
-
-__all__ = ["Parser", "GPTResponseParser", "TGIResponseParser"]
 
 
 class ParserOutput(TypedDict):
@@ -106,51 +97,3 @@ class Parser(object, metaclass=abc.ABCMeta):
         self.check_filtered_response_count(response, parsed_response)
 
         return parsed_response
-
-
-@dataclass
-class GPTResponseParser(Parser):
-    def check_filtered_response_count(
-        self, original_response: ChatCompletion, parsed_response: List[ParserOutput]
-    ) -> None:
-        num_return = len(original_response.choices)
-        self.log_filter_response_count(num_return, parsed_response)
-
-    def parse(  # type: ignore[override]
-        self,
-        response: ChatCompletion,
-    ) -> List[ParserOutput]:
-        assert isinstance(response, ChatCompletion), type(response)
-
-        parsed_predictions: List[ParserOutput] = []
-        for choice in response.choices:
-            message = choice.message
-            assert isinstance(message, ChatCompletionMessage), type(message)
-            content = message.content
-            assert content is not None
-            parsed_predictions.append(self._extract_labels_and_bboxes(content))
-
-        return parsed_predictions
-
-
-@dataclass
-class TGIResponseParser(Parser):
-    def check_filtered_response_count(
-        self, original_response: TGIOutput, parsed_response: List[ParserOutput]
-    ) -> None:
-        num_return = 1
-        num_return += len(original_response["details"]["best_of_sequences"])
-        self.log_filter_response_count(num_return, parsed_response)
-
-    def parse(  # type: ignore[override]
-        self,
-        response: TGIOutput,
-    ) -> List[ParserOutput]:
-        generated_texts = [response["generated_text"]] + [
-            res["generated_text"] for res in response["details"]["best_of_sequences"]
-        ]
-        parsed_predictions: List[ParserOutput] = []
-        for generated_text in generated_texts:
-            parsed_predictions.append(self._extract_labels_and_bboxes(generated_text))
-
-        return parsed_predictions

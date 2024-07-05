@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Dict, List, Optional, Type
 import cv2
 import numpy as np
 
-from layout_prompter.dataset_configs import LayoutDatasetConfig
+from layout_prompter.configs import LayoutDatasetConfig
 from layout_prompter.typehint import Task
 from layout_prompter.utils import (
     labels_bboxes_similarity,

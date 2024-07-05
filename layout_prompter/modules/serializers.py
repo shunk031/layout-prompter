@@ -5,7 +5,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Dict, Final, List, Type
 
-from layout_prompter.dataset_configs import LayoutDatasetConfig
+from layout_prompter.configs.base import LayoutDatasetConfig
 from layout_prompter.transforms import RelationTypes
 from layout_prompter.typehint import InOutFormat, ProcessedLayoutData, Prompt, Task
 
