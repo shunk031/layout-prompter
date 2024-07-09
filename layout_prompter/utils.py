@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import re
 from collections import Counter
@@ -8,8 +9,10 @@ import numpy as np
 import torch
 from scipy.optimize import linear_sum_assignment
 
-from layout_prompter.dataset_configs import LayoutDatasetConfig
+from layout_prompter.configs.base import LayoutDatasetConfig
 from layout_prompter.typehint import JsonDict
+
+logger = logging.getLogger(__name__)
 
 
 def get_raw_data_path(dataset_config: LayoutDatasetConfig) -> str:
@@ -30,19 +33,21 @@ def clean_text(text: str, remove_summary: bool = False) -> str:
     return text
 
 
-def read_json(filename: str) -> JsonDict:
-    with open(filename, "r") as f:
+def read_json(file_path: os.PathLike) -> JsonDict:
+    with open(file_path, "r") as f:
         data = json.load(f)
     return data
 
 
-def read_pt(filename: str):
-    with open(filename, "rb") as f:
+def read_pt(file_path: os.PathLike):
+    logger.info(f"Reading {file_path}")
+    with open(file_path, "rb") as f:
         return torch.load(f)
 
 
-def write_pt(filename: str, obj):
-    with open(filename, "wb") as f:
+def write_pt(file_path: os.PathLike, obj):
+    logger.info(f"Writing {file_path}")
+    with open(file_path, "wb") as f:
         torch.save(obj, f)
 
 

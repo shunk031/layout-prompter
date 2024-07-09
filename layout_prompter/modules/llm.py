@@ -14,6 +14,7 @@ from layout_prompter.parsers import (
     ParserOutput,
     TGIResponseParser,
 )
+from layout_prompter.typehint import OpenAIModelName
 
 __all__ = ["LLM", "GPTCallar", "TGICaller"]
 
@@ -36,7 +37,7 @@ class GPTCallar(LLM):
 
     parser: GPTResponseParser
 
-    model: str
+    model: OpenAIModelName
     max_tokens: int
 
     temperature: float = 0.7
