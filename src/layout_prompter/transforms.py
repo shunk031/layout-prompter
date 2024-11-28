@@ -1,108 +1,65 @@
-from __future__ import annotations
-
 import copy
-import logging
 import math
 import random
 from itertools import combinations, product
-from typing import TYPE_CHECKING, Dict, List, Optional
 
+import clip
 import cv2
 import numpy as np
 import torch
-import torch.nn as nn
-from transformers import CLIPModel, CLIPProcessor
 
-from layout_prompter.typehint import PilImage
 from layout_prompter.utils import decapulate, detect_loc_relation, detect_size_relation
 
-if TYPE_CHECKING:
-    from layout_prompter.typehint import ProcessedLayoutData
 
-logger = logging.getLogger(__name__)
-
-__all__ = [
-    "ShuffleElements",
-    "LabelDictSort",
-    "LexicographicSort",
-    "AddGaussianNoise",
-    "DiscretizeBoundingBox",
-    "AddCanvasElement",
-    "AddRelation",
-    "RelationTypes",
-    "SaliencyMapToBBoxes",
-    "CLIPTextEncoderTransform",
-]
-
-
-class ShuffleElements(nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-
-    def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
-        logger.debug(f"Before ShuffleElements:\n{data}")
+class ShuffleElements:
+    def __call__(self, data):
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
 
         ele_num = len(data["labels"])
         shuffle_idx = np.arange(ele_num)
-        np.random.shuffle(shuffle_idx)
+        random.shuffle(shuffle_idx)
         data["bboxes"] = data["bboxes"][shuffle_idx]
         data["gold_bboxes"] = data["gold_bboxes"][shuffle_idx]
         data["labels"] = data["labels"][shuffle_idx]
-        logger.debug(f"After ShuffleElements:\n{data}")
         return data
 
 
-class LabelDictSort(nn.Module):
+class LabelDictSort:
     """
     sort elements in one layout by their label
     """
 
-    def __init__(self, index2label: Optional[Dict[int, str]]) -> None:
-        super().__init__()
-        assert index2label is not None
+    def __init__(self, index2label=None):
         self.index2label = index2label
 
-    def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
-        logger.debug(f"Before LabelDictSort:\n{data}")
-
+    def __call__(self, data):
         # NOTE: for refinement
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
 
         labels = data["labels"].tolist()
         idx2label = [[idx, self.index2label[labels[idx]]] for idx in range(len(labels))]
-        idx2label_sorted = sorted(idx2label, key=lambda x: x[1])  # type: ignore
+        idx2label_sorted = sorted(idx2label, key=lambda x: x[1])
         idx_sorted = [d[0] for d in idx2label_sorted]
         data["bboxes"], data["labels"] = (
             data["bboxes"][idx_sorted],
             data["labels"][idx_sorted],
         )
         data["gold_bboxes"] = data["gold_bboxes"][idx_sorted]
-
-        logger.debug(f"After LabelDictSort:\n{data}")
-
         return data
 
 
-class LexicographicSort(nn.Module):
+class LexicographicSort:
     """
     sort elements in one layout by their top and left postion
     """
 
-    def __init__(self) -> None:
-        super().__init__()
-
-    def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
+    def __call__(self, data):
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
-        try:
-            left, top, _, _ = data["bboxes"].t()
-        except Exception as err:
-            logger.debug(data["bboxes"])
-            raise err
-        _zip = zip(*sorted(enumerate(zip(top, left)), key=lambda c: c[1:]))
+        l, t, _, _ = data["bboxes"].t()
+        _zip = zip(*sorted(enumerate(zip(t, l)), key=lambda c: c[1:]))
         idx = list(list(_zip)[0])
         data["ori_bboxes"], data["ori_labels"] = data["gold_bboxes"], data["labels"]
         data["bboxes"], data["labels"] = data["bboxes"][idx], data["labels"][idx]
@@ -110,32 +67,26 @@ class LexicographicSort(nn.Module):
         return data
 
 
-class AddGaussianNoise(nn.Module):
+class AddGaussianNoise:
     """
     Add Gaussian Noise to bounding box
     """
 
     def __init__(
-        self,
-        mean: float = 0.0,
-        std: float = 1.0,
-        normalized: bool = True,
-        bernoulli_beta: float = 1.0,
-    ) -> None:
-        super().__init__()
-
+        self, mean=0.0, std=1.0, normalized: bool = True, bernoulli_beta: float = 1.0
+    ):
         self.std = std
         self.mean = mean
         self.normalized = normalized
         # adding noise to every element by default
         self.bernoulli_beta = bernoulli_beta
-        logger.info(
+        print(
             "Noise: mean={0}, std={1}, beta={2}".format(
                 self.mean, self.std, self.bernoulli_beta
             )
         )
 
-    def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
+    def __call__(self, data):
         # Gold Label
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
@@ -183,16 +134,14 @@ class AddGaussianNoise(nn.Module):
         )
 
 
-class DiscretizeBoundingBox(nn.Module):
+class DiscretizeBoundingBox:
     def __init__(self, num_x_grid: int, num_y_grid: int) -> None:
-        super().__init__()
-
         self.num_x_grid = num_x_grid
         self.num_y_grid = num_y_grid
         self.max_x = self.num_x_grid
         self.max_y = self.num_y_grid
 
-    def discretize(self, bbox: torch.Tensor) -> torch.Tensor:
+    def discretize(self, bbox):
         """
         Args:
             continuous_bbox torch.Tensor: N * 4
@@ -209,7 +158,7 @@ class DiscretizeBoundingBox(nn.Module):
             [discrete_x1, discrete_y1, discrete_x2, discrete_y2], dim=-1
         ).long()
 
-    def continuize(self, bbox: torch.Tensor) -> torch.Tensor:
+    def continuize(self, bbox):
         """
         Args:
             discrete_bbox torch.LongTensor: N * 4
@@ -228,31 +177,25 @@ class DiscretizeBoundingBox(nn.Module):
     def discretize_num(self, num: float) -> int:
         return int(math.floor(num * self.max_y))
 
-    def __call__(self, data: ProcessedLayoutData) -> ProcessedLayoutData:
-        logger.debug(f"Before DiscretizeBoundingBox:\n{data}")
+    def __call__(self, data):
         if "gold_bboxes" not in data.keys():
             data["gold_bboxes"] = copy.deepcopy(data["bboxes"])
-
         data["discrete_bboxes"] = self.discretize(data["bboxes"])
         data["discrete_gold_bboxes"] = self.discretize(data["gold_bboxes"])
         if "content_bboxes" in data.keys():
             data["discrete_content_bboxes"] = self.discretize(data["content_bboxes"])
-
-        logger.debug(f"After DiscretizeBoundingBox:\n{data}")
         return data
 
 
-class AddCanvasElement(nn.Module):
-    def __init__(self, discrete_fn: Optional[nn.Module] = None) -> None:
-        super().__init__()
-
+class AddCanvasElement:
+    def __init__(self, use_discrete=False, discrete_fn=None):
         self.x = torch.tensor([[0.0, 0.0, 1.0, 1.0]], dtype=torch.float)
         self.y = torch.tensor([0], dtype=torch.long)
+        self.use_discrete = use_discrete
         self.discrete_fn = discrete_fn
 
     def __call__(self, data):
-        logger.debug(f"Before AddCanvasElement:\n{data}")
-        if self.discrete_fn:
+        if self.use_discrete:
             data["bboxes_with_canvas"] = torch.cat(
                 [self.x, self.discrete_fn.continuize(data["discrete_gold_bboxes"])],
                 dim=0,
@@ -260,19 +203,18 @@ class AddCanvasElement(nn.Module):
         else:
             data["bboxes_with_canvas"] = torch.cat([self.x, data["bboxes"]], dim=0)
         data["labels_with_canvas"] = torch.cat([self.y, data["labels"]], dim=0)
-        logger.debug(f"After AddCanvasElement:\n{data}")
         return data
 
 
-class AddRelation(nn.Module):
-    def __init__(self, ratio: float = 0.1) -> None:
-        super().__init__()
-
+class AddRelation:
+    def __init__(self, seed=1024, ratio=0.1):
         self.ratio = ratio
+        self.generator = random.Random()
+        if seed is not None:
+            self.generator.seed(seed)
         self.type2index = RelationTypes.type2index()
 
     def __call__(self, data):
-        logger.debug(f"Before AddRelation:\n{data}")
         data["labels_with_canvas_index"] = [0] + list(
             range(len(data["labels_with_canvas"]) - 1)
         )
@@ -281,7 +223,7 @@ class AddRelation(nn.Module):
         rel_all = list(product(range(2), combinations(range(N), 2)))
         # size = min(int(len(rel_all)                     * self.ratio), 10)
         size = int(len(rel_all) * self.ratio)
-        rel_sample = set(random.sample(rel_all, size))
+        rel_sample = set(self.generator.sample(rel_all, size))
 
         relations = []
         for i, j in combinations(range(N), 2):
@@ -313,42 +255,33 @@ class AddRelation(nn.Module):
                 )
 
         data["relations"] = torch.as_tensor(relations).long()
-        logger.debug(f"After AddRelation:\n{data}")
+
         return data
 
 
-class RelationTypes(object):
-    types: List[str] = [
-        "smaller",
-        "equal",
-        "larger",
-        "top",
-        "center",
-        "bottom",
-        "left",
-        "right",
-    ]
-    _type2index: Optional[Dict[str, int]] = None
-    _index2type: Optional[Dict[int, str]] = None
+class RelationTypes:
+    types = ["smaller", "equal", "larger", "top", "center", "bottom", "left", "right"]
+    _type2index = None
+    _index2type = None
 
     @classmethod
-    def type2index(cls) -> Dict[str, int]:
-        if cls._type2index is None:
-            cls._type2index = dict()
-            for idx, cls_type in enumerate(cls.types):
-                cls._type2index[cls_type] = idx
-        return cls._type2index
+    def type2index(self):
+        if self._type2index is None:
+            self._type2index = dict()
+            for idx, type in enumerate(self.types):
+                self._type2index[type] = idx
+        return self._type2index
 
     @classmethod
-    def index2type(cls) -> Dict[int, str]:
-        if cls._index2type is None:
-            cls._index2type = dict()
-            for idx, cls_type in enumerate(cls.types):
-                cls._index2type[idx] = cls_type
-        return cls._index2type
+    def index2type(self):
+        if self._index2type is None:
+            self._index2type = dict()
+            for idx, type in enumerate(self.types):
+                self._index2type[idx] = type
+        return self._index2type
 
 
-class SaliencyMapToBBoxes(nn.Module):
+class SaliencyMapToBBoxes:
     def __init__(
         self,
         threshold: int,
@@ -356,14 +289,12 @@ class SaliencyMapToBBoxes(nn.Module):
         min_side: int = 80,
         min_area: int = 6000,
     ) -> None:
-        super().__init__()
-
         self.threshold = threshold
         self.is_filter_small_bboxes = is_filter_small_bboxes
         self.min_side = min_side
         self.min_area = min_area
 
-    def _is_small_bbox(self, bbox) -> bool:
+    def _is_small_bbox(self, bbox):
         return any(
             [
                 all([bbox[2] <= self.min_side, bbox[3] <= self.min_side]),
@@ -371,10 +302,8 @@ class SaliencyMapToBBoxes(nn.Module):
             ]
         )
 
-    def __call__(self, saliency_map: PilImage) -> torch.Tensor:
-        assert saliency_map.mode == "L", "saliency map must be grayscale image"
-        saliency_map_gray = np.array(saliency_map)
-
+    def __call__(self, saliency_map):
+        saliency_map_gray = cv2.cvtColor(saliency_map, cv2.COLOR_BGR2GRAY)
         _, thresholded_map = cv2.threshold(
             saliency_map_gray, self.threshold, 255, cv2.THRESH_BINARY
         )
@@ -393,33 +322,15 @@ class SaliencyMapToBBoxes(nn.Module):
         return bboxes
 
 
-class CLIPTextEncoderTransform(nn.Module):
-    def __init__(self, model_name: str = "openai/clip-vit-base-patch32") -> None:
-        super().__init__()
-
-        self.model = self._get_clip_model(model_name)
-        self.processor = self._get_clip_processor(model_name)
-
-    def _get_clip_model(self, model_name: str) -> CLIPModel:
-        model: CLIPModel = CLIPModel.from_pretrained(model_name)  # type: ignore
-        model.eval()
-
-        model = model.to("cuda" if torch.cuda.is_available() else "cpu")  # type: ignore
-        return model
-
-    def _get_clip_processor(self, model_name: str) -> CLIPProcessor:
-        processor: CLIPProcessor = CLIPProcessor.from_pretrained(model_name)  # type: ignore
-        return processor
+class CLIPTextEncoder:
+    def __init__(self, model_name: str = "ViT-B/32"):
+        self.model_name = model_name
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.model, self.proprocess = clip.load(self.model_name, self.device)
 
     @torch.no_grad()
     def __call__(self, text: str):
-        inputs = self.processor(
-            text,
-            return_tensors="pt",
-            max_length=self.processor.tokenizer.model_max_length,  # type: ignore
-            padding="max_length",
-            truncation=True,
-        )
-        text_features = self.model.get_text_features(**inputs)  # type: ignore
-        text_features /= text_features.norm(dim=-1, keepdim=True)
-        return text_features
+        token = clip.tokenize(text, truncate=True).to(self.device)
+        text_feature = self.model.encode_text(token)
+        text_feature /= text_feature.norm(dim=-1, keepdim=True)
+        return text_feature

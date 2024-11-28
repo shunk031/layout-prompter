@@ -8,17 +8,73 @@ import numpy as np
 import torch
 from scipy.optimize import linear_sum_assignment
 
-from layout_prompter.dataset_configs import LayoutDatasetConfig
-from layout_prompter.typehint import JsonDict
+ID2LABEL = {
+    "publaynet": {1: "text", 2: "title", 3: "list", 4: "table", 5: "figure"},
+    "rico": {
+        1: "text",
+        2: "image",
+        3: "icon",
+        4: "list item",
+        5: "text button",
+        6: "toolbar",
+        7: "web view",
+        8: "input",
+        9: "card",
+        10: "advertisement",
+        11: "background image",
+        12: "drawer",
+        13: "radio button",
+        14: "checkbox",
+        15: "multi-tab",
+        16: "pager indicator",
+        17: "modal",
+        18: "on/off switch",
+        19: "slider",
+        20: "map view",
+        21: "button bar",
+        22: "video",
+        23: "bottom navigation",
+        24: "number stepper",
+        25: "date picker",
+    },
+    "posterlayout": {1: "text", 2: "logo", 3: "underlay"},
+    "webui": {
+        0: "text",
+        1: "link",
+        2: "button",
+        3: "title",
+        4: "description",
+        5: "image",
+        6: "background",
+        7: "logo",
+        8: "icon",
+        9: "input",
+    },
+}
 
 
-def get_raw_data_path(dataset_config: LayoutDatasetConfig) -> str:
-    return os.path.join(
-        os.path.dirname(__file__), "..", "dataset", f"{dataset_config.name}", "raw"
-    )
+CANVAS_SIZE = {
+    "rico": (90, 160),
+    "publaynet": (120, 160),
+    "posterlayout": (102, 150),
+    "webui": (120, 120),
+}
 
 
-def clean_text(text: str, remove_summary: bool = False) -> str:
+RAW_DATA_PATH = lambda x: os.path.join(
+    os.path.dirname(__file__), f"../../dataset/{x}/raw"
+)
+
+
+LAYOUT_DOMAIN = {
+    "rico": "android",
+    "publaynet": "document",
+    "posterlayout": "poster",
+    "webui": "web",
+}
+
+
+def clean_text(text: str, remove_summary: bool = False):
     if remove_summary:
         text = re.sub(r"#.*?#", "", text)
     text = text.replace("[#]", " ")
@@ -30,32 +86,32 @@ def clean_text(text: str, remove_summary: bool = False) -> str:
     return text
 
 
-def read_json(filename: str) -> JsonDict:
+def read_json(filename):
     with open(filename, "r") as f:
         data = json.load(f)
     return data
 
 
-def read_pt(filename: str):
+def read_pt(filename):
     with open(filename, "rb") as f:
         return torch.load(f)
 
 
-def write_pt(filename: str, obj):
+def write_pt(filename, obj):
     with open(filename, "wb") as f:
         torch.save(obj, f)
 
 
 def convert_ltwh_to_ltrb(bbox):
     if len(bbox.size()) == 1:
-        left, top, width, height = bbox
-        r = left + width
-        b = top + height
-        return left, top, r, b
-    left, top, width, height = decapulate(bbox)
-    r = left + width
-    b = top + height
-    return torch.stack([left, top, r, b], dim=-1)
+        l, t, w, h = bbox
+        r = l + w
+        b = t + h
+        return l, t, r, b
+    l, t, w, h = decapulate(bbox)
+    r = l + w
+    b = t + h
+    return torch.stack([l, t, r, b], axis=-1)
 
 
 def decapulate(bbox):

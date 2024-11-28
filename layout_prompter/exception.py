@@ -1,2 +1,0 @@
-class LayoutPrompterException(Exception):
-    pass
