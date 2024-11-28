@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 10px; top: 10px; width: 30px; height: 10px\"></div>\n<div class=\"text\" style=\"index: 1; left: 10px; top: 25px; width: 60px; height: 15px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 45px; width: 35px; height: 10px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 60px; width: 25px; height: 5px\"></div>\n<div class=\"underlay\" style=\"index: 4; left: 5px; top: 80px; width: 96px; height: 55px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 32px; top: 5px; width: 37px; height: 16px\"></div>\n<div class=\"text\" style=\"index: 1; left: 9px; top: 23px; width: 80px; height: 16px\"></div>\n<div class=\"text\" style=\"index: 2; left: 14px; top: 39px; width: 76px; height: 16px\"></div>\n<div class=\"text\" style=\"index: 3; left: 24px; top: 59px; width: 52px; height: 9px\"></div>\n<div class=\"underlay\" style=\"index: 4; left: 5px; top: 80px; width: 96px; height: 55px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 10px; top: 10px; width: 30px; height: 10px\"></div>\n<div class=\"text\" style=\"index: 1; left: 15px; top: 30px; width: 70px; height: 15px\"></div>\n<div class=\"text\" style=\"index: 2; left: 20px; top: 50px; width: 60px; height: 10px\"></div>\n<div class=\"text\" style=\"index: 3; left: 25px; top: 65px; width: 50px; height: 8px\"></div>\n<div class=\"underlay\" style=\"index: 4; left: 2px; top: 79px; width: 98px; height: 55px\"></div>\n</body>\n</html>\n```\nIn this layout, all elements are placed to avoid the salient content constraint areas defined, ensuring that the logo and text elements are positioned above the underlay, which covers the designated content constraint area effectively. The overall design maintains a balanced visual flow across the poster layout.",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 30px; top: 10px; width: 42px; height: 12px\"></div>\n<div class=\"text\" style=\"index: 1; left: 15px; top: 30px; width: 72px; height: 14px\"></div>\n<div class=\"text\" style=\"index: 2; left: 20px; top: 48px; width: 62px; height: 13px\"></div>\n<div class=\"text\" style=\"index: 3; left: 25px; top: 64px; width: 52px; height: 10px\"></div>\n<div class=\"underlay\" style=\"index: 4; left: 2px; top: 79px; width: 99px; height: 55px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 20px; top: 10px; width: 40px; height: 12px\"></div>\n<div class=\"text\" style=\"index: 1; left: 8px; top: 30px; width: 86px; height: 14px\"></div>\n<div class=\"text\" style=\"index: 2; left: 6px; top: 48px; width: 90px; height: 12px\"></div>\n<div class=\"text\" style=\"index: 3; left: 15px; top: 62px; width: 70px; height: 10px\"></div>\n<div class=\"underlay\" style=\"index: 4; left: 5px; top: 80px; width: 96px; height: 55px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 20px; top: 10px; width: 40px; height: 15px\"></div>\n<div class=\"text\" style=\"index: 1; left: 8px; top: 30px; width: 86px; height: 12px\"></div>\n<div class=\"text\" style=\"index: 2; left: 12px; top: 45px; width: 78px; height: 10px\"></div>\n<div class=\"text\" style=\"index: 3; left: 15px; top: 60px; width: 72px; height: 8px\"></div>\n<div class=\"underlay\" style=\"index: 4; left: 1px; top: 80px; width: 97px; height: 54px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 15px; top: 10px; width: 40px; height: 15px\"></div>\n<div class=\"text\" style=\"index: 1; left: 5px; top: 30px; width: 80px; height: 10px\"></div>\n<div class=\"text\" style=\"index: 2; left: 5px; top: 45px; width: 70px; height: 8px\"></div>\n<div class=\"text\" style=\"index: 3; left: 2px; top: 60px; width: 90px; height: 15px\"></div>\n<div class=\"underlay\" style=\"index: 4; left: 1px; top: 79px; width: 100px; height: 57px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 102px; height: 150px;\"></div>\n<div class=\"logo\" style=\"position: absolute; left: 16px; top: 8px; width: 70px; height: 12px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 20px; top: 30px; width: 60px; height: 14px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 18px; top: 48px; width: 66px; height: 10px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 24px; top: 60px; width: 52px; height: 9px;\"></div>\n<div class=\"underlay\" style=\"position: absolute; left: 2px; top: 79px; width: 27px; height: 55px; background-color: rgba(0,0,0,0.1);\"></div>\n<div class=\"underlay\" style=\"position: absolute; left: 34px; top: 83px; width: 67px; height: 50px; background-color: rgba(0,0,0,0.1);\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"left: 30px; top: 10px; width: 40px; height: 12px\"></div>\n<div class=\"text\" style=\"left: 10px; top: 30px; width: 82px; height: 14px\"></div>\n<div class=\"text\" style=\"left: 12px; top: 46px; width: 78px; height: 12px\"></div>\n<div class=\"text\" style=\"left: 16px; top: 60px; width: 70px; height: 9px\"></div>\n<div class=\"underlay\" style=\"left: 8px; top: 58px; width: 84px; height: 13px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 10px; top: 10px; width: 40px; height: 15px\"></div>\n<div class=\"text\" style=\"index: 1; left: 15px; top: 30px; width: 72px; height: 15px\"></div>\n<div class=\"text\" style=\"index: 2; left: 20px; top: 48px; width: 60px; height: 12px\"></div>\n<div class=\"text\" style=\"index: 3; left: 25px; top: 65px; width: 50px; height: 8px\"></div>\n<div class=\"underlay\" style=\"index: 4; left: 2px; top: 79px; width: 27px; height: 55px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}
