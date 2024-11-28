@@ -1,30 +1,30 @@
 .PHONY: setup
 setup:
-	pip install -U pip setuptools wheel poetry
-	poetry install
+	pip install -U pip uv
+	uv sync
 
 .PHONY: format
 format:
-	poetry run ruff format --check --diff .
+	uv run ruff format --check --diff .
 
 .PHONY: lint
 lint:
-	poetry run ruff check --output-format=github .
+	uv run ruff check --output-format=github .
 
 .PHONY: typecheck
 typecheck:
-	poetry run mypy layout_prompter
+	uv run mypy .
 
 .PHONY: check
 check: format lint typecheck
 
 .PHONY: test-package
 test-package:
-	poetry run pytest tests
+	uv run pytest tests
 
 .PHONY: test-notebooks
 test-notebooks:
-	poetry run pytest --nbmake notebooks/*.ipynb	
+	uv run pytest --nbmake notebooks/*.ipynb	
 
 .PHONY: test
 test: test-package test-notebooks

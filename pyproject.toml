@@ -1,42 +1,41 @@
-[tool.poetry]
+[project]
 name = "layout-prompter"
 version = "0.1.0"
-description = ""
-authors = ["Shunsuke KITADA <shunsuke.kitada.0831@gmail.com>"]
+description = "Add your description here"
 readme = "README.md"
-packages = [{ include = "layout_prompter" }]
+requires-python = ">=3.10"
+dependencies = [
+    "clip",
+    "openai>=1.0.0",
+    "opencv-python>=4.0.0.21",
+    "pandas>=1.0.0",
+    "scipy>=1.0.0",
+    "seaborn>=0.10.0",
+    "torch>=1.0.0",
+    "torchvision>=0.2.1",
+]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-openai = ">=1.0.0"
-opencv-python = ">=4.0.0.21"
-opencv-contrib-python = ">=4.0.0.21"
-scipy = ">=1.0.0"
-torch = ">=1.0.0"
-torchvision = ">=0.2.1"
-pandas = ">=1.0.0"
-seaborn = ">=0.10.0"
-transformers = ">=4.0.0"
-tenacity = ">=8.0.0"
-
-[tool.poetry.group.dev.dependencies]
-ruff = ">=0.1.5"
-mypy = ">=1.0.0"
-pytest = ">=6.0.0"
-nbmake = ">=1.5.0"
-
-types-requests = "^2.31.0.20240125"
-types-tqdm = "^4.66.0.20240106"
-types-pillow = "^10.2.0.20240213"
-jupyterlab = "^4.1.6"
-ipywidgets = "^8.1.2"
-
-[tool.mypy]
-python_version = "3.9"
-no_strict_optional = true
-no_site_packages = true
-ignore_missing_imports = true
+[dependency-groups]
+dev = [
+    "mypy>=1.0.0",
+    "openai-responses>=0.11.2",
+    "pytest>=6.0.0",
+    "ruff>=0.1.5",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
+clip = { git = "https://github.com/openai/CLIP" }
+
+[tool.mypy]
+python_version = "3.10"
+exclude = "tests"
+ignore_missing_imports = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+warn_return_any = true
+warn_unused_ignores = true
