@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 5px; top: 10px; width: 21px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 1; left: 31px; top: 10px; width: 5px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 2; left: 9px; top: 20px; width: 72px; height: 85px\"></div>\n<div class=\"image\" style=\"index: 3; left: 60px; top: 110px; width: 23px; height: 8px\"></div>\n<div class=\"pager indicator\" style=\"index: 4; left: 20px; top: 153px; width: 51px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 0px; top: 110px; width: 90px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 6; left: 0px; top: 118px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 0px; top: 128px; width: 19px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 71px; top: 128px; width: 19px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 0px; top: 0px; width: 21px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 1; left: 26px; top: 0px; width: 5px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 2; left: 9px; top: 10px; width: 72px; height: 85px\"></div>\n<div class=\"image\" style=\"index: 3; left: 0px; top: 100px; width: 23px; height: 8px\"></div>\n<div class=\"pager indicator\" style=\"index: 4; left: 19px; top: 148px; width: 51px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 0px; top: 120px; width: 90px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 6; left: 0px; top: 128px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 0px; top: 138px; width: 19px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 71px; top: 138px; width: 19px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 2px; top: 5px; width: 21px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 1; left: 25px; top: 5px; width: 5px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 2; left: 9px; top: 16px; width: 72px; height: 85px\"></div>\n<div class=\"image\" style=\"index: 3; left: 58px; top: 5px; width: 23px; height: 8px\"></div>\n<div class=\"pager indicator\" style=\"index: 4; left: 19px; top: 133px; width: 51px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 0px; top: 105px; width: 90px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 6; left: 0px; top: 113px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 0px; top: 138px; width: 19px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 71px; top: 138px; width: 19px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 5px; top: 5px; width: 21px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 1; left: 30px; top: 5px; width: 5px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 2; left: 9px; top: 20px; width: 72px; height: 85px\"></div>\n<div class=\"image\" style=\"index: 3; left: 60px; top: 5px; width: 23px; height: 8px\"></div>\n<div class=\"pager indicator\" style=\"index: 4; left: 19px; top: 153px; width: 51px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 0px; top: 110px; width: 90px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 6; left: 0px; top: 120px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 5px; top: 140px; width: 19px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 66px; top: 140px; width: 19px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 0px; top: 5px; width: 21px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 1; left: 26px; top: 5px; width: 5px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 2; left: 9px; top: 20px; width: 72px; height: 85px\"></div>\n<div class=\"image\" style=\"index: 3; left: 33px; top: 110px; width: 23px; height: 8px\"></div>\n<div class=\"pager indicator\" style=\"index: 4; left: 19px; top: 150px; width: 51px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 0px; top: 130px; width: 90px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 6; left: 0px; top: 120px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 0px; top: 140px; width: 19px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 71px; top: 140px; width: 19px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 5px; top: 10px; width: 21px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 1; left: 31px; top: 10px; width: 5px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 2; left: 9px; top: 25px; width: 72px; height: 85px\"></div>\n<div class=\"image\" style=\"index: 3; left: 60px; top: 10px; width: 23px; height: 8px\"></div>\n<div class=\"pager indicator\" style=\"index: 4; left: 19px; top: 145px; width: 51px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 0px; top: 115px; width: 90px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 6; left: 0px; top: 123px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 5px; top: 135px; width: 19px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 66px; top: 135px; width: 19px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 5px; top: 5px; width: 21px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 1; left: 30px; top: 5px; width: 5px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 2; left: 9px; top: 15px; width: 72px; height: 85px\"></div>\n<div class=\"image\" style=\"index: 3; left: 5px; top: 105px; width: 23px; height: 8px\"></div>\n<div class=\"pager indicator\" style=\"index: 4; left: 19px; top: 150px; width: 51px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 0px; top: 95px; width: 90px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 6; left: 0px; top: 85px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 5px; top: 125px; width: 19px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 66px; top: 125px; width: 19px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 5px; top: 5px; width: 21px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 1; left: 30px; top: 5px; width: 5px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 2; left: 9px; top: 15px; width: 72px; height: 85px\"></div>\n<div class=\"image\" style=\"index: 3; left: 33px; top: 105px; width: 23px; height: 8px\"></div>\n<div class=\"pager indicator\" style=\"index: 4; left: 19px; top: 153px; width: 51px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 0px; top: 125px; width: 90px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 6; left: 0px; top: 135px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 5px; top: 145px; width: 19px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 66px; top: 145px; width: 19px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 5px; top: 5px; width: 21px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 1; left: 30px; top: 5px; width: 5px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 2; left: 9px; top: 20px; width: 72px; height: 85px\"></div>\n<div class=\"image\" style=\"index: 3; left: 5px; top: 110px; width: 23px; height: 8px\"></div>\n<div class=\"pager indicator\" style=\"index: 4; left: 20px; top: 152px; width: 51px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 0px; top: 125px; width: 90px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 6; left: 0px; top: 135px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 5px; top: 145px; width: 19px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 66px; top: 145px; width: 19px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 5px; top: 10px; width: 21px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 1; left: 30px; top: 10px; width: 5px; height: 8px\"></div>\n<div class=\"image\" style=\"index: 2; left: 9px; top: 25px; width: 72px; height: 85px\"></div>\n<div class=\"image\" style=\"index: 3; left: 40px; top: 115px; width: 23px; height: 8px\"></div>\n<div class=\"pager indicator\" style=\"index: 4; left: 19px; top: 155px; width: 51px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 0px; top: 140px; width: 90px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 6; left: 0px; top: 130px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 0px; top: 120px; width: 19px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 71px; top: 120px; width: 19px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}
