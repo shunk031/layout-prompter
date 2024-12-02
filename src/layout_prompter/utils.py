@@ -8,6 +8,8 @@ import numpy as np
 import torch
 from scipy.optimize import linear_sum_assignment
 
+from layout_prompter.exception import LayoutPrompterException
+
 ID2LABEL = {
     "publaynet": {1: "text", 2: "title", 3: "list", 4: "table", 5: "figure"},
     "rico": {
@@ -104,7 +106,11 @@ def write_pt(filename, obj):
 
 def convert_ltwh_to_ltrb(bbox):
     if len(bbox.size()) == 1:
-        l, t, w, h = bbox
+        try:
+            l, t, w, h = bbox
+        except ValueError as err:
+            raise err
+
         r = l + w
         b = t + h
         return l, t, r, b
@@ -137,7 +143,7 @@ def detect_size_relation(b1, b2):
     if a1_lg <= a2:
         return "larger"
 
-    raise RuntimeError(b1, b2)
+    raise LayoutPrompterException(f"{b1=}, {b2=}")
 
 
 def detect_loc_relation(b1, b2, canvas=False):
@@ -174,7 +180,7 @@ def detect_loc_relation(b1, b2, canvas=False):
             if l1 < r2 and l2 < r1:
                 return "center"
 
-    raise RuntimeError(b1, b2, canvas)
+    raise LayoutPrompterException(f"{b1=}, {b2=}, {canvas=}")
 
 
 def compute_overlap(bbox, mask):

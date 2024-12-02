@@ -173,9 +173,9 @@ class TextToLayoutExemplarSelection(ExemplarSelection):
 
 
 SELECTOR_MAP = {
-    "gent": GenTypeExemplarSelection,
-    "gents": GenTypeSizeExemplarSelection,
-    "genr": GenRelationExemplarSelection,
+    "gen-t": GenTypeExemplarSelection,
+    "gen-ts": GenTypeSizeExemplarSelection,
+    "gen-r": GenRelationExemplarSelection,
     "completion": CompletionExemplarSelection,
     "refinement": RefinementExemplarSelection,
     "content": ContentAwareExemplarSelection,

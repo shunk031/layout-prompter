@@ -1,13 +1,13 @@
 import json
+import logging
 import os
 
 import openai_responses
 import pytest
 from openai import OpenAI
 from openai_responses import OpenAIMock
-from pandas import read_csv
 from PIL import ImageChops
-from tqdm import tqdm
+from tqdm.auto import tqdm
 
 from layout_prompter.parsing import Parser
 from layout_prompter.preprocess import create_processor
@@ -15,26 +15,20 @@ from layout_prompter.ranker import Ranker
 from layout_prompter.selection import create_selector
 from layout_prompter.serialization import build_prompt, create_serializer
 from layout_prompter.testing import LayoutPrompterTestCase
-from layout_prompter.utils import RAW_DATA_PATH, read_pt, write_pt
-from layout_prompter.visualization import ContentAwareVisualizer, create_image_grid
+from layout_prompter.utils import RAW_DATA_PATH, read_json, read_pt, write_pt
+from layout_prompter.visualization import Visualizer, create_image_grid
+
+logger = logging.getLogger(__name__)
 
 
-class TestContentAwareCase(LayoutPrompterTestCase):
+class TestTextToLayout(LayoutPrompterTestCase):
     @pytest.fixture
     def dataset(self) -> str:
-        return "posterlayout"
+        return "webui"
 
     @pytest.fixture
     def task(self) -> str:
-        return "content"
-
-    @pytest.fixture
-    def input_format(self) -> str:
-        return "seq"
-
-    @pytest.fixture
-    def output_format(self) -> str:
-        return "html"
+        return "text"
 
     @pytest.fixture
     def add_unk_token(self) -> bool:
@@ -42,57 +36,22 @@ class TestContentAwareCase(LayoutPrompterTestCase):
 
     @pytest.fixture
     def add_index_token(self) -> bool:
-        return True
+        return False
 
     @pytest.fixture
     def add_sep_token(self) -> bool:
         return True
 
     @pytest.fixture
-    def candidate_size(self) -> int:
-        # -1 represents the complete training set
-        return -1
-
-    @pytest.fixture
-    def num_prompt(self) -> int:
-        return 10
-
-    @pytest.fixture
-    def model(self) -> str:
-        # return "text-davinci-003"
-        return "gpt-4o"
-
-    @pytest.fixture
-    def temperature(self) -> float:
-        return 0.7
-
-    @pytest.fixture
     def max_tokens(self) -> int:
-        return 800
-
-    @pytest.fixture
-    def top_p(self) -> int:
-        return 1
-
-    @pytest.fixture
-    def frequency_penalty(self) -> int:
-        return 0
-
-    @pytest.fixture
-    def presence_penalty(self) -> int:
-        return 0
-
-    @pytest.fixture
-    def num_return(self) -> int:
-        return 10
-
-    @pytest.fixture
-    def stop_token(self) -> str:
-        return "\n\n"
+        return 1200
 
     @openai_responses.mock()
-    @pytest.mark.parametrize(argnames="test_idx", argvalues=list(range(5)))
-    def test_content_aware(
+    @pytest.mark.parametrize(
+        argnames="test_idx",
+        argvalues=list(range(5)),
+    )
+    def test_text_to_layout(
         self,
         #
         # Mock configurations
@@ -117,14 +76,13 @@ class TestContentAwareCase(LayoutPrompterTestCase):
         model: str,
         temperature: float,
         max_tokens: int,
-        top_p: int,
-        frequency_penalty: int,
-        presence_penalty: int,
+        top_p: float,
+        frequency_penalty: float,
+        presence_penalty: float,
         num_return: int,
         stop_token: str,
     ) -> None:
-        metadata = read_csv(os.path.join(RAW_DATA_PATH(dataset), "train_csv_9973.csv"))
-        processor = create_processor(dataset, task, metadata=metadata)
+        processor = create_processor(dataset=dataset, task=task)
         base_dir = os.path.dirname(os.getcwd())
 
         def get_processed_data(split):
@@ -136,20 +94,15 @@ class TestContentAwareCase(LayoutPrompterTestCase):
             else:
                 processed_data = []
                 os.makedirs(os.path.dirname(filename), exist_ok=True)
-                raw_path = os.path.join(
-                    RAW_DATA_PATH(dataset), split, "saliencymaps_pfpn"
-                )
-                raw_data = os.listdir(raw_path)
-                raw_data = sorted(raw_data, key=lambda x: int(x.split("_")[0]))
+                raw_path = os.path.join(RAW_DATA_PATH(dataset), f"{split}.json")
+                raw_data = read_json(raw_path)
                 for rd in tqdm(raw_data, desc=f"{split} data processing..."):
-                    idx = int(rd.split("_")[0])
-                    data = processor(os.path.join(raw_path, rd), idx, split)
-                    if data:
-                        processed_data.append(data)
+                    processed_data.append(processor(rd))
                 write_pt(filename, processed_data)
             return processed_data
 
         processed_train_data = get_processed_data("train")
+        # processed_val_data = get_processed_data("val")
         processed_test_data = get_processed_data("test")
 
         selector = create_selector(
@@ -174,7 +127,20 @@ class TestContentAwareCase(LayoutPrompterTestCase):
             serializer, exemplars, processed_test_data[test_idx], dataset
         )
 
-        mock_json_path = self.FIXTURES_ROOT / "content_aware" / f"{test_idx=}.json"
+        # temperature = 0.7
+        # max_tokens = 1200
+        # top_p = 1
+        # frequency_penalty = 0
+        # presence_penalty = 0
+        # num_return = 10
+        # stop_token = "\n\n"
+
+        mock_json_dir = self.FIXTURES_ROOT / "text_to_layout" / dataset
+        mock_json_dir.mkdir(parents=True, exist_ok=True)
+
+        mock_json_path = (
+            self.FIXTURES_ROOT / "text_to_layout" / dataset / f"{test_idx=}.json"
+        )
         with mock_json_path.open("r") as rf:
             openai_mock.chat.completions.create.response = json.load(rf)
 
@@ -184,6 +150,7 @@ class TestContentAwareCase(LayoutPrompterTestCase):
             {"role": "system", "content": prompt["system_prompt"]},
             {"role": "user", "content": prompt["user_prompt"]},
         ]
+
         response = client.chat.completions.create(
             model=model,
             messages=messages,
@@ -196,21 +163,6 @@ class TestContentAwareCase(LayoutPrompterTestCase):
             stop=[stop_token],
         )
 
-        # hoge = {"choices": []}
-        # for choice in response.choices:
-        #     hoge["choices"].append(
-        #         {
-        #             "index": choice.index,
-        #             "finish_reason": choice.finish_reason,
-        #             "message": {
-        #                 "content": choice.message.content,
-        #                 "role": choice.message.role,
-        #             },
-        #         }
-        #     )
-        # with open(f"{test_idx=}.json", "w") as wf:
-        #     json.dump(hoge, wf, indent=4)
-
         parser = Parser(dataset=dataset, output_format=output_format)
         parsed_response = parser(response)
         print(f"filter {num_return - len(parsed_response)} invalid response")
@@ -218,12 +170,16 @@ class TestContentAwareCase(LayoutPrompterTestCase):
         ranker = Ranker()
         ranked_response = ranker(parsed_response)
 
-        visualizer = ContentAwareVisualizer()
-        images = visualizer(ranked_response, processed_test_data[test_idx]["idx"])
+        visualizer = Visualizer(dataset)
+        images = visualizer(ranked_response)
         image = create_image_grid(images)
 
-        expected_image_path = self.FIXTURES_ROOT / "content_aware" / f"{test_idx=}.png"
+        expected_image_path = (
+            self.FIXTURES_ROOT / "text_to_layout" / dataset / f"{test_idx=}.png"
+        )
         expected_image = self._load_image(expected_image_path)
 
         diff = ImageChops.difference(image, expected_image)
         assert diff.getbbox() is None
+
+        # image.save(expected_image_path)
