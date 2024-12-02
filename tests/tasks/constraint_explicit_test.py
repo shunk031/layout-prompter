@@ -3,11 +3,10 @@ import logging
 import os
 from typing import get_args
 
-# import openai_responses
+import openai_responses
 import pytest
 from openai import OpenAI
-
-# from openai_responses import OpenAIMock
+from openai_responses import OpenAIMock
 from PIL import ImageChops
 from tqdm import tqdm
 
@@ -37,15 +36,14 @@ class TestConstraintExplicit(LayoutPrompterTestCase):
     def add_sep_token(self) -> bool:
         return True
 
-    # @openai_responses.mock()
+    @openai_responses.mock()
     @pytest.mark.parametrize(
         argnames="dataset",
         argvalues=("rico", "publaynet"),
     )
     @pytest.mark.parametrize(
         argnames="task",
-        # argvalues=get_args(ConstraintExplicitTask),
-        argvalues=["refinement"],
+        argvalues=get_args(ConstraintExplicitTask),
     )
     @pytest.mark.parametrize(
         argnames="test_idx",
@@ -56,7 +54,7 @@ class TestConstraintExplicit(LayoutPrompterTestCase):
         #
         # Mock configurations
         #
-        # openai_mock: OpenAIMock,
+        openai_mock: OpenAIMock,
         #
         # Test configurations
         #
@@ -82,17 +80,6 @@ class TestConstraintExplicit(LayoutPrompterTestCase):
         num_return: int,
         stop_token: str,
     ) -> None:
-        # datasets = ["rico", "publaynet"]  # choices
-        # tasks = [gen-t, "gen-ts", "gen-r", "completion", "refinement"]
-        # dataset = datasets[0]
-        # task = tasks[0]
-
-        # add_unk_token = False
-        # add_index_token = True
-        # add_sep_token = True
-        # candidate_size = -1  # -1 represents the complete training set
-        # num_prompt = 10
-
         processor = create_processor(dataset=dataset, task=task)
         base_dir = os.path.dirname(os.getcwd())
 
@@ -148,62 +135,53 @@ class TestConstraintExplicit(LayoutPrompterTestCase):
             / task
             / f"{test_idx=}.json"
         )
-        # with mock_json_path.open("r") as rf:
-        #     openai_mock.chat.completions.create.response = json.load(rf)
+        with mock_json_path.open("r") as rf:
+            openai_mock.chat.completions.create.response = json.load(rf)
 
         client = OpenAI()
 
-        while True:
-            try:
-                messages = [
-                    {"role": "system", "content": prompt["system_prompt"]},
-                    {"role": "user", "content": prompt["user_prompt"]},
-                ]
-                response = client.chat.completions.create(
-                    model=model,
-                    messages=messages,
-                    temperature=temperature,
-                    max_tokens=max_tokens,
-                    top_p=top_p,
-                    frequency_penalty=frequency_penalty,
-                    presence_penalty=presence_penalty,
-                    n=num_return,
-                    stop=[stop_token],
-                )
+        messages = [
+            {"role": "system", "content": prompt["system_prompt"]},
+            {"role": "user", "content": prompt["user_prompt"]},
+        ]
+        response = client.chat.completions.create(
+            model=model,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            top_p=top_p,
+            frequency_penalty=frequency_penalty,
+            presence_penalty=presence_penalty,
+            n=num_return,
+            stop=[stop_token],
+        )
 
-                hoge = {"choices": []}
-                for choice in response.choices:
-                    hoge["choices"].append(
-                        {
-                            "index": choice.index,
-                            "finish_reason": choice.finish_reason,
-                            "message": {
-                                "content": choice.message.content,
-                                "role": choice.message.role,
-                            },
-                        }
-                    )
+        # hoge = {"choices": []}
+        # for choice in response.choices:
+        #     hoge["choices"].append(
+        #         {
+        #             "index": choice.index,
+        #             "finish_reason": choice.finish_reason,
+        #             "message": {
+        #                 "content": choice.message.content,
+        #                 "role": choice.message.role,
+        #             },
+        #         }
+        #     )
+        # with open(mock_json_path, "w") as wf:
+        #     json.dump(hoge, wf, indent=4)
 
-                logger.info(mock_json_path)
-                with open(mock_json_path, "w") as wf:
-                    json.dump(hoge, wf, indent=4)
+        parser = Parser(dataset=dataset, output_format=output_format)
+        parsed_response = parser(response)
+        print(f"filter {num_return - len(parsed_response)} invalid response")
 
-                parser = Parser(dataset=dataset, output_format=output_format)
-                parsed_response = parser(response)
-                print(f"filter {num_return - len(parsed_response)} invalid response")
+        val_path = os.path.join(RAW_DATA_PATH(dataset), "val.pt")
+        ranker = Ranker(val_path=val_path)
+        ranked_response = ranker(parsed_response)
 
-                val_path = os.path.join(RAW_DATA_PATH(dataset), "val.pt")
-                ranker = Ranker(val_path=val_path)
-                ranked_response = ranker(parsed_response)
-
-                visualizer = Visualizer(dataset)
-                images = visualizer(ranked_response)
-                image = create_image_grid(images)
-
-                break
-
-            except Exception as err:
-                logger.warning(err, exc_info=True)
+        visualizer = Visualizer(dataset)
+        images = visualizer(ranked_response)
+        image = create_image_grid(images)
 
         expected_image_path = (
             self.FIXTURES_ROOT
@@ -212,11 +190,9 @@ class TestConstraintExplicit(LayoutPrompterTestCase):
             / task
             / f"{test_idx=}.png"
         )
-        logger.info(expected_image_path)
+        expected_image = self._load_image(expected_image_path)
 
-        # expected_image = self._load_image(expected_image_path)
+        diff = ImageChops.difference(image, expected_image)
+        assert diff.getbbox() is None
 
-        # diff = ImageChops.difference(image, expected_image)
-        # assert diff.getbbox() is None
-
-        image.save(expected_image_path)
+        # image.save(expected_image_path)
