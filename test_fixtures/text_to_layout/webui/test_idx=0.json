@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"background\" style=\"left: 0px; top: 0px; width: 120px; height: 90px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 15px\"></div>\n<div class=\"button\" style=\"left: 35px; top: 100px; width: 50px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px;\"></div>\n<div class=\"background\" style=\"left: 0px; top: 0px; width: 120px; height: 100px;\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 12px;\">Exchange Rates</div>\n<div class=\"button\" style=\"left: 10px; top: 105px; width: 100px; height: 10px;\">Learn More</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"background\" style=\"left: 0px; top: 0px; width: 120px; height: 100px;\"></div>\n<div class=\"title\" style=\"left: 5px; top: 5px; width: 110px; height: 10px;\"></div>\n<div class=\"button\" style=\"left: 40px; top: 110px; width: 40px; height: 8px;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"width: 120px; height: 120px;\"></div>\n  <div class=\"background\" style=\"position: absolute; left: 0px; top: 0px; width: 120px; height: 96px;\"></div>\n  <div class=\"title\" style=\"position: absolute; left: 10px; top: 10px; width: 100px; height: 10px;\"></div>\n  <div class=\"button\" style=\"position: absolute; left: 35px; top: 100px; width: 50px; height: 10px;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"background\" style=\"left: 0px; top: 0px; width: 120px; height: 80px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 85px; width: 100px; height: 10px\"></div>\n<div class=\"button\" style=\"left: 35px; top: 105px; width: 50px; height: 8px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px; position: relative;\">\n  <div class=\"background\" style=\"left: 0px; top: 0px; width: 120px; height: 80px; background-color: #f0f0f0; position: absolute;\"></div>\n  <div class=\"title\" style=\"left: 5px; top: 5px; width: 110px; height: 10px; background-color: #cccccc; position: absolute;\"></div>\n  <div class=\"button\" style=\"left: 5px; top: 100px; width: 110px; height: 15px; background-color: #007BFF; color: white; text-align: center; line-height: 15px; position: absolute;\">Learn More</div>\n</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px;\"></div>\n<div class=\"background\" style=\"left: 0px; top: 0px; width: 120px; height: 90px; background-color: lightgray;\"></div>\n<div class=\"title\" style=\"left: 5px; top: 5px; width: 110px; height: 10px; font-size: 10px; font-weight: bold;\">Best Exchange Rates</div>\n<div class=\"button\" style=\"left: 35px; top: 100px; width: 50px; height: 10px; background-color: blue; color: white; text-align: center; line-height: 10px;\">Learn More</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"background\" style=\"left: 0px; top: 0px; width: 120px; height: 100px\"></div>\n<div class=\"title\" style=\"left: 5px; top: 5px; width: 110px; height: 15px\"></div>\n<div class=\"button\" style=\"left: 5px; top: 105px; width: 110px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"background\" style=\"left: 0px; top: 0px; width: 120px; height: 100px\"></div>\n<div class=\"title\" style=\"left: 5px; top: 5px; width: 100px; height: 10px\"></div>\n<div class=\"button\" style=\"left: 35px; top: 105px; width: 50px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px; position: relative;\">\n    <div class=\"background\" style=\"left: 0px; top: 0px; width: 120px; height: 100px; position: absolute; background-color: lightgray;\"></div>\n    <div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 15px; position: absolute; font-size: 12px; font-weight: bold;\">Money Transfer</div>\n    <div class=\"button\" style=\"left: 35px; top: 105px; width: 50px; height: 10px; position: absolute; background-color: blue; color: white; text-align: center; line-height: 10px; font-size: 10px; cursor: pointer;\">More Info</div>\n</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

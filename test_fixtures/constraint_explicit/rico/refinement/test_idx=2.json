@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n    <!-- Canvas for layout, setting the boundaries for elements -->\n    <div class=\"canvas\" style=\"position: relative; width: 90px; height: 160px; border: 1px solid #ccc;\">",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "To refine the layout and ensure elements are well-aligned and avoid unnecessary overlap, I will organize the layout elements in a structured manner. The elements will be distributed vertically with adequate spacing.",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px;\"></div>\n  <div class=\"background-image\" style=\"position: absolute; left: 0px; top: 5px; width: 90px; height: 144px;\"></div>\n  <div class=\"image\" style=\"position: absolute; left: 0px; top: 16px; width: 21px; height: 7px;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 22px; top: 7px; width: 44px; height: 5px;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 28px; top: 12px; width: 32px; height: 4px;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 0px; top: 51px; width: 90px; height: 8px;\"></div>\n  <div class=\"text-button\" style=\"position: absolute; left: 81px; top: 16px; width: 8px; height: 7px;\"></div>\n  <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 23px; width: 90px; height: 9px;\"></div>\n  <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 32px; width: 90px; height: 9px;\"></div>\n  <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 41px; width: 90px; height: 9px;\"></div>\n  <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 60px; width: 90px; height: 14px;\"></div>\n  <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 74px; width: 90px; height: 14px;\"></div>\n  <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 137px; width: 90px; height: 12px;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px;\"></div>\n<div class=\"background-image\" style=\"position: absolute; left: 0px; top: 5px; width: 90px; height: 144px; background-color: #e0e0e0;\"></div>\n<div class=\"image\" style=\"position: absolute; left: 0px; top: 16px; width: 21px; height: 7px; background-color: #b0c4de;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 22px; top: 7px; width: 44px; height: 5px; background-color: #dcdcdc;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 35px; top: 12px; width: 18px; height: 4px; background-color: #dcdcdc;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 0px; top: 51px; width: 90px; height: 8px; background-color: #dcdcdc;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 81px; top: 16px; width: 8px; height: 7px; background-color: #add8e6;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 0px; top: 23px; width: 90px; height: 9px; background-color: #add8e6;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 0px; top: 32px; width: 90px; height: 9px; background-color: #add8e6;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 0px; top: 41px; width: 90px; height: 9px; background-color: #add8e6;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 0px; top: 60px; width: 90px; height: 14px; background-color: #add8e6;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 0px; top: 74px; width: 90px; height: 14px; background-color: #add8e6;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 0px; top: 137px; width: 90px; height: 12px; background-color: #add8e6;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n    <div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px; background-color: #f0f0f0;\"></div>\n    \n    <div class=\"background-image\" style=\"position: absolute; left: 0px; top: 5px; width: 90px; height: 144px; background-image: url('background.jpg');\"></div>\n    \n    <div class=\"image\" style=\"position: absolute; left: 5px; top: 10px; width: 21px; height: 7px; background-image: url('icon.png');\"></div>\n    \n    <div class=\"text\" style=\"position: absolute; left: 28px; top: 7px; width: 44px; height: 5px; font-size: 8px; color: #333;\">Title</div>\n    \n    <div class=\"text\" style=\"position: absolute; left: 30px; top: 20px; width: 32px; height: 4px; font-size: 6px; color: #777;\">Subtitle</div>\n    \n    <div class=\"text\" style=\"position: absolute; left: 0px; top: 51px; width: 90px; height: 8px; font-size: 10px; color: #333; text-align: center;\">Main Content</div>\n    \n    <div class=\"text-button\" style=\"position: absolute; left: 10px; top: 70px; width: 70px; height: 14px; background-color: #007bff; color: white; text-align: center; line-height: 14px;\">Button 1</div>\n    \n    <div class=\"text-button\" style=\"position: absolute; left: 10px; top: 90px; width: 70px; height: 14px; background-color: #007bff; color: white; text-align: center; line-height: 14px;\">Button 2</div>\n    \n    <div class=\"text-button\" style=\"position: absolute; left: 10px; top: 110px; width: 70px; height: 14px; background-color: #007bff; color: white; text-align: center; line-height: 14px;\">Button 3</div>\n    \n    <div class=\"text-button\" style=\"position: absolute; left: 10px; top: 130px; width: 70px; height: 14px; background-color: #007bff; color: white; text-align: center; line-height: 14px;\">Button 4</div>\n    \n    <div class=\"text-button\" style=\"position: absolute; left: 10px; top: 150px; width: 70px; height: 10px; background-color: #007bff; color: white; text-align: center; line-height: 10px;\">Button 5</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<style>\n  .canvas {\n    position: absolute;\n    left: 0px;\n    top: 0px;\n    width: 90px;\n    height: 160px;\n    background-color: #f8f8f8;\n  }\n  .background-image {\n    position: absolute;\n    left: 0px;\n    top: 5px;\n    width: 90px;\n    height: 144px;\n    background-color: #e0e0e0;\n  }\n  .image {\n    position: absolute;\n    left: 10px;\n    top: 16px;\n    width: 21px;\n    height: 7px;\n    background-color: #c0c0c0;\n  }\n  .text {\n    position: absolute;\n    left: 22px;\n    top: 7px;\n    width: 44px;\n    height: 5px;\n    background-color: #a0a0a0;\n  }\n  .text-small {\n    position: absolute;\n    left: 35px;\n    top: 12px;\n    width: 18px;\n    height: 4px;\n    background-color: #a0a0a0;\n  }\n  .text-wide {\n    position: absolute;\n    left: 0px;\n    top: 51px;\n    width: 90px;\n    height: 8px;\n    background-color: #a0a0a0;\n  }\n  .text-button {\n    position: absolute;\n    left: 0px;\n    width: 90px;\n    height: 9px;\n    background-color: #808080;\n  }\n  .text-button-small {\n    position: absolute;\n    left: 81px;\n    top: 16px;\n    width: 8px;\n    height: 7px;\n    background-color: #808080;\n  }\n</style>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"width: 90px; height: 160px; position: relative; background-color: #f0f0f0;\">\n    <div class=\"background-image\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 145px; background-color: #d0d0d0;\"></div>\n    <div class=\"image\" style=\"position: absolute; left: 0px; top: 17px; width: 22px; height: 7px; background-color: #a0a0a0;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 22px; top: 7px; width: 45px; height: 5px; background-color: #c0c0c0;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 34px; top: 13px; width: 18px; height: 4px; background-color: #c0c0c0;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 0px; top: 50px; width: 90px; height: 6px; background-color: #c0c0c0;\"></div>\n    <div class=\"text-button\" style=\"position: absolute; left: 80px; top: 14px; width: 9px; height: 4px; background-color: #b0b0b0;\"></div>\n    <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 25px; width: 90px; height: 10px; background-color: #b0b0b0;\"></div>\n    <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 33px; width: 89px; height: 9px; background-color: #b0b0b0;\"></div>\n    <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 41px; width: 89px; height: 9px; background-color: #b0b0b0;\"></div>\n    <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 59px; width: 89px; height: 11px; background-color: #b0b0b0;\"></div>\n    <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 74px; width: 90px; height: 13px; background-color: #b0b0b0;\"></div>\n    <div class=\"text-button\" style=\"position: absolute; left: 0px; top: 137px; width: 90px; height: 13px; background-color: #b0b0b0;\"></div>\n  </div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n    <!-- Canvas containing the entire layout -->\n    <div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px; background-color: #f0f0f0;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px; position: relative;\">\n  <div class=\"background image\" style=\"left: 0px; top: 5px; width: 90px; height: 144px; position: absolute;\"></div>\n  <div class=\"image\" style=\"left: 0px; top: 16px; width: 21px; height: 7px; position: absolute;\"></div>\n  <div class=\"text\" style=\"left: 22px; top: 7px; width: 44px; height: 5px; position: absolute;\"></div>\n  <div class=\"text\" style=\"left: 35px; top: 12px; width: 18px; height: 4px; position: absolute;\"></div>\n  <div class=\"text\" style=\"left: 0px; top: 51px; width: 90px; height: 8px; position: absolute;\"></div>\n  <div class=\"text button\" style=\"left: 81px; top: 16px; width: 8px; height: 7px; position: absolute;\"></div>\n  <div class=\"text button\" style=\"left: 0px; top: 23px; width: 90px; height: 9px; position: absolute;\"></div>\n  <div class=\"text button\" style=\"left: 0px; top: 32px; width: 90px; height: 9px; position: absolute;\"></div>\n  <div class=\"text button\" style=\"left: 0px; top: 41px; width: 90px; height: 9px; position: absolute;\"></div>\n  <div class=\"text button\" style=\"left: 0px; top: 60px; width: 90px; height: 14px; position: absolute;\"></div>\n  <div class=\"text button\" style=\"left: 0px; top: 74px; width: 90px; height: 14px; position: absolute;\"></div>\n  <div class=\"text button\" style=\"left: 0px; top: 137px; width: 90px; height: 12px; position: absolute;\"></div>\n</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

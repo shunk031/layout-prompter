@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 10px; top: 10px; width: 56px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 1; left: 10px; top: 15px; width: 92px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 24px; width: 29px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 30px; width: 92px; height: 18px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 52px; width: 47px; height: 25px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 81px; width: 47px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 6; left: 10px; top: 116px; width: 47px; height: 13px\"></div>\n<div class=\"text\" style=\"index: 7; left: 10px; top: 133px; width: 47px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 8; left: 61px; top: 133px; width: 88px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 9; left: 10px; top: 141px; width: 47px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 10; left: 61px; top: 141px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 11; left: 10px; top: 155px; width: 37px; height: 1px\"></div>\n<div class=\"title\" style=\"index: 12; left: 10px; top: 160px; width: 94px; height: 3px\"></div>\n<div class=\"title\" style=\"index: 13; left: 10px; top: 165px; width: 15px; height: 2px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 10px; top: 20px; width: 56px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 1; left: 10px; top: 25px; width: 92px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 35px; width: 29px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 40px; width: 92px; height: 18px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 60px; width: 47px; height: 25px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 90px; width: 47px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 6; left: 10px; top: 125px; width: 47px; height: 13px\"></div>\n<div class=\"text\" style=\"index: 7; left: 67px; top: 125px; width: 47px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 8; left: 10px; top: 140px; width: 88px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 9; left: 67px; top: 60px; width: 47px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 10; left: 67px; top: 75px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 11; left: 67px; top: 80px; width: 37px; height: 1px\"></div>\n<div class=\"title\" style=\"index: 12; left: 10px; top: 5px; width: 94px; height: 3px\"></div>\n<div class=\"title\" style=\"index: 13; left: 67px; top: 110px; width: 15px; height: 2px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n  <div class=\"title\" style=\"index: 12; left: 13px; top: 10px; width: 94px; height: 3px\"></div>\n  <div class=\"text\" style=\"index: 0; left: 13px; top: 16px; width: 56px; height: 1px\"></div>\n  <div class=\"text\" style=\"index: 11; left: 13px; top: 18px; width: 37px; height: 1px\"></div>\n  <div class=\"text\" style=\"index: 10; left: 13px; top: 20px; width: 55px; height: 2px\"></div>\n  <div class=\"text\" style=\"index: 2; left: 13px; top: 23px; width: 29px; height: 1px\"></div>\n  <div class=\"text\" style=\"index: 6; left: 13px; top: 26px; width: 47px; height: 13px\"></div>\n  <div class=\"text\" style=\"index: 5; left: 13px; top: 41px; width: 47px; height: 31px\"></div>\n  <div class=\"text\" style=\"index: 4; left: 13px; top: 74px; width: 47px; height: 25px\"></div>\n  <div class=\"text\" style=\"index: 9; left: 13px; top: 101px; width: 47px; height: 11px\"></div>\n  <div class=\"title\" style=\"index: 13; left: 13px; top: 114px; width: 15px; height: 2px\"></div>\n  <div class=\"text\" style=\"index: 7; left: 13px; top: 120px; width: 47px; height: 6px\"></div>\n  <div class=\"text\" style=\"index: 3; left: 13px; top: 128px; width: 92px; height: 18px\"></div>\n  <div class=\"text\" style=\"index: 8; left: 13px; top: 148px; width: 88px; height: 6px\"></div>\n  <div class=\"text\" style=\"index: 1; left: 13px; top: 156px; width: 92px; height: 6px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 17px; top: 120px; width: 56px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 1; left: 10px; top: 90px; width: 92px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 2; left: 17px; top: 60px; width: 29px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 98px; width: 92px; height: 18px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 130px; width: 47px; height: 25px\"></div>\n<div class=\"text\" style=\"index: 5; left: 61px; top: 130px; width: 47px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 6; left: 10px; top: 160px; width: 47px; height: 13px\"></div>\n<div class=\"text\" style=\"index: 7; left: 10px; top: 78px; width: 47px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 8; left: 10px; top: 50px; width: 88px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 9; left: 10px; top: 38px; width: 47px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 10; left: 17px; top: 65px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 11; left: 17px; top: 71px; width: 37px; height: 1px\"></div>\n<div class=\"title\" style=\"index: 12; left: 10px; top: 20px; width: 94px; height: 3px\"></div>\n<div class=\"title\" style=\"index: 13; left: 10px; top: 144px; width: 15px; height: 2px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 10px; top: 20px; width: 56px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 1; left: 10px; top: 25px; width: 92px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 35px; width: 29px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 40px; width: 92px; height: 18px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 65px; width: 47px; height: 25px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 95px; width: 47px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 6; left: 10px; top: 130px; width: 47px; height: 13px\"></div>\n<div class=\"text\" style=\"index: 7; left: 65px; top: 130px; width: 47px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 8; left: 10px; top: 145px; width: 88px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 9; left: 10px; top: 155px; width: 47px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 10; left: 65px; top: 155px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 11; left: 10px; top: 160px; width: 37px; height: 1px\"></div>\n<div class=\"title\" style=\"index: 12; left: 10px; top: 10px; width: 94px; height: 3px\"></div>\n<div class=\"title\" style=\"index: 13; left: 10px; top: 15px; width: 15px; height: 2px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 12px; top: 16px; width: 56px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 19px; width: 92px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 2; left: 12px; top: 27px; width: 29px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 12px; top: 30px; width: 92px; height: 18px\"></div>\n<div class=\"text\" style=\"index: 4; left: 12px; top: 50px; width: 47px; height: 25px\"></div>\n<div class=\"text\" style=\"index: 5; left: 64px; top: 50px; width: 47px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 6; left: 12px; top: 81px; width: 47px; height: 13px\"></div>\n<div class=\"text\" style=\"index: 7; left: 12px; top: 96px; width: 47px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 8; left: 12px; top: 104px; width: 88px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 9; left: 12px; top: 112px; width: 47px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 10; left: 12px; top: 125px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 11; left: 12px; top: 129px; width: 37px; height: 1px\"></div>\n<div class=\"title\" style=\"index: 12; left: 12px; top: 133px; width: 94px; height: 3px\"></div>\n<div class=\"title\" style=\"index: 13; left: 12px; top: 138px; width: 15px; height: 2px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 10px; top: 60px; width: 56px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 1; left: 10px; top: 65px; width: 92px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 73px; width: 29px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 80px; width: 92px; height: 18px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 100px; width: 47px; height: 25px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 130px; width: 47px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 6; left: 67px; top: 100px; width: 47px; height: 13px\"></div>\n<div class=\"text\" style=\"index: 7; left: 67px; top: 115px; width: 47px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 8; left: 10px; top: 150px; width: 88px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 9; left: 67px; top: 125px; width: 47px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 10; left: 67px; top: 60px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 11; left: 67px; top: 73px; width: 37px; height: 1px\"></div>\n<div class=\"title\" style=\"index: 12; left: 10px; top: 10px; width: 94px; height: 3px\"></div>\n<div class=\"title\" style=\"index: 13; left: 10px; top: 20px; width: 15px; height: 2px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 12px; top: 45px; width: 56px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 50px; width: 92px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 2; left: 12px; top: 60px; width: 29px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 12px; top: 65px; width: 92px; height: 18px\"></div>\n<div class=\"text\" style=\"index: 4; left: 12px; top: 85px; width: 47px; height: 25px\"></div>\n<div class=\"text\" style=\"index: 5; left: 12px; top: 115px; width: 47px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 6; left: 65px; top: 115px; width: 47px; height: 13px\"></div>\n<div class=\"text\" style=\"index: 7; left: 12px; top: 148px; width: 47px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 8; left: 12px; top: 20px; width: 88px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 9; left: 12px; top: 30px; width: 47px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 10; left: 65px; top: 30px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 11; left: 12px; top: 40px; width: 37px; height: 1px\"></div>\n<div class=\"title\" style=\"index: 12; left: 12px; top: 10px; width: 94px; height: 3px\"></div>\n<div class=\"title\" style=\"index: 13; left: 12px; top: 80px; width: 15px; height: 2px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 10px; top: 40px; width: 56px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 1; left: 10px; top: 45px; width: 92px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 55px; width: 29px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 60px; width: 92px; height: 18px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 83px; width: 47px; height: 25px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 112px; width: 47px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 6; left: 62px; top: 83px; width: 47px; height: 13px\"></div>\n<div class=\"text\" style=\"index: 7; left: 62px; top: 98px; width: 47px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 8; left: 10px; top: 150px; width: 88px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 9; left: 62px; top: 60px; width: 47px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 10; left: 10px; top: 35px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 11; left: 72px; top: 40px; width: 37px; height: 1px\"></div>\n<div class=\"title\" style=\"index: 12; left: 10px; top: 10px; width: 94px; height: 3px\"></div>\n<div class=\"title\" style=\"index: 13; left: 110px; top: 10px; width: 15px; height: 2px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 17px; top: 20px; width: 56px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 1; left: 14px; top: 24px; width: 92px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 2; left: 17px; top: 32px; width: 29px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 14px; top: 36px; width: 92px; height: 18px\"></div>\n<div class=\"text\" style=\"index: 4; left: 14px; top: 56px; width: 47px; height: 25px\"></div>\n<div class=\"text\" style=\"index: 5; left: 14px; top: 83px; width: 47px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 6; left: 65px; top: 83px; width: 47px; height: 13px\"></div>\n<div class=\"text\" style=\"index: 7; left: 14px; top: 116px; width: 47px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 8; left: 14px; top: 124px; width: 88px; height: 6px\"></div>\n<div class=\"text\" style=\"index: 9; left: 14px; top: 132px; width: 47px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 10; left: 14px; top: 145px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 11; left: 14px; top: 149px; width: 37px; height: 1px\"></div>\n<div class=\"title\" style=\"index: 12; left: 10px; top: 5px; width: 94px; height: 3px\"></div>\n<div class=\"title\" style=\"index: 13; left: 105px; top: 145px; width: 15px; height: 2px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px\"></div>\n<div class=\"description\" style=\"left: 10px; top: 25px; width: 100px; height: 40px\"></div>\n<div class=\"button\" style=\"left: 10px; top: 70px; width: 45px; height: 10px\"></div>\n<div class=\"button\" style=\"left: 65px; top: 70px; width: 45px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px\">Your Profit is Our Business</div>\n<div class=\"description\" style=\"left: 10px; top: 25px; width: 100px; height: 40px\">Discover how our platform can enhance your sales and marketing strategies by automating key processes for maximum efficiency.</div>\n<div class=\"button\" style=\"left: 10px; top: 70px; width: 45px; height: 10px\">Learn More</div>\n<div class=\"button\" style=\"left: 65px; top: 70px; width: 45px; height: 10px\">Sign Up Free</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px\">Your Profit is Our Business</div>\n<div class=\"description\" style=\"left: 10px; top: 25px; width: 100px; height: 20px\">Discover the most advanced sales & marketing automation platform designed to drive your success.</div>\n<div class=\"button\" style=\"left: 10px; top: 50px; width: 45px; height: 10px\">Learn More</div>\n<div class=\"button\" style=\"left: 65px; top: 50px; width: 45px; height: 10px\">Sign Up Free</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 5px; top: 10px; width: 110px; height: 10px\"></div>\n<div class=\"description\" style=\"left: 5px; top: 25px; width: 110px; height: 40px\"></div>\n<div class=\"button\" style=\"left: 5px; top: 70px; width: 50px; height: 10px\"></div>\n<div class=\"button\" style=\"left: 65px; top: 70px; width: 50px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 5px; top: 10px; width: 110px; height: 10px\">Your Profit is Our Business</div>\n<div class=\"description\" style=\"left: 5px; top: 25px; width: 110px; height: 20px\">Our sales & marketing automation platform provides top-notch solutions to boost your business efficiency and maximize profits.</div>\n<div class=\"button\" style=\"left: 5px; top: 50px; width: 50px; height: 10px\">Learn More</div>\n<div class=\"button\" style=\"left: 65px; top: 50px; width: 50px; height: 10px\">Sign Up Free</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 5px; width: 100px; height: 10px\">Your Profit is Our Business</div>\n<div class=\"description\" style=\"left: 10px; top: 20px; width: 100px; height: 40px\">Discover the ultimate sales & marketing automation platform that boosts your business efficiency and revenue.</div>\n<div class=\"button\" style=\"left: 10px; top: 70px; width: 40px; height: 10px\">Learn More</div>\n<div class=\"button\" style=\"left: 60px; top: 70px; width: 40px; height: 10px\">Sign Up Free</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 5px; top: 10px; width: 110px; height: 10px\">Your Profit is Our Business</div>\n<div class=\"description\" style=\"left: 5px; top: 25px; width: 110px; height: 30px\">Introducing a best-in-class sales & marketing automation platform that helps you maximize your profits.</div>\n<div class=\"button\" style=\"left: 5px; top: 60px; width: 50px; height: 10px\">Learn More</div>\n<div class=\"button\" style=\"left: 65px; top: 60px; width: 50px; height: 10px\">Sign Up Free</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 5px; top: 10px; width: 110px; height: 10px\">Your Profit is Our Business</div>\n<div class=\"description\" style=\"left: 5px; top: 25px; width: 110px; height: 40px\">Introducing a best-in-class sales & marketing automation platform for users. Discover how it can enhance your business efficiency and drive growth.</div>\n<div class=\"button\" style=\"left: 5px; top: 70px; width: 50px; height: 10px\">Learn More</div>\n<div class=\"button\" style=\"left: 65px; top: 70px; width: 50px; height: 10px\">Sign Up Free</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px\">Your Profit is Our Business</div>\n<div class=\"description\" style=\"left: 10px; top: 25px; width: 100px; height: 30px\">\n    Our platform offers cutting-edge tools to automate sales and marketing, enabling you to optimize your business processes and achieve better results.\n</div>\n<div class=\"button\" style=\"left: 10px; top: 60px; width: 45px; height: 12px\">Learn More</div>\n<div class=\"button\" style=\"left: 65px; top: 60px; width: 45px; height: 12px\">Sign Up Free</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 5px; top: 10px; width: 110px; height: 10px\">Your Profit is Our Business</div>\n<div class=\"description\" style=\"left: 5px; top: 25px; width: 110px; height: 40px\">Our platform offers seamless integration with your existing processes, enhancing efficiency and driving growth.</div>\n<div class=\"button\" style=\"left: 5px; top: 70px; width: 50px; height: 10px\">Learn More</div>\n<div class=\"button\" style=\"left: 65px; top: 70px; width: 50px; height: 10px\">Sign Up Free</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

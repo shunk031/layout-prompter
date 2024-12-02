@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px;\"></div>\n<div class=\"table\" style=\"left: 10px; top: 10px; width: 100px; height: 20px;\"></div>\n<div class=\"text\" style=\"left: 10px; top: 35px; width: 40px; height: 3px;\"></div>\n<div class=\"text\" style=\"left: 55px; top: 35px; width: 55px; height: 3px;\"></div>\n<div class=\"text\" style=\"left: 10px; top: 40px; width: 50px; height: 20px;\"></div>\n<div class=\"text\" style=\"left: 65px; top: 40px; width: 45px; height: 20px;\"></div>\n<div class=\"text\" style=\"left: 10px; top: 65px; width: 45px; height: 15px;\"></div>\n<div class=\"text\" style=\"left: 60px; top: 65px; width: 50px; height: 15px;\"></div>\n<div class=\"text\" style=\"left: 10px; top: 85px; width: 48px; height: 14px;\"></div>\n<div class=\"text\" style=\"left: 60px; top: 85px; width: 50px; height: 14px;\"></div>\n<div class=\"text\" style=\"left: 10px; top: 100px; width: 50px; height: 15px;\"></div>\n<div class=\"text\" style=\"left: 10px; top: 120px; width: 50px; height: 15px;\"></div>\n<div class=\"text\" style=\"left: 60px; top: 120px; width: 50px; height: 15px;\"></div>\n<div class=\"text\" style=\"left: 10px; top: 140px; width: 50px; height: 15px;\"></div>\n<div class=\"title\" style=\"left: 10px; top: 160px; width: 30px; height: 3px;\"></div>\n<div class=\"title\" style=\"left: 60px; top: 160px; width: 30px; height: 3px;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px; position: relative;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 120px; height: 160px; background-color: #f0f0f0;\"></div>\n<div class=\"table\" style=\"position: absolute; left: 10px; top: 20px; width: 100px; height: 20px; background-color: #e0e0e0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 45px; width: 50px; height: 15px; background-color: #d0d0d0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 70px; top: 45px; width: 40px; height: 15px; background-color: #d0d0d0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 65px; width: 50px; height: 15px; background-color: #d0d0d0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 70px; top: 65px; width: 40px; height: 15px; background-color: #d0d0d0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 85px; width: 50px; height: 15px; background-color: #d0d0d0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 70px; top: 85px; width: 40px; height: 15px; background-color: #d0d0d0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 105px; width: 50px; height: 15px; background-color: #d0d0d0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 70px; top: 105px; width: 40px; height: 15px; background-color: #d0d0d0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 125px; width: 50px; height: 15px; background-color: #d0d0d0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 70px; top: 125px; width: 40px; height: 15px; background-color: #d0d0d0;\"></div>\n<div class=\"title\" style=\"position: absolute; left: 10px; top: 10px; width: 100px; height: 5px; background-color: #c0c0c0;\"></div>\n<div class=\"title\" style=\"position: absolute; left: 10px; top: 145px; width: 100px; height: 5px; background-color: #c0c0c0;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px; position: relative;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 120px; height: 160px; border: 1px solid #000;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"position: relative; width: 120px; height: 160px; border: 1px solid black;\"></div>\n  \n  <div class=\"table\" style=\"position: absolute; left: 10px; top: 20px; width: 100px; height: 20px; background-color: #f0f0f0;\"></div>\n  \n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 50px; width: 50px; height: 10px; background-color: #d0d0d0;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 70px; top: 50px; width: 40px; height: 10px; background-color: #d0d0d0;\"></div>\n  \n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 65px; width: 50px; height: 10px; background-color: #d0d0d0;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 70px; top: 65px; width: 40px; height: 10px; background-color: #d0d0d0;\"></div>\n  \n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 80px; width: 100px; height: 10px; background-color: #d0d0d0;\"></div>\n  \n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 95px; width: 50px; height: 10px; background-color: #d0d0d0;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 70px; top: 95px; width: 40px; height: 10px; background-color: #d0d0d0;\"></div>\n  \n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 110px; width: 100px; height: 10px; background-color: #d0d0d0;\"></div>\n  \n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 125px; width: 50px; height: 10px; background-color: #d0d0d0;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 70px; top: 125px; width: 40px; height: 10px; background-color: #d0d0d0;\"></div>\n  \n  <div class=\"title\" style=\"position: absolute; left: 10px; top: 140px; width: 50px; height: 10px; background-color: #b0b0b0;\"></div>\n  <div class=\"title\" style=\"position: absolute; left: 70px; top: 140px; width: 40px; height: 10px; background-color: #b0b0b0;\"></div>\n  \n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 120px; height: 160px; border: 1px solid #000;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"width: 120px; height: 160px; position: relative; border: 1px solid #000;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 120px; height: 160px;\"></div>\n<div class=\"table\" style=\"position: absolute; left: 10px; top: 15px; width: 100px; height: 20px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 40px; width: 23px; height: 4px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 45px; width: 48px; height: 24px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 60px; top: 45px; width: 51px; height: 27px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 70px; width: 45px; height: 14px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 60px; top: 75px; width: 47px; height: 19px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 95px; width: 48px; height: 31px;\"></div>\n<div class=\"title\" style=\"position: absolute; left: 12px; top: 114px; width: 11px; height: 3px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 60px; top: 90px; width: 47px; height: 6px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 60px; top: 98px; width: 48px; height: 17px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 119px; width: 47px; height: 15px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 60px; top: 119px; width: 48px; height: 20px;\"></div>\n<div class=\"title\" style=\"position: absolute; left: 61px; top: 119px; width: 9px; height: 3px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 137px; width: 47px; height: 12px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 60px; top: 143px; width: 48px; height: 2px;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

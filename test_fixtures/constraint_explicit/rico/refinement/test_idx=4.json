@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px; background-color: #f0f0f0;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 90px; height: 160px; background-color: #f0f0f0;\">\n    <div class=\"image\" style=\"position: absolute; left: 33px; top: 0px; width: 24px; height: 33px; background-color: #c0c0c0;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 19px; top: 50px; width: 52px; height: 6px; background-color: #e0e0e0;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 8px; top: 60px; width: 74px; height: 7px; background-color: #e0e0e0;\"></div>\n    <div class=\"text button\" style=\"position: absolute; left: 6px; top: 82px; width: 75px; height: 10px; background-color: #d0d0d0;\"></div>\n    <div class=\"text button\" style=\"position: absolute; left: 33px; top: 140px; width: 22px; height: 15px; background-color: #d0d0d0;\"></div>\n</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px;\"></div>\n<div class=\"image\" style=\"left: 34px; top: 5px; width: 22px; height: 30px;\"></div>\n<div class=\"text\" style=\"left: 19px; top: 40px; width: 52px; height: 6px;\"></div>\n<div class=\"text\" style=\"left: 8px; top: 50px; width: 74px; height: 7px;\"></div>\n<div class=\"text button\" style=\"left: 5px; top: 70px; width: 80px; height: 10px;\"></div>\n<div class=\"text button\" style=\"left: 5px; top: 85px; width: 80px; height: 10px;\"></div>\n<div class=\"text button\" style=\"left: 8px; top: 130px; width: 74px; height: 7px;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 90px; height: 160px; border: 1px solid #000;\">\n    <!-- Image at the top center -->\n    <div class=\"image\" style=\"position: absolute; left: 29px; top: 20px; width: 32px; height: 32px; background-color: #ccc;\"></div>\n    <!-- Text below the image -->\n    <div class=\"text\" style=\"position: absolute; left: 11px; top: 60px; width: 68px; height: 8px; background-color: #eee;\"></div>\n    <!-- First button below the text -->\n    <div class=\"text button\" style=\"position: absolute; left: 5px; top: 80px; width: 80px; height: 10px; background-color: #ddd;\"></div>\n    <!-- Second button below the first button -->\n    <div class=\"text button\" style=\"position: absolute; left: 5px; top: 95px; width: 80px; height: 10px; background-color: #ddd;\"></div>\n    <!-- Third button at the bottom center -->\n    <div class=\"text button\" style=\"position: absolute; left: 28px; top: 140px; width: 34px; height: 10px; background-color: #ddd;\"></div>\n</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 90px; height: 160px; border: 1px solid #000;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px; background-color: #f0f0f0;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 90px; height: 160px; border: 1px solid #ccc;\"></div>",
+                "role": "assistant"
+            }
+        }
+    ]
+}

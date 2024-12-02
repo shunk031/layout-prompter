@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 90px; height: 160px; background-color: #f0f0f0;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px; background-color: #f0f0f0;\"></div>\n<div class=\"image\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 74px; background-color: #dcdcdc;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 6px; top: 80px; width: 77px; height: 5px; background-color: #c0c0c0;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 6px; top: 87px; width: 77px; height: 7px; background-color: #c0c0c0;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 0px; top: 138px; width: 13px; height: 11px; background-color: #a0a0a0;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 76px; top: 138px; width: 13px; height: 11px; background-color: #a0a0a0;\"></div>\n<div class=\"pager indicator\" style=\"position: absolute; left: 0px; top: 140px; width: 90px; height: 8px; background-color: #808080;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 90px; height: 160px; border: 1px solid #000;\">\n    <!-- Image occupying the top section -->\n    <div class=\"image\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 74px; background-color: #ddd;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"position: relative; width: 90px; height: 160px; border: 1px solid #000;\">\n    <div class=\"image\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 74px; background-color: #ccc;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 6px; top: 80px; width: 77px; height: 5px; background-color: #ddd;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 6px; top: 87px; width: 77px; height: 7px; background-color: #ddd;\"></div>\n    <div class=\"text button\" style=\"position: absolute; left: 0px; top: 138px; width: 13px; height: 11px; background-color: #bbb;\"></div>\n    <div class=\"text button\" style=\"position: absolute; left: 76px; top: 138px; width: 13px; height: 11px; background-color: #bbb;\"></div>\n    <div class=\"pager indicator\" style=\"position: absolute; left: 0px; top: 140px; width: 90px; height: 8px; background-color: #aaa;\"></div>\n  </div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px; background-color: #f0f0f0;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 0px; top: 0px; width: 90px; height: 74px\"></div>\n<div class=\"text\" style=\"index: 1; left: 6px; top: 80px; width: 77px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 2; left: 6px; top: 87px; width: 77px; height: 7px\"></div>\n<div class=\"pager indicator\" style=\"index: 3; left: 0px; top: 140px; width: 90px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 0px; top: 138px; width: 13px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 5; left: 76px; top: 138px; width: 13px; height: 11px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px;\"></div>\n  \n  <!-- Image section at the top -->\n  <div class=\"image\" style=\"left: 0px; top: 0px; width: 90px; height: 74px;\"></div>\n  \n  <!-- Text elements below the image -->\n  <div class=\"text\" style=\"left: 6px; top: 80px; width: 77px; height: 5px;\"></div>\n  <div class=\"text\" style=\"left: 6px; top: 87px; width: 77px; height: 7px;\"></div>\n  \n  <!-- Pager indicator near the bottom -->\n  <div class=\"pager indicator\" style=\"left: 0px; top: 140px; width: 90px; height: 8px;\"></div>\n  \n  <!-- Text buttons at the bottom -->\n  <div class=\"text button\" style=\"left: 0px; top: 138px; width: 13px; height: 11px;\"></div>\n  <div class=\"text button\" style=\"left: 76px; top: 138px; width: 13px; height: 11px;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 0px; top: 0px; width: 90px; height: 74px\"></div>\n<div class=\"text\" style=\"index: 2; left: 6px; top: 80px; width: 77px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 3; left: 6px; top: 87px; width: 77px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 0px; top: 138px; width: 13px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 5; left: 76px; top: 138px; width: 13px; height: 11px\"></div>\n<div class=\"pager indicator\" style=\"index: 1; left: 0px; top: 140px; width: 90px; height: 8px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 90px; height: 160px; background-color: #f0f0f0;\">\n    <div class=\"image\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 74px; background-color: #ccc;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 6px; top: 80px; width: 77px; height: 5px; background-color: #ddd;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 6px; top: 87px; width: 77px; height: 7px; background-color: #ddd;\"></div>\n    <div class=\"pager indicator\" style=\"position: absolute; left: 0px; top: 140px; width: 90px; height: 8px; background-color: #bbb;\"></div>\n    <div class=\"text button\" style=\"position: absolute; left: 0px; top: 138px; width: 13px; height: 11px; background-color: #aaa;\"></div>\n    <div class=\"text button\" style=\"position: absolute; left: 76px; top: 138px; width: 13px; height: 11px; background-color: #aaa;\"></div>\n</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n  \n  <!-- Header Text -->\n  <div class=\"text\" style=\"index: 0; left: 12px; top: 6px; width: 65px; height: 7px\"></div>\n  \n  <!-- Horizontal Divider -->\n  <div class=\"image\" style=\"index: 1; left: 0px; top: 15px; width: 90px; height: 2px\"></div>\n  \n  <!-- Icon Image -->\n  <div class=\"image\" style=\"index: 2; left: 35px; top: 18px; width: 19px; height: 21px\"></div>\n  \n  <!-- Main Content Text -->\n  <div class=\"text\" style=\"index: 3; left: 12px; top: 42px; width: 65px; height: 9px\"></div>\n  \n  <!-- Slider -->\n  <div class=\"slider\" style=\"index: 4; left: 12px; top: 51px; width: 65px; height: 11px\"></div>\n  \n  <!-- Additional Text -->\n  <div class=\"text\" style=\"index: 5; left: 12px; top: 66px; width: 65px; height: 6px\"></div>\n  \n  <!-- Action Button -->\n  <div class=\"text button\" style=\"index: 6; left: 12px; top: 73px; width: 20px; height: 9px\"></div>\n  \n  <!-- Bottom Buttons -->\n  <div class=\"text button\" style=\"index: 7; left: 12px; top: 144px; width: 30px; height: 11px\"></div>\n  <div class=\"text button\" style=\"index: 8; left: 47px; top: 144px; width: 30px; height: 11px\"></div>\n  \n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 12px; top: 6px; width: 65px; height: 7px\"></div>\n<div class=\"image\" style=\"index: 1; left: 0px; top: 15px; width: 90px; height: 2px\"></div>\n<div class=\"image\" style=\"index: 2; left: 35px; top: 18px; width: 19px; height: 21px\"></div>\n<div class=\"text\" style=\"index: 3; left: 12px; top: 42px; width: 65px; height: 9px\"></div>\n<div class=\"slider\" style=\"index: 4; left: 12px; top: 51px; width: 65px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 5; left: 12px; top: 66px; width: 65px; height: 6px\"></div>\n<div class=\"text button\" style=\"index: 6; left: 12px; top: 73px; width: 20px; height: 9px\"></div>\n<div class=\"text\" style=\"index: 7; left: 12px; top: 84px; width: 65px; height: 9px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 12px; top: 144px; width: 30px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 9; left: 47px; top: 144px; width: 30px; height: 11px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 12px; top: 6px; width: 65px; height: 7px\"></div>\n<div class=\"image\" style=\"index: 1; left: 0px; top: 15px; width: 90px; height: 2px\"></div>\n<div class=\"image\" style=\"index: 2; left: 35px; top: 18px; width: 19px; height: 21px\"></div>\n<div class=\"text\" style=\"index: 3; left: 12px; top: 42px; width: 65px; height: 9px\"></div>\n<div class=\"slider\" style=\"index: 4; left: 12px; top: 51px; width: 65px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 5; left: 12px; top: 66px; width: 65px; height: 6px\"></div>\n<div class=\"text button\" style=\"index: 6; left: 12px; top: 73px; width: 20px; height: 9px\"></div>\n<div class=\"text button\" style=\"index: 7; left: 12px; top: 144px; width: 30px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 47px; top: 144px; width: 30px; height: 11px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 90px; height: 160px; border: 1px solid #000;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n    <div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n    <div class=\"text\" style=\"index: 0; left: 12px; top: 5px; width: 65px; height: 9px\"></div>\n    <div class=\"image\" style=\"index: 1; left: 0px; top: 15px; width: 90px; height: 2px\"></div>\n    <div class=\"image\" style=\"index: 2; left: 35px; top: 18px; width: 19px; height: 21px\"></div>\n    <div class=\"text\" style=\"index: 3; left: 12px; top: 42px; width: 65px; height: 9px\"></div>\n    <div class=\"slider\" style=\"index: 4; left: 12px; top: 51px; width: 65px; height: 11px\"></div>\n    <div class=\"text\" style=\"index: 5; left: 12px; top: 66px; width: 65px; height: 6px\"></div>\n    <div class=\"input\" style=\"index: 6; left: 12px; top: 75px; width: 65px; height: 14px\"></div>\n    <div class=\"icon\" style=\"index: 7; left: 78px; top: 75px; width: 8px; height: 7px\"></div>\n    <div class=\"text button\" style=\"index: 8; left: 12px; top: 144px; width: 30px; height: 11px\"></div>\n    <div class=\"text button\" style=\"index: 9; left: 47px; top: 144px; width: 30px; height: 11px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 12px; top: 6px; width: 65px; height: 7px\"></div>\n<div class=\"image\" style=\"index: 1; left: 0px; top: 15px; width: 90px; height: 2px\"></div>\n<div class=\"image\" style=\"index: 2; left: 35px; top: 18px; width: 19px; height: 21px\"></div>\n<div class=\"text\" style=\"index: 3; left: 12px; top: 42px; width: 65px; height: 9px\"></div>\n<div class=\"slider\" style=\"index: 4; left: 12px; top: 51px; width: 65px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 5; left: 12px; top: 66px; width: 65px; height: 6px\"></div>\n<div class=\"text button\" style=\"index: 6; left: 12px; top: 73px; width: 20px; height: 9px\"></div>\n<div class=\"text\" style=\"index: 7; left: 12px; top: 84px; width: 65px; height: 9px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 12px; top: 144px; width: 30px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 9; left: 47px; top: 144px; width: 30px; height: 11px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"text\" style=\"index: 0; left: 12px; top: 5px; width: 65px; height: 9px\"></div>\n<div class=\"image\" style=\"index: 1; left: 0px; top: 15px; width: 90px; height: 2px\"></div>\n<div class=\"image\" style=\"index: 2; left: 35px; top: 18px; width: 19px; height: 21px\"></div>\n<div class=\"text\" style=\"index: 3; left: 12px; top: 42px; width: 65px; height: 9px\"></div>\n<div class=\"slider\" style=\"index: 4; left: 12px; top: 51px; width: 65px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 5; left: 12px; top: 66px; width: 65px; height: 6px\"></div>\n<div class=\"text button\" style=\"index: 6; left: 12px; top: 73px; width: 20px; height: 9px\"></div>\n<div class=\"input\" style=\"index: 7; left: 12px; top: 85px; width: 65px; height: 14px\"></div>\n<div class=\"text button\" style=\"index: 8; left: 12px; top: 144px; width: 30px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 9; left: 47px; top: 144px; width: 30px; height: 11px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px; border: 1px solid black;\"></div>",
+                "role": "assistant"
+            }
+        }
+    ]
+}

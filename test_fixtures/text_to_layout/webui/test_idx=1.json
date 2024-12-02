@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 5px; top: 5px; width: 110px; height: 10px\">SUBSCRIBE TO OUR NEWSLETTER</div>\n<div class=\"description\" style=\"left: 5px; top: 20px; width: 110px; height: 10px\">Stay updated with our latest news and offers. Enter your email below to subscribe.</div>\n<div class=\"input\" style=\"left: 5px; top: 35px; width: 90px; height: 10px\"><input type=\"email\" placeholder=\"Enter your email\"></div>\n<div class=\"button\" style=\"left: 100px; top: 35px; width: 15px; height: 10px\"><button>Subscribe</button></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 5px; top: 5px; width: 110px; height: 110px; border: 1px solid #ccc;\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px; font-size: 10px; text-align: center;\">SUBSCRIBE TO OUR NEWSLETTER</div>\n<div class=\"description\" style=\"left: 10px; top: 25px; width: 100px; height: 10px; font-size: 8px; text-align: center;\">Stay updated with our latest news.</div>\n<div class=\"input\" style=\"left: 10px; top: 40px; width: 80px; height: 10px; border: 1px solid #000;\"></div>\n<div class=\"button\" style=\"left: 95px; top: 40px; width: 15px; height: 10px; background-color: #007BFF; color: white; text-align: center; font-size: 8px; line-height: 10px;\">Go</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 5px\">SUBSCRIBE TO OUR NEWSLETTER</div>\n<div class=\"description\" style=\"left: 10px; top: 20px; width: 100px; height: 10px\">Stay updated with our latest news and offers. Enter your email to subscribe.</div>\n<div class=\"input\" style=\"left: 10px; top: 35px; width: 70px; height: 10px\"></div>\n<div class=\"button\" style=\"left: 85px; top: 35px; width: 25px; height: 10px\">Subscribe</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 5px; top: 10px; width: 110px; height: 3px\">SUBSCRIBE TO OUR NEWSLETTER</div>\n<div class=\"description\" style=\"left: 5px; top: 15px; width: 110px; height: 3px\">Stay updated with our latest news</div>\n<div class=\"input\" style=\"left: 5px; top: 22px; width: 75px; height: 5px\"></div>\n<div class=\"button\" style=\"left: 85px; top: 22px; width: 30px; height: 5px\">Subscribe</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px; position: relative; background-color: #f0f0f0;\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px; position: absolute; font-size: 10px; text-align: center;\">SUBSCRIBE TO OUR NEWSLETTER</div>\n<div class=\"description\" style=\"left: 10px; top: 25px; width: 100px; height: 10px; position: absolute; font-size: 8px; text-align: center;\">Stay updated with our latest news and offers.</div>\n<div class=\"input\" style=\"left: 10px; top: 45px; width: 80px; height: 20px; position: absolute; border: 1px solid #ccc;\"></div>\n<div class=\"button\" style=\"left: 95px; top: 45px; width: 15px; height: 20px; position: absolute; background-color: #007BFF; color: white; text-align: center; line-height: 20px; font-size: 10px;\">Go</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 120px; height: 120px; border: 1px solid #000;\"></div>\n<div class=\"title\" style=\"position: absolute; left: 5px; top: 10px; width: 110px; height: 10px; text-align: center; font-weight: bold;\">SUBSCRIBE TO OUR NEWSLETTER</div>\n<div class=\"description\" style=\"position: absolute; left: 5px; top: 25px; width: 110px; height: 10px; text-align: center;\">Get the latest updates and offers.</div>\n<div class=\"input\" style=\"position: absolute; left: 5px; top: 45px; width: 80px; height: 15px; border: 1px solid #ccc;\"></div>\n<div class=\"button\" style=\"position: absolute; left: 90px; top: 45px; width: 25px; height: 15px; background-color: #007BFF; color: #fff; text-align: center; line-height: 15px; cursor: pointer;\">Submit</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px;\"></div>\n<div class=\"title\" style=\"left: 5px; top: 5px; width: 110px; height: 10px; font-size: 10px;\">SUBSCRIBE TO OUR NEWSLETTER</div>\n<div class=\"description\" style=\"left: 5px; top: 20px; width: 110px; height: 10px; font-size: 8px;\">Stay updated with our latest news and offers.</div>\n<div class=\"input\" style=\"left: 10px; top: 40px; width: 80px; height: 10px; border: 1px solid #ccc;\"></div>\n<div class=\"button\" style=\"left: 95px; top: 40px; width: 20px; height: 10px; background-color: #007BFF; color: white; text-align: center;\">Join</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px; position: relative; background-color: #f9f9f9;\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px; position: absolute; font-size: 12px; font-weight: bold;\">SUBSCRIBE TO OUR NEWSLETTER</div>\n<div class=\"description\" style=\"left: 10px; top: 25px; width: 100px; height: 8px; position: absolute; font-size: 10px;\">Stay updated with our latest news.</div>\n<div class=\"input\" style=\"left: 10px; top: 40px; width: 100px; height: 15px; position: absolute; border: 1px solid #ccc; padding: 2px;\"></div>\n<div class=\"button\" style=\"left: 35px; top: 60px; width: 50px; height: 20px; position: absolute; background-color: #007bff; color: white; text-align: center; line-height: 20px; cursor: pointer;\">Subscribe</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px;\"></div>\n<div class=\"title\" style=\"left: 5px; top: 5px; width: 110px; height: 10px;\">SUBSCRIBE TO OUR NEWSLETTER</div>\n<div class=\"description\" style=\"left: 5px; top: 20px; width: 110px; height: 10px;\">Get the latest updates and offers</div>\n<div class=\"input\" style=\"left: 5px; top: 35px; width: 80px; height: 10px;\">\n  <input type=\"text\" placeholder=\"Enter your email\" style=\"width: 100%; height: 100%;\">\n</div>\n<div class=\"button\" style=\"left: 90px; top: 35px; width: 25px; height: 10px;\">\n  <button style=\"width: 100%; height: 100%;\">Subscribe</button>\n</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n    <div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n    <div class=\"title\" style=\"left: 5px; top: 5px; width: 110px; height: 10px\">SUBSCRIBE TO OUR NEWSLETTER</div>\n    <div class=\"description\" style=\"left: 5px; top: 20px; width: 110px; height: 10px\">Get the latest updates and offers.</div>\n    <div class=\"input\" style=\"left: 5px; top: 35px; width: 80px; height: 10px\"></div>\n    <div class=\"button\" style=\"left: 90px; top: 35px; width: 25px; height: 10px\">Subscribe</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

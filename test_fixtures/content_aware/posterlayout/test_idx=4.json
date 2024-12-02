@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"left: 10px; top: 10px; width: 40px; height: 10px\"></div>\n<div class=\"text\" style=\"left: 10px; top: 25px; width: 80px; height: 12px\"></div>\n<div class=\"text\" style=\"left: 10px; top: 40px; width: 80px; height: 12px\"></div>\n<div class=\"underlay\" style=\"left: 1px; top: 60px; width: 99px; height: 76px\"></div>\n</body>\n</html>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px;\"></div>\n<div class=\"logo\" style=\"index: 0; left: 10px; top: 10px; width: 82px; height: 20px;\"></div>\n<div class=\"text\" style=\"index: 1; left: 5px; top: 35px; width: 92px; height: 15px;\"></div>\n<div class=\"text\" style=\"index: 2; left: 5px; top: 55px; width: 92px; height: 10px;\"></div>\n<div class=\"underlay\" style=\"index: 3; left: 1px; top: 60px; width: 99px; height: 76px;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 10px; top: 5px; width: 82px; height: 12px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 25px; width: 78px; height: 11px\"></div>\n<div class=\"text\" style=\"index: 2; left: 15px; top: 40px; width: 72px; height: 10px\"></div>\n<div class=\"underlay\" style=\"index: 3; left: 1px; top: 60px; width: 99px; height: 76px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 5px; top: 5px; width: 40px; height: 10px\"></div>\n<div class=\"text\" style=\"index: 1; left: 5px; top: 20px; width: 90px; height: 14px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 40px; width: 80px; height: 15px\"></div>\n<div class=\"underlay\" style=\"index: 3; left: 1px; top: 60px; width: 99px; height: 76px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 30px; top: 5px; width: 42px; height: 10px\"></div>\n<div class=\"text\" style=\"index: 1; left: 10px; top: 20px; width: 82px; height: 15px\"></div>\n<div class=\"text\" style=\"index: 2; left: 15px; top: 40px; width: 72px; height: 10px\"></div>\n<div class=\"underlay\" style=\"index: 3; left: 1px; top: 60px; width: 99px; height: 76px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 36px; top: 5px; width: 30px; height: 10px\"></div>\n<div class=\"text\" style=\"index: 1; left: 10px; top: 20px; width: 82px; height: 12px\"></div>\n<div class=\"text\" style=\"index: 2; left: 22px; top: 35px; width: 58px; height: 8px\"></div>\n<div class=\"underlay\" style=\"index: 3; left: 1px; top: 60px; width: 99px; height: 76px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"left: 10px; top: 5px; width: 40px; height: 15px\"></div>\n<div class=\"text\" style=\"left: 5px; top: 30px; width: 92px; height: 20px\"></div>\n<div class=\"text\" style=\"left: 5px; top: 55px; width: 92px; height: 15px\"></div>\n<div class=\"underlay\" style=\"left: 1px; top: 60px; width: 99px; height: 76px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 20px; top: 5px; width: 62px; height: 15px\"></div>\n<div class=\"text\" style=\"index: 1; left: 10px; top: 25px; width: 82px; height: 12px\"></div>\n<div class=\"text\" style=\"index: 2; left: 15px; top: 40px; width: 72px; height: 10px\"></div>\n<div class=\"underlay\" style=\"index: 3; left: 1px; top: 60px; width: 99px; height: 76px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 102px; height: 150px\"></div>\n<div class=\"logo\" style=\"index: 0; left: 5px; top: 10px; width: 50px; height: 15px\"></div>\n<div class=\"text\" style=\"index: 1; left: 20px; top: 30px; width: 60px; height: 10px\"></div>\n<div class=\"text\" style=\"index: 2; left: 20px; top: 45px; width: 60px; height: 10px\"></div>\n<div class=\"underlay\" style=\"index: 3; left: 1px; top: 60px; width: 99px; height: 76px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 102px; height: 150px;\"></div>\n<div class=\"logo\" style=\"position: absolute; left: 6px; top: 5px; width: 90px; height: 12px; background-color: lightgray;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 25px; width: 82px; height: 15px; font-size: 10px; color: black;\">Sample Text 1</div>\n<div class=\"text\" style=\"position: absolute; left: 20px; top: 45px; width: 62px; height: 12px; font-size: 9px; color: black;\">Sample Text 2</div>\n<div class=\"underlay\" style=\"position: absolute; left: 1px; top: 60px; width: 99px; height: 76px; background-color: #f0f0f0;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}
