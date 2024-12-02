@@ -20,7 +20,7 @@ check: format lint typecheck
 
 .PHONY: test-package
 test-package:
-	uv run pytest tests
+	uv run pytest tests -vsx -n auto
 
 .PHONY: test-notebooks
 test-notebooks:
