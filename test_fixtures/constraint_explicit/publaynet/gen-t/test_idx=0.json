@@ -4,7 +4,7 @@
             "index": 0,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 100px; height: 40px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 70px; width: 100px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 15px; width: 80px; height: 3px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 65px; width: 80px; height: 3px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 125px; width: 100px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 135px; width: 100px; height: 5px\"></div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 100px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 15px; width: 100px; height: 3px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 73px; width: 100px; height: 10px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 90px; width: 100px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 145px; width: 100px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 152px; width: 100px; height: 5px\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -12,7 +12,7 @@
             "index": 1,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 97px; height: 68px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 17px; width: 81px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 11px; top: 89px; width: 26px; height: 1px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 100px; width: 97px; height: 28px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 96px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 11px; top: 130px; width: 26px; height: 1px\"></div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 11px; top: 25px; width: 98px; height: 45px\"></div>\n<div class=\"table\" style=\"index: 1; left: 11px; top: 90px; width: 98px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 2; left: 11px; top: 22px; width: 80px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 3; left: 11px; top: 72px; width: 70px; height: 4px\"></div>\n<div class=\"text\" style=\"index: 4; left: 11px; top: 145px; width: 50px; height: 4px\"></div>\n<div class=\"text\" style=\"index: 5; left: 64px; top: 145px; width: 45px; height: 4px\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -20,7 +20,7 @@
             "index": 2,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 97px; height: 65px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 100px; width: 97px; height: 30px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 18px; width: 80px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 90px; width: 97px; height: 8px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 132px; width: 97px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 140px; width: 97px; height: 5px\"></div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 100px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 18px; width: 60px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 72px; width: 100px; height: 5px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 80px; width: 100px; height: 30px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 115px; width: 80px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 120px; width: 100px; height: 5px\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -28,7 +28,7 @@
             "index": 3,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 97px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 2; left: 12px; top: 15px; width: 80px; height: 3px\"></div>\n<div class=\"text\" style=\"index: 3; left: 12px; top: 73px; width: 96px; height: 5px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 82px; width: 97px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 4; left: 12px; top: 135px; width: 96px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 5; left: 12px; top: 142px; width: 96px; height: 5px\"></div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 97px; height: 68px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 100px; width: 97px; height: 28px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 17px; width: 81px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 11px; top: 89px; width: 26px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 96px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 11px; top: 130px; width: 26px; height: 1px\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -36,7 +36,7 @@
             "index": 4,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 97px; height: 68px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 100px; width: 97px; height: 28px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 17px; width: 81px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 11px; top: 89px; width: 26px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 96px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 11px; top: 130px; width: 26px; height: 1px\"></div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 11px; top: 20px; width: 97px; height: 54px\"></div>\n<div class=\"table\" style=\"index: 1; left: 11px; top: 85px; width: 97px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 2; left: 11px; top: 17px; width: 70px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 3; left: 11px; top: 75px; width: 97px; height: 8px\"></div>\n<div class=\"text\" style=\"index: 4; left: 11px; top: 140px; width: 97px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 5; left: 11px; top: 146px; width: 97px; height: 5px\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -44,7 +44,7 @@
             "index": 5,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 11px; top: 15px; width: 98px; height: 45px\"></div>\n<div class=\"table\" style=\"index: 1; left: 11px; top: 80px; width: 98px; height: 40px\"></div>\n<div class=\"text\" style=\"index: 2; left: 11px; top: 10px; width: 78px; height: 4px\"></div>\n<div class=\"text\" style=\"index: 3; left: 11px; top: 65px; width: 98px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 4; left: 11px; top: 125px; width: 98px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 5; left: 11px; top: 145px; width: 70px; height: 5px\"></div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 97px; height: 45px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 16px; width: 81px; height: 3px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 67px; width: 97px; height: 10px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 80px; width: 97px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 135px; width: 55px; height: 4px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 145px; width: 97px; height: 10px\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -52,7 +52,7 @@
             "index": 6,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 100px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 18px; width: 60px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 72px; width: 100px; height: 5px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 80px; width: 100px; height: 60px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 142px; width: 100px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 150px; width: 100px; height: 5px\"></div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 97px; height: 68px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 17px; width: 81px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 11px; top: 89px; width: 26px; height: 1px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 100px; width: 97px; height: 28px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 96px; width: 55px; height: 2px\"></div>\n<div class=\"text\" style=\"index: 5; left: 11px; top: 130px; width: 26px; height: 1px\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -60,7 +60,7 @@
             "index": 7,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 30px; width: 100px; height: 40px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 80px; width: 100px; height: 40px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 20px; width: 80px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 75px; width: 80px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 125px; width: 80px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 140px; width: 80px; height: 5px\"></div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 25px; width: 100px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 20px; width: 100px; height: 4px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 80px; width: 100px; height: 20px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 105px; width: 100px; height: 35px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 100px; width: 100px; height: 4px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 145px; width: 100px; height: 10px\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -68,7 +68,7 @@
             "index": 8,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 25px; width: 100px; height: 60px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 95px; width: 100px; height: 40px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 20px; width: 80px; height: 3px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 87px; width: 80px; height: 4px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 140px; width: 60px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 147px; width: 60px; height: 5px\"></div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 10px; top: 20px; width: 97px; height: 60px\"></div>\n<div class=\"table\" style=\"index: 1; left: 10px; top: 100px; width: 97px; height: 45px\"></div>\n<div class=\"text\" style=\"index: 2; left: 10px; top: 15px; width: 90px; height: 3px\"></div>\n<div class=\"text\" style=\"index: 3; left: 10px; top: 83px; width: 97px; height: 5px\"></div>\n<div class=\"text\" style=\"index: 4; left: 10px; top: 148px; width: 97px; height: 3px\"></div>\n<div class=\"text\" style=\"index: 5; left: 10px; top: 153px; width: 97px; height: 4px\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -76,7 +76,7 @@
             "index": 9,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 12px; top: 18px; width: 96px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 2; left: 12px; top: 16px; width: 92px; height: 1px\"></div>\n<div class=\"text\" style=\"index: 3; left: 12px; top: 70px; width: 96px; height: 8px\"></div>\n<div class=\"table\" style=\"index: 1; left: 12px; top: 85px; width: 96px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 4; left: 12px; top: 137px; width: 96px; height: 8px\"></div>\n<div class=\"text\" style=\"index: 5; left: 12px; top: 147px; width: 96px; height: 1px\"></div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"table\" style=\"index: 0; left: 15px; top: 15px; width: 90px; height: 50px\"></div>\n<div class=\"text\" style=\"index: 2; left: 15px; top: 70px; width: 90px; height: 10px\"></div>\n<div class=\"table\" style=\"index: 1; left: 15px; top: 85px; width: 90px; height: 35px\"></div>\n<div class=\"text\" style=\"index: 3; left: 15px; top: 125px; width: 90px; height: 7px\"></div>\n<div class=\"text\" style=\"index: 4; left: 15px; top: 135px; width: 90px; height: 7px\"></div>\n<div class=\"text\" style=\"index: 5; left: 15px; top: 145px; width: 90px; height: 7px\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         }
