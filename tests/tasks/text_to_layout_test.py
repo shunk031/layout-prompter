@@ -16,12 +16,12 @@ from layout_prompter.modules import (
     create_selector,
     create_serializer,
 )
-from layout_prompter.parsing import Parser
-from layout_prompter.preprocess import create_processor
+from layout_prompter.parsers import Parser
+from layout_prompter.preprocessors import create_processor
 from layout_prompter.testing import LayoutPrompterTestCase
 from layout_prompter.typehint import TextToLayoutDataset
 from layout_prompter.utils import RAW_DATA_PATH, read_json, read_pt, write_pt
-from layout_prompter.visualization import Visualizer, create_image_grid
+from layout_prompter.visualizers import Visualizer, create_image_grid
 
 logger = logging.getLogger(__name__)
 
