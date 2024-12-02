@@ -11,12 +11,11 @@ from openai_responses import OpenAIMock
 from PIL import ImageChops
 from tqdm import tqdm
 
-from layout_prompter.configs import CONTENT_AWARE_DATASET_CONFIGS, LayoutDatasetConfig
 from layout_prompter.parsing import Parser
 from layout_prompter.preprocess import create_processor
 from layout_prompter.ranker import Ranker
 from layout_prompter.selection import create_selector
-from layout_prompter.serialization import create_serializer
+from layout_prompter.serialization import build_prompt, create_serializer
 from layout_prompter.testing import LayoutPrompterTestCase
 from layout_prompter.typehint import ContentAwareDataset
 from layout_prompter.utils import RAW_DATA_PATH, read_pt, write_pt
@@ -48,13 +47,13 @@ class TestContentAwareCase(LayoutPrompterTestCase):
         return True
 
     @pytest.fixture
-    def processor(self, dataset: LayoutDatasetConfig, task: str, metadata):
+    def processor(self, dataset: str, task: str, metadata):
         return create_processor(dataset, task, metadata=metadata)
 
     @openai_responses.mock()
     @pytest.mark.parametrize(
         argnames="dataset",
-        argvalues=CONTENT_AWARE_DATASET_CONFIGS.values(),
+        argvalues=get_args(ContentAwareDataset),
     )
     @pytest.mark.parametrize(
         argnames="metadata",
@@ -74,7 +73,7 @@ class TestContentAwareCase(LayoutPrompterTestCase):
         #
         # Test configurations
         #
-        dataset: LayoutDatasetConfig,
+        dataset: str,
         task: str,
         input_format: str,
         output_format: str,
@@ -104,7 +103,7 @@ class TestContentAwareCase(LayoutPrompterTestCase):
 
         def get_processed_data(split):
             filename = os.path.join(
-                base_dir, "dataset", dataset.name, "processed", task, f"{split}.pt"
+                base_dir, "dataset", dataset, "processed", task, f"{split}.pt"
             )
             if os.path.exists(filename):
                 processed_data = read_pt(filename)
@@ -129,10 +128,9 @@ class TestContentAwareCase(LayoutPrompterTestCase):
 
         selector = create_selector(
             task=task,
-            train_dataset=processed_train_data,
+            train_data=processed_train_data,
             candidate_size=candidate_size,
             num_prompt=num_prompt,
-            dataset_config=dataset,
         )
 
         exemplars = selector(processed_test_data[test_idx])
@@ -146,7 +144,6 @@ class TestContentAwareCase(LayoutPrompterTestCase):
             add_sep_token=add_sep_token,
             add_unk_token=add_unk_token,
         )
-
         prompt = build_prompt(
             serializer, exemplars, processed_test_data[test_idx], dataset
         )
