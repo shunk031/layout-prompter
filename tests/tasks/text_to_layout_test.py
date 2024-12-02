@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+from typing import get_args
 
 import openai_responses
 import pytest
@@ -15,6 +16,7 @@ from layout_prompter.ranker import Ranker
 from layout_prompter.selection import create_selector
 from layout_prompter.serialization import build_prompt, create_serializer
 from layout_prompter.testing import LayoutPrompterTestCase
+from layout_prompter.typehint import TextToLayoutDataset
 from layout_prompter.utils import RAW_DATA_PATH, read_json, read_pt, write_pt
 from layout_prompter.visualization import Visualizer, create_image_grid
 
@@ -22,10 +24,6 @@ logger = logging.getLogger(__name__)
 
 
 class TestTextToLayout(LayoutPrompterTestCase):
-    @pytest.fixture
-    def dataset(self) -> str:
-        return "webui"
-
     @pytest.fixture
     def task(self) -> str:
         return "text"
@@ -47,6 +45,10 @@ class TestTextToLayout(LayoutPrompterTestCase):
         return 1200
 
     @openai_responses.mock()
+    @pytest.mark.parametrize(
+        argnames="dataset",
+        argvalues=get_args(TextToLayoutDataset),
+    )
     @pytest.mark.parametrize(
         argnames="test_idx",
         argvalues=list(range(5)),

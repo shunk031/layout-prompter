@@ -1,5 +1,6 @@
 import json
 import os
+from typing import get_args
 
 import openai_responses
 import pandas as pd
@@ -15,15 +16,12 @@ from layout_prompter.ranker import Ranker
 from layout_prompter.selection import create_selector
 from layout_prompter.serialization import build_prompt, create_serializer
 from layout_prompter.testing import LayoutPrompterTestCase
+from layout_prompter.typehint import ContentAwareDataset
 from layout_prompter.utils import RAW_DATA_PATH, read_pt, write_pt
 from layout_prompter.visualization import ContentAwareVisualizer, create_image_grid
 
 
 class TestContentAwareCase(LayoutPrompterTestCase):
-    @pytest.fixture
-    def dataset(self) -> str:
-        return "posterlayout"
-
     @pytest.fixture
     def task(self) -> str:
         return "content"
@@ -49,6 +47,10 @@ class TestContentAwareCase(LayoutPrompterTestCase):
         return create_processor(dataset, task, metadata=metadata)
 
     @openai_responses.mock()
+    @pytest.mark.parametrize(
+        argnames="dataset",
+        argvalues=get_args(ContentAwareDataset),
+    )
     @pytest.mark.parametrize(
         argnames="test_idx",
         argvalues=list(range(5)),

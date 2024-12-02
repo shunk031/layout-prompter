@@ -16,7 +16,7 @@ from layout_prompter.ranker import Ranker
 from layout_prompter.selection import create_selector
 from layout_prompter.serialization import build_prompt, create_serializer
 from layout_prompter.testing import LayoutPrompterTestCase
-from layout_prompter.typehint import ConstraintExplicitTask
+from layout_prompter.typehint import ConstraintExplicitTask, ContentAgnosticDataset
 from layout_prompter.utils import RAW_DATA_PATH, read_pt, write_pt
 from layout_prompter.visualization import Visualizer, create_image_grid
 
@@ -39,7 +39,7 @@ class TestConstraintExplicit(LayoutPrompterTestCase):
     @openai_responses.mock()
     @pytest.mark.parametrize(
         argnames="dataset",
-        argvalues=("rico", "publaynet"),
+        argvalues=get_args(ContentAgnosticDataset),
     )
     @pytest.mark.parametrize(
         argnames="task",

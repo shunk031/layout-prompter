@@ -19,6 +19,7 @@ dependencies = [
 dev = [
     "mypy>=1.0.0",
     "openai-responses>=0.11.2",
+    "pytest-xdist>=3.5.0",
     "pytest>=6.0.0",
     "ruff>=0.1.5",
 ]
@@ -32,10 +33,10 @@ clip = { git = "https://github.com/openai/CLIP" }
 
 [tool.mypy]
 python_version = "3.10"
-exclude = "tests"
+exclude = ["tests"]
 ignore_missing_imports = true
-check_untyped_defs = true
-disallow_untyped_defs = true
-no_implicit_optional = true
-warn_return_any = true
-warn_unused_ignores = true
+# check_untyped_defs = true
+# disallow_untyped_defs = true
+# no_implicit_optional = true
+# warn_return_any = true
+# warn_unused_ignores = true

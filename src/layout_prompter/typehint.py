@@ -16,3 +16,7 @@ ConstraintExplicitTask = Literal[
 ContentAwareTask = Literal["content-aware"]
 TextToLayoutTask = Literal["text-to-layout"]
 Task = Union[ConstraintExplicitTask, ContentAwareTask, TextToLayoutTask]
+
+ContentAgnosticDataset = Literal["rico", "publaynet"]
+ContentAwareDataset = Literal["posterlayout"]
+TextToLayoutDataset = Literal["webui"]
