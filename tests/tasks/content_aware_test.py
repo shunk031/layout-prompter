@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 from typing import get_args
 
@@ -20,6 +21,8 @@ from layout_prompter.typehint import ContentAwareDataset
 from layout_prompter.utils import RAW_DATA_PATH, read_pt, write_pt
 from layout_prompter.visualization import ContentAwareVisualizer, create_image_grid
 
+logger = logging.getLogger(__name__)
+
 
 class TestContentAwareCase(LayoutPrompterTestCase):
     @pytest.fixture
@@ -27,7 +30,8 @@ class TestContentAwareCase(LayoutPrompterTestCase):
         return "content"
 
     @pytest.fixture
-    def metadata(dataset: str) -> pd.DataFrame:
+    def metadata(self, request) -> pd.DataFrame:
+        dataset = request.param
         return pd.read_csv(os.path.join(RAW_DATA_PATH(dataset), "train_csv_9973.csv"))
 
     @pytest.fixture
@@ -50,6 +54,11 @@ class TestContentAwareCase(LayoutPrompterTestCase):
     @pytest.mark.parametrize(
         argnames="dataset",
         argvalues=get_args(ContentAwareDataset),
+    )
+    @pytest.mark.parametrize(
+        argnames="metadata",
+        argvalues=get_args(ContentAwareDataset),
+        indirect=True,
     )
     @pytest.mark.parametrize(
         argnames="test_idx",
@@ -182,7 +191,7 @@ class TestContentAwareCase(LayoutPrompterTestCase):
 
         parser = Parser(dataset=dataset, output_format=output_format)
         parsed_response = parser(response)
-        print(f"filter {num_return - len(parsed_response)} invalid response")
+        logger.info(f"filter {num_return - len(parsed_response)} invalid response")
 
         ranker = Ranker()
         ranked_response = ranker(parsed_response)
