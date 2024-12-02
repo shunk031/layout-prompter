@@ -4,7 +4,7 @@
             "index": 0,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 120px; height: 160px; border: 1px solid black;\"></div>\n<div class=\"title\" style=\"position: absolute; left: 10px; top: 10px; width: 100px; height: 10px; background-color: #D3D3D3;\">Title Area</div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 30px; width: 100px; height: 5px; background-color: #F0F0F0;\">Text Block 1</div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 40px; width: 100px; height: 5px; background-color: #F0F0F0;\">Text Block 2</div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 50px; width: 100px; height: 5px; background-color: #F0F0F0;\">Text Block 3</div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 60px; width: 100px; height: 15px; background-color: #F0F0F0;\">Text Block 4</div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 80px; width: 100px; height: 20px; background-color: #F0F0F0;\">Text Block 5</div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 105px; width: 50px; height: 10px; background-color: #F0F0F0;\">Text Block 6</div>\n<div class=\"text\" style=\"position: absolute; left: 65px; top: 105px; width: 45px; height: 10px; background-color: #F0F0F0;\">Text Block 7</div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 120px; width: 50px; height: 15px; background-color: #F0F0F0;\">Text Block 8</div>\n<div class=\"text\" style=\"position: absolute; left: 65px; top: 120px; width: 45px; height: 15px; background-color: #F0F0F0;\">Text Block 9</div>\n<div class=\"text\" style=\"position: absolute; left: 10px; top: 140px; width: 50px; height: 15px; background-color: #F0F0F0;\">Text Block 10</div>\n<div class=\"text\" style=\"position: absolute; left: 65px; top: 140px; width: 45px; height: 15px; background-color: #F0F0F0;\">Text Block 11</div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -12,7 +12,7 @@
             "index": 1,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px\">Title</div>\n<div class=\"text\" style=\"left: 10px; top: 30px; width: 100px; height: 10px\">Subtitle</div>\n<div class=\"text\" style=\"left: 10px; top: 50px; width: 100px; height: 10px\">Main text block 1</div>\n<div class=\"text\" style=\"left: 10px; top: 70px; width: 100px; height: 10px\">Main text block 2</div>\n<div class=\"text\" style=\"left: 10px; top: 90px; width: 100px; height: 10px\">Main text block 3</div>\n<div class=\"text\" style=\"left: 10px; top: 110px; width: 100px; height: 10px\">Main text block 4</div>\n<div class=\"text\" style=\"left: 10px; top: 130px; width: 100px; height: 10px\">Main text block 5</div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -20,7 +20,7 @@
             "index": 2,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 20px; width: 100px; height: 10px\">Title</div>\n<div class=\"text\" style=\"left: 20px; top: 40px; width: 80px; height: 10px\">Text Block 1</div>\n<div class=\"text\" style=\"left: 20px; top: 55px; width: 80px; height: 10px\">Text Block 2</div>\n<div class=\"text\" style=\"left: 20px; top: 70px; width: 80px; height: 10px\">Text Block 3</div>\n<div class=\"text\" style=\"left: 20px; top: 85px; width: 80px; height: 10px\">Text Block 4</div>\n<div class=\"text\" style=\"left: 20px; top: 100px; width: 80px; height: 10px\">Text Block 5</div>\n<div class=\"text\" style=\"left: 20px; top: 115px; width: 80px; height: 10px\">Text Block 6</div>\n<div class=\"text\" style=\"left: 20px; top: 130px; width: 80px; height: 10px\">Text Block 7</div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 120px; height: 160px; border: 1px solid #000;\"></div>",
                 "role": "assistant"
             }
         },
@@ -28,7 +28,7 @@
             "index": 3,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 120px; height: 160px; border: 1px solid black;\"></div>",
                 "role": "assistant"
             }
         },
@@ -36,7 +36,7 @@
             "index": 4,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 120px; height: 160px; border: 1px solid #000;\"></div>",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 120px; height: 160px; border: 1px solid #000;\"></div>",
                 "role": "assistant"
             }
         },
@@ -44,7 +44,7 @@
             "index": 5,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px;\"></div>",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>",
                 "role": "assistant"
             }
         },
@@ -52,7 +52,7 @@
             "index": 6,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 120px; height: 160px; border: 1px solid #000;\"></div>",
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 160px\"></div>",
                 "role": "assistant"
             }
         },
@@ -60,7 +60,7 @@
             "index": 7,
             "finish_reason": "stop",
             "message": {
-                "content": "<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 120px; height: 160px; border: 1px solid #000;\"></div>",
+                "content": "```html\n<html>\n<body>\n<!-- Canvas setup -->\n<div class=\"canvas\" style=\"position: relative; width: 120px; height: 160px; border: 1px solid #000;\"></div>",
                 "role": "assistant"
             }
         },
@@ -68,7 +68,7 @@
             "index": 8,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 120px; height: 160px; border: 1px solid black;\"></div>",
+                "content": "```html\n<html>\n<body>\n    <div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 120px; height: 160px; border: 1px solid black;\"></div>\n    \n    <!-- Titles -->\n    <div class=\"title\" style=\"position: absolute; left: 10px; top: 20px; width: 100px; height: 10px; background-color: lightgray;\"></div>\n    <div class=\"title\" style=\"position: absolute; left: 10px; top: 100px; width: 15px; height: 2px; background-color: lightgray;\"></div>\n    \n    <!-- Texts -->\n    <div class=\"text\" style=\"position: absolute; left: 17px; top: 40px; width: 86px; height: 5px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 17px; top: 50px; width: 57px; height: 1px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 17px; top: 64px; width: 29px; height: 1px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 17px; top: 68px; width: 92px; height: 6px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 17px; top: 76px; width: 92px; height: 14px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 61px; top: 99px; width: 47px; height: 11px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 10px; top: 104px; width: 47px; height: 11px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 61px; top: 111px; width: 47px; height: 15px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 10px; top: 115px; width: 47px; height: 18px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 61px; top: 127px; width: 47px; height: 15px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 10px; top: 134px; width: 47px; height: 15px; background-color: lightblue;\"></div>\n    <div class=\"text\" style=\"position: absolute; left: 61px; top: 143px; width: 47px; height: 6px; background-color: lightblue;\"></div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         },
@@ -76,7 +76,7 @@
             "index": 9,
             "finish_reason": "stop",
             "message": {
-                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: relative; width: 120px; height: 160px; background-color: #f0f0f0;\">\n  <div class=\"title\" style=\"position: absolute; left: 10px; top: 20px; width: 100px; height: 8px; background-color: #ccc;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 17px; top: 40px; width: 86px; height: 5px; background-color: #ddd;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 17px; top: 48px; width: 57px; height: 2px; background-color: #ddd;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 17px; top: 52px; width: 29px; height: 2px; background-color: #ddd;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 17px; top: 56px; width: 92px; height: 6px; background-color: #ddd;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 17px; top: 64px; width: 92px; height: 14px; background-color: #ddd;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 17px; top: 80px; width: 92px; height: 20px; background-color: #ddd;\"></div>\n  <div class=\"title\" style=\"position: absolute; left: 10px; top: 105px; width: 15px; height: 2px; background-color: #ccc;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 110px; width: 47px; height: 31px; background-color: #ddd;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 61px; top: 110px; width: 47px; height: 15px; background-color: #ddd;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 61px; top: 128px; width: 47px; height: 15px; background-color: #ddd;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 135px; width: 47px; height: 15px; background-color: #ddd;\"></div>\n</div>\n</body>\n</html>\n```",
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"position: relative; width: 120px; height: 160px; border: 1px solid #000;\"></div>\n  \n  <!-- Title Section -->\n  <div class=\"title\" style=\"position: absolute; left: 10px; top: 10px; width: 100px; height: 15px; background-color: #ddd;\">Title 1</div>\n  <div class=\"title\" style=\"position: absolute; left: 10px; top: 30px; width: 100px; height: 15px; background-color: #ddd;\">Title 2</div>\n  \n  <!-- Text Section -->\n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 50px; width: 100px; height: 10px; background-color: #eee;\">Text 1</div>\n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 65px; width: 100px; height: 10px; background-color: #eee;\">Text 2</div>\n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 80px; width: 100px; height: 10px; background-color: #eee;\">Text 3</div>\n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 95px; width: 100px; height: 10px; background-color: #eee;\">Text 4</div>\n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 110px; width: 100px; height: 10px; background-color: #eee;\">Text 5</div>\n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 125px; width: 100px; height: 10px; background-color: #eee;\">Text 6</div>\n  <div class=\"text\" style=\"position: absolute; left: 10px; top: 140px; width: 100px; height: 10px; background-color: #eee;\">Text 7</div>\n</body>\n</html>\n```",
                 "role": "assistant"
             }
         }

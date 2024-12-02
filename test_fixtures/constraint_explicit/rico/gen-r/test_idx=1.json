@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 26px; top: 67px; width: 38px; height: 26px\"></div>\n<div class=\"input\" style=\"index: 1; left: 5px; top: 10px; width: 80px; height: 20px\"></div>\n<div class=\"input\" style=\"index: 2; left: 5px; top: 35px; width: 80px; height: 20px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 20px; top: 95px; width: 50px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 20px; top: 60px; width: 40px; height: 15px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 25px; top: 70px; width: 40px; height: 20px\"></div>\n<div class=\"input\" style=\"index: 1; left: 20px; top: 20px; width: 50px; height: 10px\"></div>\n<div class=\"input\" style=\"index: 2; left: 20px; top: 35px; width: 50px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 20px; top: 50px; width: 50px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 20px; top: 65px; width: 20px; height: 5px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 26px; top: 40px; width: 38px; height: 8px\"></div>\n<div class=\"input\" style=\"index: 1; left: 10px; top: 60px; width: 70px; height: 12px\"></div>\n<div class=\"input\" style=\"index: 2; left: 10px; top: 74px; width: 70px; height: 12px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 22px; top: 90px; width: 46px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 10px; top: 105px; width: 70px; height: 9px\"></div>\n</body>\n</html>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 25px; top: 30px; width: 40px; height: 10px\"></div>\n<div class=\"input\" style=\"index: 1; left: 10px; top: 50px; width: 70px; height: 15px\"></div>\n<div class=\"input\" style=\"index: 2; left: 10px; top: 70px; width: 70px; height: 15px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 25px; top: 95px; width: 40px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 20px; top: 120px; width: 50px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 26px; top: 50px; width: 38px; height: 10px\"></div>\n<div class=\"input\" style=\"index: 1; left: 5px; top: 20px; width: 80px; height: 12px\"></div>\n<div class=\"input\" style=\"index: 2; left: 5px; top: 35px; width: 80px; height: 12px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 15px; top: 70px; width: 60px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 15px; top: 82px; width: 60px; height: 8px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 26px; top: 61px; width: 38px; height: 38px\"></div>\n<div class=\"input\" style=\"index: 1; left: 5px; top: 20px; width: 80px; height: 10px\"></div>\n<div class=\"input\" style=\"index: 2; left: 5px; top: 35px; width: 80px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 25px; top: 110px; width: 40px; height: 8px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 20px; top: 48px; width: 50px; height: 12px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 25px; top: 54px; width: 40px; height: 10px\"></div>\n<div class=\"input\" style=\"index: 1; left: 5px; top: 20px; width: 80px; height: 10px\"></div>\n<div class=\"input\" style=\"index: 2; left: 5px; top: 35px; width: 80px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 15px; top: 54px; width: 60px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 25px; top: 70px; width: 40px; height: 8px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 25px; top: 43px; width: 40px; height: 12px\"></div>\n<div class=\"input\" style=\"index: 1; left: 5px; top: 10px; width: 80px; height: 10px\"></div>\n<div class=\"input\" style=\"index: 2; left: 5px; top: 25px; width: 80px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 25px; top: 70px; width: 40px; height: 12px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 5px; top: 40px; width: 40px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 5; left: 15px; top: 55px; width: 60px; height: 15px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 25px; top: 36px; width: 40px; height: 20px\"></div>\n<div class=\"input\" style=\"index: 1; left: 5px; top: 60px; width: 80px; height: 10px\"></div>\n<div class=\"input\" style=\"index: 2; left: 5px; top: 75px; width: 80px; height: 10px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 25px; top: 90px; width: 40px; height: 20px\"></div>\n<div class=\"text button\" style=\"index: 4; left: 20px; top: 115px; width: 50px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px;\"></div>\n<div class=\"background image\" style=\"position: absolute; left: 0px; top: 5px; width: 90px; height: 144px;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px;\"></div>\n  <div class=\"background image\" style=\"position: absolute; left: 0px; top: 5px; width: 90px; height: 144px;\"></div>\n  \n  <!-- Header Section -->\n  <div class=\"text\" style=\"position: absolute; left: 5px; top: 10px; width: 80px; height: 10px;\">Header Text</div>\n  <div class=\"icon\" style=\"position: absolute; left: 74px; top: 8px; width: 13px; height: 13px;\"></div>\n  \n  <!-- Body Section -->\n  <div class=\"image\" style=\"position: absolute; left: 5px; top: 25px; width: 80px; height: 10px;\"></div>\n  <div class=\"text\" style=\"position: absolute; left: 5px; top: 40px; width: 80px; height: 10px;\">Body Text</div>\n  \n  <!-- Input Fields -->\n  <div class=\"input\" style=\"position: absolute; left: 10px; top: 55px; width: 70px; height: 8px;\"></div>\n  <div class=\"input\" style=\"position: absolute; left: 10px; top: 65px; width: 70px; height: 8px;\"></div>\n  \n  <!-- Buttons -->\n  <div class=\"text button\" style=\"position: absolute; left: 10px; top: 80px; width: 70px; height: 10px;\">Button 1</div>\n  <div class=\"text button\" style=\"position: absolute; left: 10px; top: 95px; width: 70px; height: 10px;\">Button 2</div>\n  \n  <!-- Footer Section -->\n  <div class=\"text\" style=\"position: absolute; left: 5px; top: 110px; width: 80px; height: 10px;\">Footer Text</div>\n  <div class=\"text button\" style=\"position: absolute; left: 20px; top: 125px; width: 50px; height: 10px;\">Footer Button</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"background image\" style=\"position: absolute; left: 0px; top: 5px; width: 90px; height: 144px\"></div>\n<div class=\"image\" style=\"position: absolute; left: 5px; top: 10px; width: 80px; height: 7px\"></div>\n<div class=\"text\" style=\"position: absolute; left: 5px; top: 20px; width: 80px; height: 10px\"></div>\n<div class=\"input\" style=\"position: absolute; left: 10px; top: 35px; width: 70px; height: 8px\"></div>\n<div class=\"input\" style=\"position: absolute; left: 10px; top: 45px; width: 70px; height: 8px\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 10px; top: 60px; width: 70px; height: 10px\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 30px; top: 75px; width: 30px; height: 5px\"></div>\n<div class=\"image\" style=\"position: absolute; left: 0px; top: 85px; width: 90px; height: 50px\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 5px; top: 140px; width: 80px; height: 8px\"></div>\n<div class=\"text\" style=\"position: absolute; left: 5px; top: 150px; width: 80px; height: 8px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"background image\" style=\"index: 0; left: 0px; top: 5px; width: 90px; height: 144px\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "<html>\n<body>\n  <div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px;\"></div>\n  <div class=\"background image\" style=\"index: 0; left: 0px; top: 5px; width: 90px; height: 144px;\"></div>\n  \n  <div class=\"image\" style=\"index: 1; left: 5px; top: 9px; width: 79px; height: 8px;\"></div>\n  <div class=\"text\" style=\"index: 2; left: 5px; top: 20px; width: 79px; height: 8px;\"></div>\n  \n  <div class=\"input\" style=\"index: 3; left: 11px; top: 35px; width: 68px; height: 8px;\"></div>\n  <div class=\"input\" style=\"index: 4; left: 11px; top: 45px; width: 68px; height: 8px;\"></div>\n  \n  <div class=\"text button\" style=\"index: 5; left: 9px; top: 58px; width: 70px; height: 10px;\"></div>\n  <div class=\"text button\" style=\"index: 6; left: 30px; top: 71px; width: 28px; height: 4px;\"></div>\n  \n  <div class=\"text button\" style=\"index: 7; left: 5px; top: 94px; width: 79px; height: 6px;\"></div>\n  <div class=\"text button\" style=\"index: 8; left: 5px; top: 101px; width: 79px; height: 6px;\"></div>\n  <div class=\"text button\" style=\"index: 9; left: 5px; top: 109px; width: 79px; height: 10px;\"></div>\n  \n  <div class=\"text\" style=\"index: 10; left: 5px; top: 134px; width: 79px; height: 12px;\"></div>\n  \n  <div class=\"icon\" style=\"index: 11; left: 74px; top: 8px; width: 13px; height: 13px;\"></div>\n  \n  <div class=\"advertisement\" style=\"index: 12; left: 5px; top: 121px; width: 80px; height: 10px;\"></div>\n  \n</body>\n</html>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px;\"></div>\n<div class=\"background-image\" style=\"position: absolute; left: 0px; top: 5px; width: 90px; height: 144px; background-color: lightgrey;\"></div>\n<div class=\"image\" style=\"position: absolute; left: 5px; top: 9px; width: 79px; height: 8px; background-color: grey;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 5px; top: 20px; width: 79px; height: 8px; background-color: lightblue;\"></div>\n<div class=\"input\" style=\"position: absolute; left: 11px; top: 35px; width: 68px; height: 8px; background-color: white; border: 1px solid black;\"></div>\n<div class=\"input\" style=\"position: absolute; left: 11px; top: 45px; width: 68px; height: 8px; background-color: white; border: 1px solid black;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 9px; top: 58px; width: 70px; height: 10px; background-color: lightgreen;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 30px; top: 71px; width: 28px; height: 4px; background-color: lightgreen;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 5px; top: 94px; width: 79px; height: 6px; background-color: lightgreen;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 5px; top: 101px; width: 79px; height: 6px; background-color: lightgreen;\"></div>\n<div class=\"text-button\" style=\"position: absolute; left: 5px; top: 109px; width: 79px; height: 10px; background-color: lightgreen;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 5px; top: 134px; width: 79px; height: 12px; background-color: lightblue;\"></div>\n</body>\n</html>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"background image\" style=\"index: 0; left: 0px; top: 5px; width: 90px; height: 144px\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px;\"></div>\n<div class=\"background image\" style=\"position: absolute; left: 0px; top: 5px; width: 90px; height: 144px;\"></div>\n<div class=\"image\" style=\"position: absolute; left: 5px; top: 9px; width: 79px; height: 8px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 5px; top: 20px; width: 79px; height: 8px;\"></div>\n<div class=\"input\" style=\"position: absolute; left: 11px; top: 35px; width: 68px; height: 8px;\"></div>\n<div class=\"input\" style=\"position: absolute; left: 11px; top: 45px; width: 68px; height: 8px;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 9px; top: 58px; width: 70px; height: 10px;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 30px; top: 71px; width: 28px; height: 4px;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 5px; top: 94px; width: 79px; height: 6px;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 5px; top: 101px; width: 79px; height: 6px;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 5px; top: 109px; width: 79px; height: 10px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 5px; top: 134px; width: 79px; height: 12px;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px; background-color: #f0f0f0;\"></div>",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"position: absolute; left: 0px; top: 0px; width: 90px; height: 160px;\"></div>\n<div class=\"background image\" style=\"position: absolute; left: 0px; top: 5px; width: 90px; height: 144px;\"></div>\n<div class=\"image\" style=\"position: absolute; left: 5px; top: 9px; width: 79px; height: 8px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 5px; top: 20px; width: 79px; height: 8px;\"></div>\n<div class=\"input\" style=\"position: absolute; left: 11px; top: 35px; width: 68px; height: 8px;\"></div>\n<div class=\"input\" style=\"position: absolute; left: 11px; top: 45px; width: 68px; height: 8px;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 9px; top: 58px; width: 70px; height: 10px;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 30px; top: 71px; width: 28px; height: 4px;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 5px; top: 94px; width: 79px; height: 6px;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 5px; top: 101px; width: 79px; height: 6px;\"></div>\n<div class=\"text button\" style=\"position: absolute; left: 5px; top: 109px; width: 79px; height: 10px;\"></div>\n<div class=\"text\" style=\"position: absolute; left: 5px; top: 134px; width: 79px; height: 12px;\"></div>\n<div class=\"icon\" style=\"position: absolute; left: 74px; top: 8px; width: 13px; height: 13px;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

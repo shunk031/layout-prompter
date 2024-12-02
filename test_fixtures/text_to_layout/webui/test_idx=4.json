@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px; background-color: lightblue;\"></div>\n<div class=\"image\" style=\"left: 10px; top: 25px; width: 40px; height: 40px; background-color: lightgreen;\"></div>\n<div class=\"description\" style=\"left: 55px; top: 25px; width: 55px; height: 40px; background-color: lightyellow;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px\"></div>\n<div class=\"description\" style=\"left: 10px; top: 25px; width: 100px; height: 50px\"></div>\n<div class=\"image\" style=\"left: 50px; top: 80px; width: 20px; height: 20px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 5px; width: 100px; height: 6px\"></div>\n<div class=\"image\" style=\"left: 10px; top: 15px; width: 20px; height: 20px\"></div>\n<div class=\"description\" style=\"left: 35px; top: 15px; width: 75px; height: 20px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 8px\"></div>\n<div class=\"image\" style=\"left: 45px; top: 22px; width: 30px; height: 30px\"></div>\n<div class=\"description\" style=\"left: 10px; top: 60px; width: 100px; height: 50px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 5px; top: 5px; width: 110px; height: 8px\"></div>\n<div class=\"image\" style=\"left: 5px; top: 18px; width: 20px; height: 20px\"></div>\n<div class=\"description\" style=\"left: 30px; top: 18px; width: 85px; height: 20px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px; position: relative;\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px; position: absolute;\">2025 Business Objectives</div>\n<div class=\"image\" style=\"left: 10px; top: 25px; width: 20px; height: 20px; position: absolute;\"></div>\n<div class=\"description\" style=\"left: 10px; top: 50px; width: 100px; height: 60px; position: absolute;\">Our goal for 2025 is to expand our market reach by 50%, increase innovation in product development, and enhance our sustainability practices. We aim to achieve these objectives through strategic partnerships, increased investment in R&D, and a commitment to reducing our carbon footprint.</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px\"></div>\n<div class=\"image\" style=\"left: 35px; top: 25px; width: 50px; height: 30px\"></div>\n<div class=\"description\" style=\"left: 10px; top: 60px; width: 100px; height: 50px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px\"></div>\n<div class=\"image\" style=\"left: 45px; top: 25px; width: 30px; height: 30px\"></div>\n<div class=\"description\" style=\"left: 10px; top: 60px; width: 100px; height: 50px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px\"></div>\n<div class=\"image\" style=\"left: 45px; top: 25px; width: 30px; height: 30px\"></div>\n<div class=\"description\" style=\"left: 10px; top: 60px; width: 100px; height: 50px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"width: 120px; height: 120px;\"></div>\n<div class=\"title\" style=\"left: 10px; top: 10px; width: 100px; height: 10px; background-color: #ccc;\"></div>\n<div class=\"image\" style=\"left: 45px; top: 25px; width: 30px; height: 30px; background-color: #ddd;\"></div>\n<div class=\"description\" style=\"left: 10px; top: 60px; width: 100px; height: 50px; background-color: #eee;\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

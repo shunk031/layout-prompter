@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"image\" style=\"left: 5px; top: 10px; width: 110px; height: 50px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 65px; width: 100px; height: 10px\"></div>\n<div class=\"description\" style=\"left: 10px; top: 80px; width: 100px; height: 10px\"></div>\n<div class=\"button\" style=\"left: 40px; top: 95px; width: 40px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"image\" style=\"left: 10px; top: 10px; width: 100px; height: 50px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 65px; width: 100px; height: 10px\">Gear for the Adventure</div>\n<div class=\"description\" style=\"left: 10px; top: 78px; width: 100px; height: 20px\"></div>\n<div class=\"button\" style=\"left: 40px; top: 100px; width: 40px; height: 10px\">SHOP NOW</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"image\" style=\"left: 10px; top: 10px; width: 100px; height: 60px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 75px; width: 100px; height: 10px\"></div>\n<div class=\"description\" style=\"left: 10px; top: 87px; width: 100px; height: 10px\"></div>\n<div class=\"button\" style=\"left: 35px; top: 100px; width: 50px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"image\" style=\"left: 8px; top: 10px; width: 104px; height: 60px\"></div>\n<div class=\"title\" style=\"left: 12px; top: 73px; width: 96px; height: 8px\">Gear for the Adventure</div>\n<div class=\"description\" style=\"left: 12px; top: 83px; width: 96px; height: 10px\">Explore our latest collection for your next adventure.</div>\n<div class=\"button\" style=\"left: 42px; top: 100px; width: 36px; height: 6px\">SHOP NOW</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"image\" style=\"left: 10px; top: 10px; width: 100px; height: 50px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 65px; width: 100px; height: 10px\">Gear for the Adventure</div>\n<div class=\"description\" style=\"left: 10px; top: 78px; width: 100px; height: 15px\">Explore our latest collection of adventure gear designed for your next expedition.</div>\n<div class=\"button\" style=\"left: 40px; top: 98px; width: 40px; height: 10px\">SHOP NOW</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n  <div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n  <div class=\"image\" style=\"left: 10px; top: 10px; width: 100px; height: 40px\"></div>\n  <div class=\"title\" style=\"left: 20px; top: 55px; width: 80px; height: 10px\">Gear for the Adventure</div>\n  <div class=\"description\" style=\"left: 10px; top: 70px; width: 100px; height: 20px\">Explore our latest collection of adventure gear to fuel your next journey.</div>\n  <div class=\"button\" style=\"left: 40px; top: 95px; width: 40px; height: 10px\">SHOP NOW</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"image\" style=\"left: 5px; top: 5px; width: 110px; height: 60px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 70px; width: 100px; height: 10px\"></div>\n<div class=\"description\" style=\"left: 10px; top: 85px; width: 100px; height: 10px\"></div>\n<div class=\"button\" style=\"left: 40px; top: 100px; width: 40px; height: 10px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"image\" style=\"left: 10px; top: 10px; width: 100px; height: 40px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 55px; width: 100px; height: 10px\">Gear for the Adventure</div>\n<div class=\"description\" style=\"left: 10px; top: 70px; width: 100px; height: 15px\"></div>\n<div class=\"button\" style=\"left: 40px; top: 90px; width: 40px; height: 10px\">SHOP NOW</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"image\" style=\"left: 5px; top: 5px; width: 110px; height: 50px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 60px; width: 100px; height: 10px\">Gear for the Adventure</div>\n<div class=\"description\" style=\"left: 10px; top: 75px; width: 100px; height: 20px\">Discover our top-quality gear for your next adventure. Don't miss out on our latest collection.</div>\n<div class=\"button\" style=\"left: 40px; top: 100px; width: 40px; height: 10px\">SHOP NOW</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 120px; height: 120px\"></div>\n<div class=\"image\" style=\"left: 5px; top: 5px; width: 110px; height: 60px\"></div>\n<div class=\"title\" style=\"left: 10px; top: 70px; width: 100px; height: 10px\">Gear for the Adventure</div>\n<div class=\"description\" style=\"left: 10px; top: 85px; width: 100px; height: 10px\">Explore our latest collection of adventure gear.</div>\n<div class=\"button\" style=\"left: 40px; top: 100px; width: 40px; height: 10px\">SHOP NOW</div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}

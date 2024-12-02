@@ -1,0 +1,84 @@
+{
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 29px; top: 20px; width: 31px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 55px; width: 65px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 2; left: 29px; top: 70px; width: 31px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 6px; top: 90px; width: 77px; height: 9px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 1,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 29px; top: 20px; width: 31px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 55px; width: 65px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 2; left: 29px; top: 70px; width: 31px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 7px; top: 90px; width: 77px; height: 9px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 2,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 29px; top: 20px; width: 31px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 55px; width: 65px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 2; left: 29px; top: 70px; width: 31px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 7px; top: 125px; width: 77px; height: 9px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 3,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 29px; top: 20px; width: 31px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 55px; width: 65px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 2; left: 29px; top: 70px; width: 31px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 7px; top: 140px; width: 77px; height: 9px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 4,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 30px; top: 20px; width: 31px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 60px; width: 65px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 2; left: 29px; top: 80px; width: 31px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 7px; top: 100px; width: 77px; height: 9px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 5,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 29px; top: 20px; width: 31px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 60px; width: 65px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 2; left: 30px; top: 100px; width: 31px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 6px; top: 130px; width: 77px; height: 9px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 6,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 29px; top: 20px; width: 31px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 60px; width: 65px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 2; left: 29px; top: 75px; width: 31px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 6px; top: 130px; width: 77px; height: 9px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 7,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 29px; top: 20px; width: 31px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 60px; width: 65px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 2; left: 29px; top: 80px; width: 31px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 6px; top: 110px; width: 77px; height: 9px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 8,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 29px; top: 20px; width: 31px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 60px; width: 65px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 2; left: 29px; top: 80px; width: 31px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 6px; top: 100px; width: 77px; height: 9px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        },
+        {
+            "index": 9,
+            "finish_reason": "stop",
+            "message": {
+                "content": "```html\n<html>\n<body>\n<div class=\"canvas\" style=\"left: 0px; top: 0px; width: 90px; height: 160px\"></div>\n<div class=\"image\" style=\"index: 0; left: 29px; top: 20px; width: 31px; height: 31px\"></div>\n<div class=\"text\" style=\"index: 1; left: 12px; top: 55px; width: 65px; height: 7px\"></div>\n<div class=\"text button\" style=\"index: 2; left: 30px; top: 100px; width: 31px; height: 11px\"></div>\n<div class=\"text button\" style=\"index: 3; left: 7px; top: 125px; width: 77px; height: 9px\"></div>\n</body>\n</html>\n```",
+                "role": "assistant"
+            }
+        }
+    ]
+}
