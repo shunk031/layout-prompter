@@ -10,11 +10,14 @@ from openai_responses import OpenAIMock
 from PIL import ImageChops
 from tqdm.auto import tqdm
 
+from layout_prompter.modules import (
+    Ranker,
+    build_prompt,
+    create_selector,
+    create_serializer,
+)
 from layout_prompter.parsing import Parser
 from layout_prompter.preprocess import create_processor
-from layout_prompter.ranker import Ranker
-from layout_prompter.selection import create_selector
-from layout_prompter.serialization import build_prompt, create_serializer
 from layout_prompter.testing import LayoutPrompterTestCase
 from layout_prompter.typehint import TextToLayoutDataset
 from layout_prompter.utils import RAW_DATA_PATH, read_json, read_pt, write_pt
