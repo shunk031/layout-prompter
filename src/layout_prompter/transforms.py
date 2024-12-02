@@ -322,7 +322,7 @@ class SaliencyMapToBBoxes:
         return bboxes
 
 
-class CLIPTextEncoder:
+class CLIPTextEncoderTransform:
     def __init__(self, model_name: str = "ViT-B/32"):
         self.model_name = model_name
         self.device = "cuda" if torch.cuda.is_available() else "cpu"

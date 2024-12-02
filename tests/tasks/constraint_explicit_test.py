@@ -105,7 +105,7 @@ class TestConstraintExplicit(LayoutPrompterTestCase):
 
         selector = create_selector(
             task=task,
-            train_data=processed_train_data,
+            train_dataset=processed_train_data,
             candidate_size=candidate_size,
             num_prompt=num_prompt,
         )
