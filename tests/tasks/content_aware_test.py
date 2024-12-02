@@ -99,8 +99,6 @@ class TestContentAwareCase(LayoutPrompterTestCase):
         #
         processor,
     ) -> None:
-        # metadata = read_csv(os.path.join(RAW_DATA_PATH(dataset), "train_csv_9973.csv"))
-        # processor = create_processor(dataset, task, metadata=metadata)
         base_dir = os.path.dirname(os.getcwd())
 
         def get_processed_data(split):
@@ -173,21 +171,6 @@ class TestContentAwareCase(LayoutPrompterTestCase):
             n=num_return,
             stop=[stop_token],
         )
-
-        # hoge = {"choices": []}
-        # for choice in response.choices:
-        #     hoge["choices"].append(
-        #         {
-        #             "index": choice.index,
-        #             "finish_reason": choice.finish_reason,
-        #             "message": {
-        #                 "content": choice.message.content,
-        #                 "role": choice.message.role,
-        #             },
-        #         }
-        #     )
-        # with open(f"{test_idx=}.json", "w") as wf:
-        #     json.dump(hoge, wf, indent=4)
 
         parser = Parser(dataset=dataset, output_format=output_format)
         parsed_response = parser(response)
